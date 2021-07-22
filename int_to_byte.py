@@ -18,4 +18,5 @@ def int_to_byte_array(num):
 
    return array
 
-print(int_to_byte_array(-100))
+if __name__ == 'main':
+    print(int_to_byte_array(-100))
