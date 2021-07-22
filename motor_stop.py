@@ -9,8 +9,7 @@ PIN_I2C6_POWER_ENABLE = 17
 
 bus = smbus.SMBus(3)      #this is I2C6 on the pi4 for some reason
 DEVICE_ADDRESS = 0x53
-speed = 100.0
-enabledState = False
+
 
 def int_to_byte_array(num):
    if num < 0:
@@ -31,7 +30,7 @@ def int_to_byte_array(num):
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(PIN_I2C6_POWER_ENABLE, GPIO.OUT)
-GPIO.output(PIN_I2C6_POWER_ENABLE, GPIO.HIGH)
 GPIO.output(PIN_I2C6_POWER_ENABLE, GPIO.LOW)
+time.sleep(0.1)
 GPIO.cleanup()
 
