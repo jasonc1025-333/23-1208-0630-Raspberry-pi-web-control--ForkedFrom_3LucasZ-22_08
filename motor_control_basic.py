@@ -30,6 +30,7 @@ def int_to_byte_array(num):
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(PIN_I2C6_POWER_ENABLE, GPIO.OUT)
+time.sleep(0.1)
 GPIO.output(PIN_I2C6_POWER_ENABLE, GPIO.HIGH)
 time.sleep(0.1)
 bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte_array(10))
