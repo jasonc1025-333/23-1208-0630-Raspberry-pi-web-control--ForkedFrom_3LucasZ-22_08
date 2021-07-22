@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-import tkinter as tk
+import Tkinter as tk
 
 def say_hello():
     print("hello")
