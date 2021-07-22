@@ -35,6 +35,7 @@ GPIO.output(PIN_I2C6_POWER_ENABLE, GPIO.HIGH)
 time.sleep(0.1) #EXTREMELY important
 bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte_array(10))
 bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte_array(10))
-time.sleep(10)
+bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte_array(0))
+bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte_array(0))
 GPIO.cleanup()
 
