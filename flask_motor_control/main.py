@@ -29,6 +29,13 @@ def home():
         elif action == 'motorOff':
             motorsEnabled = False
             GPIO.output(PIN_I2C6_POWER_ENABLE, GPIO.LOW)
+        elif action == 'leftMotor':
+            bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte.int_to_byte_array(50))
+        elif action == 'rightMotor':
+            bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte.int_to_byte_array(50))
+        elif action == 'stopMotors':
+            bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte.int_to_byte_array(0))
+            bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte.int_to_byte_array(0))
   
     return render_template('index.html', motorsEnabled=motorsEnabled)
 
