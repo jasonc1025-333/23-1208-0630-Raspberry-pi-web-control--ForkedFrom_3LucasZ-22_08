@@ -20,7 +20,7 @@ time.sleep(0.1) #important
 
 @app.route("/", methods=["GET","POST"])
 def home():
-    
+    global motorsEnabled
     if request.method == "POST":
         if request.form['motorOn']:
             motorsEnabled = True
