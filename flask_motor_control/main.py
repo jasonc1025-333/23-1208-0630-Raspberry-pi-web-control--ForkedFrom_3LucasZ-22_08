@@ -22,10 +22,11 @@ time.sleep(0.1) #important
 def home():
     global motorsEnabled
     if request.method == "POST":
-        if request.form['motorOn']:
+        action = request.form['action']
+        if action == motorOn:
             motorsEnabled = True
             GPIO.output(PIN_I2C6_POWER_ENABLE, GPIO.HIGH)
-        elif request.form['motorOff']:
+        elif action == motorOff:
             motorsEnabled = False
             GPIO.output(PIN_I2C6_POWER_ENABLE, GPIO.LOW)
   
