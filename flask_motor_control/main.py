@@ -23,7 +23,7 @@ def home():
     if request.method == "POST":
         if request.form['motorOn']:
             GPIO.output(PIN_I2C6_POWER_ENABLE, GPIO.HIGH)
-        else if request.form['motorOff']:
+        elif request.form['motorOff']:
             GPIO.output(PIN_I2C6_POWER_ENABLE, GPIO.LOW)
   
     return render_template('index.html', motorsEnabled=motorsEnabled)
