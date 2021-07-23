@@ -7,6 +7,7 @@ import RPi.GPIO as GPIO
 import time
 
 app = Flask(__name__)
+motorsEnabled = False
 
 PIN_I2C6_POWER_ENABLE = 17
 bus = smbus.SMBus(3)
@@ -22,8 +23,10 @@ def home():
     
     if request.method == "POST":
         if request.form['motorOn']:
+            motorsEnabled = True
             GPIO.output(PIN_I2C6_POWER_ENABLE, GPIO.HIGH)
         elif request.form['motorOff']:
+            motorsEnabled = False
             GPIO.output(PIN_I2C6_POWER_ENABLE, GPIO.LOW)
   
     return render_template('index.html', motorsEnabled=motorsEnabled)
