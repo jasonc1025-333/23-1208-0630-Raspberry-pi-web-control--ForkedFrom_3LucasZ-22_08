@@ -21,8 +21,8 @@ def home():
 
 if __name__ == "__main__":
     #will run on: http://192.168.1.162:8080/
-    try:
-        app.run(host='0.0.0.0', port=8080, debug=True)
-    except KeyboardInterrupt:
-        for filename in os.listdir('static/'):
-            os.remove('static/' + filename)
+    for filename in os.listdir('static/'):
+        os.remove('static/' + filename)
+    app.run(host='0.0.0.0', port=8080, debug=True)
+    
+        
