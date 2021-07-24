@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <button onclick="motorOn()">Motor On</button>
+    <button onclick="motorOff()">Motor Off</button>
+    <button onclick="left()" id="leftBtn">Turn Left</button>
+    <button onclick="right()" id="rightBtn">Turn Right</button>
+    <button onclick="forward()" id="forwardBtn">Go Forward</button>
+    <button onclick="backward()" id="backwardBtn">Go backward</button>
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+<script type="text/javascript" charset="utf-8">
+    var socket = io();
+
+    function motorOn(){
+        socket.send('motorOn')
+    }
+    function motorOff(){
+        socket.send('motorOff')
+    }
+    function left(){
+        socket.send('left')
+    }
+    function right(){
+        socket.send('right')
+    }
+    function forward(){
+        socket.send('forward')
+    }
+    function backward(){
+        socket.send('backward')
+    }
+</script>
+
+<script>
+    var leftBtn = document.getElementById('leftBtn');
+    var forwardBtn = document.getElementById('forwardBtn');
+    var rightBtn = document.getElementById('rightBtn');
+    var backwardBtn = document.getElementById('backwardBtn');
+    document.onkeydown = function (event) {
+        switch (event.keyCode) {
+            case 37:
+                console.log("Left key is pressed.");
+                leftBtn.click();
+                break;
+            case 38:
+                console.log("Up key is pressed.");
+                forwardBtn.click();
+                break;
+            case 39:
+                console.log("Right key is pressed.");
+                rightBtn.click();
+                break;
+            case 40:
+                console.log("Down key is pressed.");
+                backwardBtn.click();
+                break;
+        }
+    };
+</script>
