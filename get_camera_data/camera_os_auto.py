@@ -2,17 +2,21 @@ import os
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
+picNum = 0
 
 
 def newPicture():
-    os.remove('static/picture.jpg')
-    os.system('raspistill -o static/picture.jpg')
+    global picNum
+    os.remove('static/picture' + picNum + '.jpg')
+    picNum += 1
+    os.system('raspistill -o static/picture' + picNum + '.jpg')
 
 
 @app.route("/", methods=["GET","POST"])
 def home():
+    global picNum
     newPicture()
-    return "<img src='static/picture.jpg'>"
+    return "<img src='static/picture' + picNum + '.jpg'>"
 
 
 if __name__ == "__main__":
