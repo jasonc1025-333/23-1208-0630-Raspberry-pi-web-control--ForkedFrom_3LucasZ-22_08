@@ -15,8 +15,8 @@ def newPicture():
 @app.route("/", methods=["GET","POST"])
 def home():
     newPicture()
-    image = 'static/picture' + str(picNum) + '.jpg'
-    return "<img src=image>"
+    image = '../static/picture' + str(picNum) + '.jpg'
+    return render_template('camera_index.html', image=image)
 
 
 if __name__ == "__main__":
