@@ -8,7 +8,7 @@ picNum = 0
 def newPicture():
     global picNum
     picNum += 1
-    os.system('raspistill -o static/picture' + str(picNum) + '.jpg')
+    os.system("'raspistill -o static/picture' + str(picNum) + '.jpg'")
 
 
 @app.route("/", methods=["GET","POST"])
