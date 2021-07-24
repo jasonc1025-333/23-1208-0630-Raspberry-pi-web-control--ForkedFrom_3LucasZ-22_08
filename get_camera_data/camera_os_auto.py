@@ -3,6 +3,7 @@ from flask import Flask, render_template, request
 import time
 
 app = Flask(__name__)
+# prevent Google Chrome Caching
 uniqueID = '0'
 
 
