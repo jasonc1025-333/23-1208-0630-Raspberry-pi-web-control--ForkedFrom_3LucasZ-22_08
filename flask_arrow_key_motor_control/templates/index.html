@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+    <form action="/" method="post">
+        <button name="action" type="submit" value="motorOn">Motor On</button>
+        <button name="action" type="submit" value="motorOff">Motor Off</button>
+        <button name="action" type="submit" value="turnLeft" id="leftBtn">Turn Left</button>
+        <button name="action" type="submit" value="turnRight" id="rightBtn">Turn Right</button>
+        <button name="action" type="submit" value="forward" id = "forwardBtn">Go Forward</button>
+        <button name="action" type="submit" value="backward" id = "backwardBtn">Go backward</button>
+    </form>
+    <h4>motorsEnabled: {{motorsEnabled}}</h4>
+
+</body>
+<script>
+    var leftBtn = document.getElementById('leftBtn');
+    var forwardBtn = document.getElementById('forwardBtn');
+    var rightBtn = document.getElementById('rightBtn');
+    var backwardBtn = document.getElementById('backwardBtn');
+    document.onkeydown = function (event) {
+        switch (event.keyCode) {
+            case 37:
+                console.log("Left key is pressed.");
+                leftBtn.click();
+                break;
+            case 38:
+                console.log("Up key is pressed.");
+                forwardBtn.click();
+                break;
+            case 39:
+                console.log("Right key is pressed.");
+                rightBtn.click();
+                break;
+            case 40:
+                console.log("Down key is pressed.");
+                backwardBtn.click();
+                break;
+        }
+    };
+</script>
+</html>
