@@ -1,21 +1,22 @@
 import os
 from flask import Flask, render_template, request
+import time
 
 app = Flask(__name__)
-picNum = 0
+uniqueID = '0'
 
 
 def newPicture():
-    global picNum
-    picNum += 1
-    cmd = 'raspistill -o static/picture' + str(picNum) + '.jpg'
+    global uniqueID
+    uniqueID = str(time.time())
+    cmd = 'raspistill -o static/picture' + uniqueID + '.jpg'
     os.system(cmd)
 
 
 @app.route("/", methods=["GET","POST"])
 def home():
     newPicture()
-    image = '../static/picture' + str(picNum) + '.jpg'
+    image = '../static/picture' + uniqueID + '.jpg'
     return render_template('camera_index.html', image=image)
 
 
