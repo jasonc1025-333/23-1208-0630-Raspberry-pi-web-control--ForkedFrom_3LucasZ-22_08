@@ -5,6 +5,7 @@ app = Flask(__name__)
 
 
 def newPicture():
+    os.remove('static/picture.jpg')
     os.system('raspistill -o static/picture.jpg')
 
 
