@@ -7,7 +7,7 @@ picNum = 0
 
 def newPicture():
     global picNum
-    os.remove('static/picture' + picNum + '.jpg')
+    os.remove('static/picture' + str(picNum) + '.jpg')
     picNum += 1
     os.system('raspistill -o static/picture' + picNum + '.jpg')
 
