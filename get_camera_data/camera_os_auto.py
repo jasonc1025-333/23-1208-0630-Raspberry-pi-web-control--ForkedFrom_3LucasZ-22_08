@@ -8,13 +8,15 @@ picNum = 0
 def newPicture():
     global picNum
     picNum += 1
-    os.system("'raspistill -o static/picture' + str(picNum) + '.jpg'")
+    cmd = 'raspistill -o static/picture' + str(picNum) + '.jpg'
+    os.system(cmd)
 
 
 @app.route("/", methods=["GET","POST"])
 def home():
     newPicture()
-    return "<img src='static/picture' + picNum + '.jpg'>"
+    image = 'static/picture' + picNum + '.jpg'
+    return "<img src=image>"
 
 
 if __name__ == "__main__":
