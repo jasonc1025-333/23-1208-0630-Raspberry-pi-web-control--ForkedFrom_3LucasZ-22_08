@@ -6,6 +6,7 @@ app = Flask(__name__)
 camera = PiCamera()
 camera.resolution = (300,300)
 camera.start_preview()
+time.sleep(2)
 
 @app.route("/", methods=["GET","POST"])
 def home():
@@ -14,7 +15,6 @@ def home():
 
 
 def newPicture():
-    sleep(2)
     camera.capture('static/picture.jpg')
     
 
