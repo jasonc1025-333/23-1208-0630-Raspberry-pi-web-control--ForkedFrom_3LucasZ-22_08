@@ -7,7 +7,8 @@ picNum = 0
 
 def newPicture():
     global picNum
-    os.remove('static/picture' + str(picNum) + '.jpg')
+    if picNum != 0:
+        os.remove('static/picture' + str(picNum) + '.jpg')
     picNum += 1
     os.system('raspistill -o static/picture' + picNum + '.jpg')
 
@@ -21,4 +22,7 @@ def home():
 
 if __name__ == "__main__":
     #will run on: http://192.168.1.162:8080/
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    try:
+        app.run(host='0.0.0.0', port=8080, debug=True)
+    except KeyboardInterrupt:
+        os.remove('static/picture' + str(picNum) + '.jpg')
