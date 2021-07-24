@@ -15,7 +15,7 @@ def newPicture():
 @app.route("/", methods=["GET","POST"])
 def home():
     newPicture()
-    image = 'static/picture' + picNum + '.jpg'
+    image = 'static/picture' + str(picNum) + '.jpg'
     return "<img src=image>"
 
 
