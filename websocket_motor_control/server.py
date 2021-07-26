@@ -4,6 +4,7 @@ from flask_socketio import SocketIO
 import smbus2 as smbus
 import RPi.GPIO as GPIO
 import time
+import int_to_byte
 
 
 #app setup
