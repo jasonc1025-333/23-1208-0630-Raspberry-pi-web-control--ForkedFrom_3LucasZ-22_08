@@ -19,22 +19,34 @@ def connect():
 def disconnect():
     print('A client disconnected.')
 
-@socketio.on('message')
-def handle_message(data):
-    if (data) == 'motorOn':
-        print("motor on received")
-    elif (data) == 'motorOff':
-        print("motor off received")
-    elif (data) == 'left':
-        print("turn left received")
-    elif (data) == 'right':
-        print("turn right received")
-    elif (data) == 'forward':
-        print("go forward received")
-    elif (data) == 'backward':
-        print("go backward received")
-    else:
-        print("Speed:",int(data))
+
+@socketio.on('motorsOn')
+def motors_on():
+    print("motor on received")
+
+@socketio.on('motorsOff')
+def motors_off():
+    print("motor off received")
+
+@socketio.on('turnLeft')
+def turn_left():
+    print("turn left received")
+
+@socketio.on('turnRight')
+def turn_right():
+    print("turn right received")
+
+@socketio.on('forward')
+def forward():
+    print("forward received")
+
+@socketio.on('backward')
+def backward():
+    print("backward received")
+
+@socketio.on('setSpeed')
+def set_speed(speed):
+    print("Speed:", int(speed))
 
 
 if __name__ == '__main__':
