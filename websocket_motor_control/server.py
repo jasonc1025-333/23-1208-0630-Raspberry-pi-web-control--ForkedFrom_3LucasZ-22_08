@@ -18,6 +18,7 @@ GPIO.setup(PIN_I2C6_POWER_ENABLE, GPIO.OUT)
 time.sleep(0.1) #important
 
 
+#serve controls page
 @app.route("/")
 def home():
     return render_template('client.html')
