@@ -20,6 +20,7 @@ GPIO.setmode(GPIO.BCM)
 time.sleep(0.1) #important
 GPIO.setup(PIN_I2C6_POWER_ENABLE, GPIO.OUT)
 time.sleep(0.1) #important
+speed = 1
 
 
 #serve controls page
