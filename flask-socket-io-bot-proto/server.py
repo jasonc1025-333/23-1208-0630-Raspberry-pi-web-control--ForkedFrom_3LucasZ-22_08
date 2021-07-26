@@ -33,6 +33,8 @@ def handle_message(data):
         print("go forward received")
     elif (data) == 'backward':
         print("go backward received")
+    else:
+        print("Speed:",int(data))
 
 
 if __name__ == '__main__':

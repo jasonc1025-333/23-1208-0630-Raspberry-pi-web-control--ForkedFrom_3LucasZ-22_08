@@ -30,8 +30,11 @@ def connect():
 def disconnect():
     print('A client disconnected.')
 
+
+speed = 0
 @socketio.on('message')
 def handle_message(data):
+    global speed
     if (data) == 'motorOn':
         print("motor on received")
         GPIO.output(PIN_I2C6_POWER_ENABLE, GPIO.HIGH)
@@ -40,24 +43,29 @@ def handle_message(data):
         GPIO.output(PIN_I2C6_POWER_ENABLE, GPIO.LOW)
     elif (data) == 'left':
         print("turn left received")
-        bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte.int_to_byte_array(50))
-        bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte.int_to_byte_array(-50))
+        bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte.int_to_byte_array(speed))
+        bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte.int_to_byte_array(-1 * speed))
         time.sleep(0.1)
     elif (data) == 'right':
         print("turn right received")
-        bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte.int_to_byte_array(-50))
-        bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte.int_to_byte_array(50))
+        bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte.int_to_byte_array(-1 * speed))
+        bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte.int_to_byte_array(speed))
         time.sleep(0.1)
     elif (data) == 'forward':
         print("go forward received")
-        bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte.int_to_byte_array(50))
-        bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte.int_to_byte_array(50))
+        bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte.int_to_byte_array(speed))
+        bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte.int_to_byte_array(speed))
         time.sleep(0.1)
     elif (data) == 'backward':
         print("go backward received")
-        bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte.int_to_byte_array(-50))
-        bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte.int_to_byte_array(-50))
+        bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte.int_to_byte_array(-1 * speed))
+        bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte.int_to_byte_array(-1 * speed))
         time.sleep(0.1)
+    else:
+        print("New speed:", int(data))
+        speed = int(data)
+
+
 
     bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte.int_to_byte_array(0))
     bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte.int_to_byte_array(0))
