@@ -3,6 +3,7 @@ from flask import Flask, render_template
 from flask_socketio import SocketIO
 import smbus2 as smbus
 import RPi.GPIO as GPIO
+import time
 
 
 #app setup
