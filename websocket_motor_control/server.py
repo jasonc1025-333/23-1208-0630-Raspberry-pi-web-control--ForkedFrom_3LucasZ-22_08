@@ -2,7 +2,7 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO
 import smbus2 as smbus
-import RPi.GPIO
+import RPi.GPIO as GPIO
 
 
 #app setup
