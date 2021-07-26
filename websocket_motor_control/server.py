@@ -1,6 +1,8 @@
 #library imports
 from flask import Flask, render_template
 from flask_socketio import SocketIO
+from smbus2 import smbus
+import RPi.GPIO
 
 
 #app setup
