@@ -8,7 +8,12 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return "HELLO WORLD"
+    capture()
+    return '<img src=static/picture.jpg>'
+
+
+def capture():
+    camera.capture('static/picture.jpg')
 
 
 if __name__ == "__main__":
@@ -18,5 +23,7 @@ if __name__ == "__main__":
     try:
         camera = PiCamera()
         camera.resolution = (300, 300)
+        camera.start_preview()
+        sleep(2)
     finally:
         print("Done")
