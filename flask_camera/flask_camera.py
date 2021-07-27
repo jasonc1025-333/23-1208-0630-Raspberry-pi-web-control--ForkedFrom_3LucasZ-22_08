@@ -10,7 +10,7 @@ uniqueID = '0'
 def newPicture():
     global uniqueID
     uniqueID = str(time.time())
-    cmd = 'raspistill -o static/picture' + uniqueID + '.jpg'
+    cmd = 'raspistill -w 300 -h 300 -o static/picture' + uniqueID + '.jpg'
     os.system(cmd)
 
 
