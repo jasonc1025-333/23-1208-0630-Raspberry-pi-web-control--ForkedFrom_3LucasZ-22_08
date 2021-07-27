@@ -1,8 +1,12 @@
-import os
 from flask import Flask, render_template, request
 import time
+from picamera import PiCamera
 
 app = Flask(__name__)
+camera = PiCamera()
+camera.resolution = (200, 200)
+camera.start_preview()
+sleep(2)
 # prevent Google Chrome Caching
 uniqueID = '0'
 
@@ -10,14 +14,15 @@ uniqueID = '0'
 def newPicture():
     global uniqueID
     uniqueID = str(time.time())
-    cmd = 'raspistill -o static/picture' + uniqueID + '.jpg'
-    os.system(cmd)
+    filename = uniqueID + '.jpg'
+    camera.capture(filename)
 
 
 @app.route("/", methods=["GET","POST"])
 def home():
     newPicture()
-    image = '../static/picture' + uniqueID + '.jpg'
+    filename = uniqueID + '.jpg'
+    image = '../static/' + filename
     return render_template('camera_index.html', image=image)
 
 
