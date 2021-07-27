@@ -8,7 +8,6 @@ app = Flask(__name__)
 
 camera = PiCamera()
 camera.resolution = (300, 300)
-camera.start_preview()
 
 
 @app.route("/")
