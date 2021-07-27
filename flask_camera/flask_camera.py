@@ -7,7 +7,7 @@ app = Flask(__name__)
 camera = PiCamera()
 camera.resolution = (200, 200)
 camera.start_preview()
-sleep(2)
+time.sleep(2)
 
 # prevent Google Chrome Caching
 uniqueID = '0'
