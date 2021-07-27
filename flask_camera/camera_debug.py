@@ -21,7 +21,8 @@ if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8080, debug=True)
 
     
-    global camera = PiCamera()
+    global camera
+    camera = PiCamera()
     camera.resolution = (300, 300)
     camera.start_preview()
     sleep(2)
