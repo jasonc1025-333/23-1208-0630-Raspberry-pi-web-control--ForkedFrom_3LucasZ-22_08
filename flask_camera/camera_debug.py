@@ -20,10 +20,9 @@ if __name__ == "__main__":
     #will run on: http://192.168.1.162:8080/
     app.run(host='0.0.0.0', port=8080, debug=True)
 
-    try:
-        camera = PiCamera()
-        camera.resolution = (300, 300)
-        camera.start_preview()
-        sleep(2)
-    finally:
-        print("Done")
+    
+    global camera = PiCamera()
+    camera.resolution = (300, 300)
+    camera.start_preview()
+    sleep(2)
+    print('Ready for clients')
