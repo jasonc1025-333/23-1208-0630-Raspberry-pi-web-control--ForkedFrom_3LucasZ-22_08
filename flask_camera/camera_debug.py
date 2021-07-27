@@ -3,13 +3,13 @@ import time
 from picamera import PiCamera
 
 
+app = Flask(__name__)
+
+
 camera = PiCamera()
 camera.resolution = (300, 300)
 camera.start_preview()
-time.sleep(2)
-camera.capture('foo.jpg')
 
-app = Flask(__name__)
 
 @app.route("/")
 def home():
