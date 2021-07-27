@@ -3,7 +3,7 @@ import time
 camera = PiCamera()
 camera.resolution = (300, 300)
 camera.start_preview()
-sleep(2)
+time.sleep(2)
 
 from flask import Flask, render_template
 
