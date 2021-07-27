@@ -1,10 +1,5 @@
 from picamera import PiCamera
 import time
-camera = PiCamera()
-camera.resolution = (300, 300)
-camera.start_preview()
-time.sleep(2)
-
 from flask import Flask, render_template
 
 
@@ -13,6 +8,10 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
+    camera = PiCamera()
+    camera.resolution = (300, 300)
+    camera.start_preview()
+    time.sleep(2)
     return 'hello'
 
 
