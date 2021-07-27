@@ -4,10 +4,7 @@ import time
 from picamera import PiCamera
 
 app = Flask(__name__)
-camera = PiCamera()
-camera.resolution = (200, 200)
-camera.start_preview()
-time.sleep(2)
+
 
 # prevent Google Chrome Caching
 uniqueID = '0'
@@ -29,6 +26,11 @@ def home():
 
 
 if __name__ == "__main__":
+    camera = PiCamera()
+    camera.resolution = (200, 200)
+    camera.start_preview()
+    time.sleep(2)
+    
     #will run on: http://192.168.1.162:8080/
     for filename in os.listdir('static/'):
         os.remove('static/' + filename)
