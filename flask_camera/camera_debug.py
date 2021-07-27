@@ -18,3 +18,5 @@ if __name__ == "__main__":
     try:
         camera = PiCamera()
         camera.resolution = (300, 300)
+    finally:
+        print("Done")
