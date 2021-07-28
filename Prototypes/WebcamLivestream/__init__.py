@@ -1,9 +1,12 @@
 from flask import Flask, render_template, Response
 import cv2
+import time
 
 app = Flask(__name__)
 
 camera = cv2.VideoCapture(0)
+#camera warm up
+time.sleep(2)
 camera.set(3, 50)
 camera.set(4, 50)
 
