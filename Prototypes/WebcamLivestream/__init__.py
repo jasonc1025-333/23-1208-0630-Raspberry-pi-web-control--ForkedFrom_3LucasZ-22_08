@@ -7,8 +7,8 @@ app = Flask(__name__)
 camera = cv2.VideoCapture(0)
 #camera warm up
 time.sleep(2)
-camera.set(3, 50)
-camera.set(4, 50)
+camera.set(3, 64)
+camera.set(4, 64)
 
 def gen_frames():  # generate frame by frame from camera
     while True:
