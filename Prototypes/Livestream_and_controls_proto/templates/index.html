@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Live Streaming Demonstration</title>
+</head>
+<body>
+    <h3>Live Streaming</h3>
+    <img src="{{ url_for('video_feed') }}" width="40%">
+
+    <h3>Motor Control</h3>
+    <div style="width: 100vw;">
+        <button onclick="motorsOn()">Motor On</button>
+        <button onclick="motorsOff()">Motor Off</button>
+        <button onclick="turnLeft()" id="leftBtn">Turn Left</button>
+        <button onclick="turnRight()" id="rightBtn">Turn Right</button>
+        <button onclick="forward()" id="forwardBtn">Go Forward</button>
+        <button onclick="backward()" id="backwardBtn">Go backward</button>
+    </div>
+
+    <input style="width: 50vw;" type="range" min="1" max="900" value="50" class="slider" id="myRange">
+    <p>Speed: <span id="demo"></span></p>
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+<script src="../static/send_data.js"></script>
+<script src="../static/handle_keypress.js"></script>
