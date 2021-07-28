@@ -1,9 +1,11 @@
 from picamera import PiCamera
 import time
 from flask import Flask, render_template
+from flask_socketio import SocketIO
 
 
 app = Flask(__name__)
+socketio = SocketIO(app)
 
 
 @app.route("/")
@@ -13,6 +15,16 @@ def home():
     camera.start_preview()
     time.sleep(2)
     return 'hello'
+
+
+@socketio.on('connect')
+def connect():
+    print('A client connected.')
+    
+
+@socketio.on('disconnect')
+def disconnect():
+    print('A client disconnected.')
 
 
 def capture():
