@@ -1,11 +1,18 @@
-Client: Device
-Server: Raspberry Pi
+Features:
+- Everything is real-time
+- Fully developed robot motor control with tank drive
+- Robot video streaming
 
-Cons:
-Compute on limited resourced Raspberry Pi
-1 Client can be connected at a time
+Architechture:
+- Client: Device
+- Server: Raspberry Pi
 
-Pros:
-Quick and easy to get up and running
-Direct communications
-Decent debugging
+Why choose this over other versions?
+- Cons:
+  - Compute on limited resourced Raspberry Pi
+
+- Pros:
+  - Infinite Clients
+  - Quick and easy to get up and running
+  - Direct communications
+  - Decent debugging

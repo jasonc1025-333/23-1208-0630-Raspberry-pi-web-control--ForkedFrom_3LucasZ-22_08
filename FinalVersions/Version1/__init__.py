@@ -1,3 +1,4 @@
+#IMPORTS
 from flask import Flask,request, render_template
 from flask_socketio import SocketIO
 import cv2
@@ -8,6 +9,7 @@ import int_to_byte
 import time
 
 
+#SETUP
 #set up app
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
@@ -33,6 +35,7 @@ time.sleep(0.1) #important
 speed = 50
 
 
+#SENDERS
 #constantly send camera data
 @socketio.on('needCamera')
 def sendCamera():
@@ -45,6 +48,7 @@ def sendCamera():
         socketio.sleep(1/FPS)
 
 
+#LISTENERS
 @socketio.on('connect')
 def connect():
     print('A client connected.')
@@ -109,11 +113,13 @@ def set_speed(data):
     print("Speed:", speed)
 
 
+#FLASK SERVING
 @app.route('/')
 def home():
     return render_template('index.html')
 
 
+#RUN APP
 if __name__ == '__main__':
     print("ready for clients!")
     socketio.run(app, host='0.0.0.0', port=5000)
