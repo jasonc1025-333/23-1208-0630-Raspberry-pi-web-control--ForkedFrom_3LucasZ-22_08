@@ -41,6 +41,7 @@ speed = 50
 def sendCamera():
     while True:
         retval, frame = camera.read()
+        frame = cv2.flip(frame, 0)
         retval, jpg = cv2.imencode('.jpg', frame)
         jpg_as_text = str(base64.b64encode(jpg))
         jpg_as_text = jpg_as_text[2:-1]
