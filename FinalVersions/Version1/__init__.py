@@ -41,7 +41,9 @@ speed = 50
 def sendCamera():
     while True:
         retval, frame = camera.read()
-        frame = cv2.flip(frame, 0)
+        #my camera is placed upside down ._.
+        #to get the correct image, we must flip the camera vertically and horizontally
+        frame = cv2.flip(frame, -1)
         retval, jpg = cv2.imencode('.jpg', frame)
         jpg_as_text = str(base64.b64encode(jpg))
         jpg_as_text = jpg_as_text[2:-1]
