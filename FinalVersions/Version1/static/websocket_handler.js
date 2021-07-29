@@ -43,7 +43,7 @@ function stopMotors(){
     socket.emit('stopMotors')
 }
 //SPEED BAR
-slider.oninput = function() {
+speedSlider.oninput = function() {
     speedSpan.innerHTML = this.value;
     socket.emit('setSpeed', this.value)
 }
