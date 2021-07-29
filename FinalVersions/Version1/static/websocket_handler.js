@@ -1,5 +1,21 @@
-var socket = io();
+//SETUP
+const socket = io();
+const livestream = document.getElementById('livestream')
 
+//LISTENERS
+socket.on('jpg_string', function(data){
+    livestream.src = 'data:image/jpeg;base64,' + data;
+})
+
+socket.on('connect', function(){
+    console.log('connected');
+    socket.emit('server')
+});
+socket.on('disconnect', function(){
+    console.log('disconnected');
+});
+
+//SENDERS
 function motorsOn(){
     socket.emit('motorsOn');
 }
@@ -22,6 +38,8 @@ function stopMotors(){
     socket.emit('stopMotors')
 }
 
+
+//SPEED BAR
 var slider = document.getElementById("myRange");
 var output = document.getElementById("demo");
 
