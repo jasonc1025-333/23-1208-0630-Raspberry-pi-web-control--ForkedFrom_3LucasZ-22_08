@@ -1,11 +1,16 @@
+//get buttons for auto triggering
 var leftBtn = document.getElementById('leftBtn');
 var forwardBtn = document.getElementById('forwardBtn');
 var rightBtn = document.getElementById('rightBtn');
 var backwardBtn = document.getElementById('backwardBtn');
+var stopBtn = document.getElementById('stopBtn')
 
-
+//after specific kepress, trigger button
 document.onkeydown = function (event) {
     switch (event.keyCode) {
+        case 32:
+            console.log("Space bar pressed")
+            stopBtn.click();
         case 37:
             console.log("Left key is pressed.");
             leftBtn.click();
