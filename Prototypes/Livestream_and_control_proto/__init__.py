@@ -1,37 +1,25 @@
-from flask import Flask, render_template, Response
+from flask import Flask,request, render_template
 from flask_socketio import SocketIO
 import cv2
+import base64
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'mysecret'
 socketio = SocketIO(app)
 camera = cv2.VideoCapture(0)
 camera.set(3, 64)
 camera.set(4, 64)
+FPS = 30
 
-def gen_frames():  # generate frame by frame from camera
+@socketio.on('server')
+def sendmessage():
     while True:
-        # Capture frame-by-frame
-        success, frame = camera.read()  # read the camera frame
-        if not success:
-            break
-        else:
-            ret, buffer = cv2.imencode('.jpg', frame)
-            frame = buffer.tobytes()
-            yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
-
-
-@app.route('/video_feed')
-def video_feed():
-    #Video streaming route. Put this in the src attribute of an img tag
-    return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
-
-
-@app.route('/')
-def index():
-    """Video streaming home page."""
-    return render_template('index.html')
-
+        retval, frame = camera.read()
+        retval, jpg = cv2.imencode('.jpg', frame)
+        jpg_as_text = str(base64.b64encode(jpg))
+        jpg_as_text = jpg_as_text[2:-1]
+        socketio.emit('jpg_string', jpg_as_text)
+        socketio.sleep(1/FPS)
 
 @socketio.on('connect')
 def connect():
@@ -40,7 +28,6 @@ def connect():
 @socketio.on('disconnect')
 def disconnect():
     print('A client disconnected.')
-
 
 @socketio.on('motorsOn')
 def motors_on():
@@ -70,6 +57,9 @@ def backward():
 def set_speed(speed):
     print("Speed:", int(speed))
 
+@app.route('/')
+def home():
+    return render_template('index.html')
 
 if __name__ == '__main__':
-    socketio.run(app, host='0.0.0.0', port='8080')
+    socketio.run(app, host='0.0.0.0', port=5000)
