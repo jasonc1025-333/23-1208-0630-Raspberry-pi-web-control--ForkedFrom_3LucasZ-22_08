@@ -8,9 +8,6 @@ var stopBtn = document.getElementById('stopBtn')
 //after specific kepress, trigger button
 document.onkeydown = function (event) {
     switch (event.keyCode) {
-        case 32:
-            console.log("Space bar pressed")
-            stopBtn.click();
         case 37:
             console.log("Left key is pressed.");
             leftBtn.click();
@@ -26,6 +23,10 @@ document.onkeydown = function (event) {
         case 40:
             console.log("Down key is pressed.");
             backwardBtn.click();
+            break;
+        case 32:
+            console.log("Space bar pressed")
+            stopBtn.click();
             break;
     }
 };

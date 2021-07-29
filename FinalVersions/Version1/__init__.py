@@ -34,8 +34,8 @@ speed = 50
 
 
 #constantly send camera data
-@socketio.on('server')
-def sendmessage():
+@socketio.on('needCamera')
+def sendCamera():
     while True:
         retval, frame = camera.read()
         retval, jpg = cv2.imencode('.jpg', frame)
@@ -115,4 +115,5 @@ def home():
 
 
 if __name__ == '__main__':
+    print("ready for clients!")
     socketio.run(app, host='0.0.0.0', port=5000)

@@ -1,19 +1,24 @@
 //SETUP
-const socket = io();
-const livestream = document.getElementById('livestream')
+//websocket
+var socket = io();
+//livestream
+var livestream = document.getElementById('livestream')
+//speed
+var speedSlider = document.getElementById("speedSlider");
+var speedSpan = document.getElementById("speedSpan");
+speedSpan.innerHTML = speedSlider.value
 
 //LISTENERS
-socket.on('jpg_string', function(data){
-    livestream.src = 'data:image/jpeg;base64,' + data;
-})
-
 socket.on('connect', function(){
     console.log('connected');
-    socket.emit('server')
+    socket.emit('needCamera')
 });
 socket.on('disconnect', function(){
     console.log('disconnected');
 });
+socket.on('jpg_string', function(data){
+    livestream.src = 'data:image/jpeg;base64,' + data;
+})
 
 //SENDERS
 function motorsOn(){
@@ -37,14 +42,8 @@ function backward(){
 function stopMotors(){
     socket.emit('stopMotors')
 }
-
-
 //SPEED BAR
-var slider = document.getElementById("myRange");
-var output = document.getElementById("demo");
-
-output.innerHTML = slider.value
 slider.oninput = function() {
-    output.innerHTML = this.value;
+    speedSpan.innerHTML = this.value;
     socket.emit('setSpeed', this.value)
 }
