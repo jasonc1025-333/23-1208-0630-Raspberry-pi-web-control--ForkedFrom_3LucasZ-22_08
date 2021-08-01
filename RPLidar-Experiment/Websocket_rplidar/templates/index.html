@@ -31,7 +31,7 @@ socket.on('disconnect', function(){
 });
 socket.on('scanData', function(data) {
     for (let i=0;i<360;i++) {
-        radians = i * 180 / Math.Pi;
+        radians = i * (Math.PI / 180);
         console.log(radians);
         distance = data[i];
         console.log(distance);
