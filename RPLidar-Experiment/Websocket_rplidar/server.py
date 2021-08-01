@@ -35,11 +35,11 @@ def send_lidar():
         try:
             while True:
                 #get the most recent scans from scan generator
-                for scan in lidar.iter_scans(1): 
+                for scan in lidar.iter_scans(5): 
                     #scan has array of points
                     #each point has 3 properties: quality, angle, distance
                     for (_, angle, distance) in scan:
-                        scan_data[min([359, floor(angle)])] = distance
+                        scan_data[floor(angle)] = distance
                     #send all clients scan_data array
                     print(scan_data)
                     socketio.emit("scanData", scan_data)
