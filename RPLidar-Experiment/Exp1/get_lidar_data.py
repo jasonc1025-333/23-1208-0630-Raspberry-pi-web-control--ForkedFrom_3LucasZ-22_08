@@ -10,6 +10,7 @@ max_distance = 0
 scan_data = [0]*360
 
 try: 
+    time.sleep(5)
     print(lidar.info)
     for scan in lidar.iter_scans():
         for (_, angle, distance) in scan:
