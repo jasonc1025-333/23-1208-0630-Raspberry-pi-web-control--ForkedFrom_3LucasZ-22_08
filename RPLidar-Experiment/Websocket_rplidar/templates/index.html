@@ -31,13 +31,14 @@ socket.on('disconnect', function(){
 });
 socket.on('scanData', function(data) {
     for (let i=0;i<360;i++) {
-        var radians = i * 180 / Math.Pi;
-        x = data[i]*Math.cos(radians);
-        y = data[i]*Math.sin(radians);
-        scaled_x = (SCREEN_WIDTH/2) + (SCREEN_WIDTH * x/MAX_DISTANCE);
-        scaled_y = (SCREEN_HEIGHT/2) + (SCREEN_HEIGHT * y/MAX_DISTANCE);
+        radians = i * 180 / Math.Pi;
+        distance = data[i];
+        x = distance * Math.cos(radians);
+        y = distance * Math.sin(radians);
+        scaled_x = (SCREEN_WIDTH / 2) + (x * SCREEN_WIDTH / MAX_DISTANCE);
+        scaled_y = (SCREEN_HEIGHT / 2) + (y * SCREEN_HEIGHT / MAX_DISTANCE);
         console.log(scaled_x + " " + scaled_y);
-        ctx.fillRect(scaled_x,scaled_y,1,1);
+        ctx.fillRect(scaled_x, scaled_y, 1, 1);
     }
 });
 </script>
