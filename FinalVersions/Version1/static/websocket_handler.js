@@ -49,15 +49,15 @@ socket.on('scanData', function(data) {
     //Plot every array point
     for (let i=0;i<360;i++) {
         //lidar is turned 90 degrees too much to the right
-        radians = (i - 90) * (Math.PI / 180);
+        radians = (i + 90) * (Math.PI / 180);
         distance = data[i];
         x = distance * Math.cos(radians);
         y = distance * Math.sin(radians);
         scaled_x = (SCREEN_WIDTH / 2) + (x * PIXEL_PER_CM);
         scaled_y = (SCREEN_WIDTH / 2) + (y * PIXEL_PER_CM);
 
-        //This tells us where angle 0 is
-        if (i == 0) {
+        //This tells us where angle 180 on the lidar is
+        if (i == 180) {
             //draw special point
             ctx.fillStyle = "#FF0000";
             ctx.fillRect(
