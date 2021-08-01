@@ -12,14 +12,25 @@
 <script src="https://cdn.socket.io/3.1.3/socket.io.min.js" integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh" crossorigin="anonymous"></script>
 <script>
 //SETUP
-//websocket
+//websocket connect
 var socket = io();
 //distanceDiv
 var distanceDiv = document.getElementById('distanceDiv');
-const SCREEN_WIDTH = 700;
-const SCREEN_HEIGHT = 700;
+
+//measurement: cm
 const MIN_DISTANCE = 0;
 const MAX_DISTANCE = 6000;
+
+const ROBOT_WIDTH = 23;
+const ROBOT_LENGTH = 30;
+
+//measurement: pixel
+const SCREEN_WIDTH = 700;
+
+//custom measurement
+const PIXEL_PER_CM = SCREEN_WIDTH / MAX_DISTANCE;
+
+//graph setup
 var graph = document.getElementById('graph');
 var ctx = graph.getContext("2d");
 var pixelSize = 1;
@@ -33,14 +44,22 @@ socket.on('disconnect', function(){
     console.log('disconnected');
 });
 socket.on('scanData', function(data) {
+    //clear the old canvas
     ctx.clearRect(0, 0, graph.width, graph.height);
+
+    //draw the robot shape
+    ctx.strokeRect(SCREEN_WIDTH / 2, SCREEN_WIDTH / 2, ROBOT_LENGTH * PIXEL_PER_CM, ROBOT_WIDTH * PIXEL_PER_CM)
     for (let i=0;i<360;i++) {
-        radians = i * (Math.PI / 180);
+        //Plot the lidar points
+        //lidar is turned 90 degrees too much to the right
+        radians = (i - 90) * (Math.PI / 180);
         distance = data[i];
         x = distance * Math.cos(radians);
         y = distance * Math.sin(radians);
-        scaled_x = (SCREEN_WIDTH / 2) + (x * SCREEN_WIDTH / MAX_DISTANCE);
-        scaled_y = (SCREEN_HEIGHT / 2) + (y * SCREEN_HEIGHT / MAX_DISTANCE);
+        scaled_x = (SCREEN_WIDTH / 2) + (x * PIXEL_PER_CM);
+        scaled_y = (SCREEN_WIDTH / 2) + (y * PIXEL_PER_CM);
+
+        //This tells us where angle 0 is
         if (i == 0) {
             ctx.fillStyle = "#FF0000";
             ctx.fillRect(scaled_x, scaled_y, pixelSize*2, pixelSize*2);
