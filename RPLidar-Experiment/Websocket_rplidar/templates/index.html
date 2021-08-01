@@ -47,7 +47,7 @@ socket.on('scanData', function(data) {
 var pixelSizeInput = document.getElementById("pixelSizeInput");
 
 pixelSizeInput.oninput = function() {
-    pixelSize = int(this.value);
+    pixelSize = parseInt(this.value);
 }
 </script>
 </html>
