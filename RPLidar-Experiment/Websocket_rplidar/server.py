@@ -30,12 +30,14 @@ def disconnect():
 def send_lidar():
     try:
         #get the most recent scan
-        for scan in lidar.iter_measurements(): 
+        '''for scan in lidar.iter_measurements(): 
             #scan has 4 properties: new_scan, quality, angle, distance
             socketio.emit("scanData", {
                 "angle": scan[2],
                 "distance": scan[3]
             })
+        '''
+        print(lidar.iter_measurements()[-1])
 
     except KeyboardInterrupt:
         print('Stopping.')
