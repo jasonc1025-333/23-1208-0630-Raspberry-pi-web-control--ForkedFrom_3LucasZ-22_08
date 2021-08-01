@@ -33,8 +33,8 @@ socket.on('scanData', function(data) {
     for (let i=0;i<360;i++) {
         x = data[i]*Math.cos(i);
         y = data[i]*Math.sin(i);
-        x = SCREEN_WIDTH * x/MAX_DISTANCE;
-        y = SCREEN_HEIGHT * y/MAX_DISTANCE;
+        x = (SCREEN_WIDTH/2) + (SCREEN_WIDTH * x/MAX_DISTANCE);
+        y = (SCREEN_HEIGHT/2) + (SCREEN_HEIGHT * y/MAX_DISTANCE);
         ctx.fillRect(x,y,1,1);
     }
 });
