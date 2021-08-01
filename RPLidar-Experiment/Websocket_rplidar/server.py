@@ -41,7 +41,9 @@ def send_lidar():
                     for (_, angle, distance) in scan:
                         scan_data[min([359, floor(angle)])] = distance
                     #send all clients scan_data array
+                    print(scan_data)
                     socketio.emit("scanData", scan_data)
+                    socketio.sleep(0)
         except KeyboardInterrupt:
             print('Stopping.')
 
