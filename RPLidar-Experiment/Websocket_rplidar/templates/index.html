@@ -30,18 +30,14 @@ socket.on('disconnect', function(){
     console.log('disconnected');
 });
 socket.on('scanData', function(data) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (let i=0;i<360;i++) {
         radians = i * (Math.PI / 180);
-        console.log(radians);
         distance = data[i];
-        console.log(distance);
         x = distance * Math.cos(radians);
-        console.log(x);
         y = distance * Math.sin(radians);
-        console.log(y);
         scaled_x = (SCREEN_WIDTH / 2) + (x * SCREEN_WIDTH / MAX_DISTANCE);
         scaled_y = (SCREEN_HEIGHT / 2) + (y * SCREEN_HEIGHT / MAX_DISTANCE);
-        console.log(scaled_x + " " + scaled_y);
         ctx.fillRect(scaled_x, scaled_y, 1, 1);
     }
 });
