@@ -41,7 +41,14 @@ socket.on('scanData', function(data) {
         y = distance * Math.sin(radians);
         scaled_x = (SCREEN_WIDTH / 2) + (x * SCREEN_WIDTH / MAX_DISTANCE);
         scaled_y = (SCREEN_HEIGHT / 2) + (y * SCREEN_HEIGHT / MAX_DISTANCE);
-        ctx.fillRect(scaled_x, scaled_y, pixelSize, pixelSize);
+        if (i == 0) {
+            ctx.fillStyle = "FF0000";
+            ctx.fillRect(scaled_x, scaled_y, pixelSize*2, pixelSize*2);
+        }
+        else {
+            ctx.fillStyle = "000000";
+            ctx.fillRect(scaled_x, scaled_y, pixelSize, pixelSize);
+        }
     }
 });
 var pixelSizeInput = document.getElementById("pixelSizeInput");
