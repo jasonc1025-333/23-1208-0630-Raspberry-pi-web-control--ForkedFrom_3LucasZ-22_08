@@ -1,28 +1,36 @@
 # Raspberry-Pi-web-control
 
-Controlling a Raspberry Pi based robot with a website. Still in alpha.
+Controlling a Raspberry Pi based robot with any device using websites.
+Everything happens realtime!
 
 Current features:
-- No web
-  - Motor Control
-  - Camera Single Picture
-  - Get continuous Lidar Data
-- Flask Control
-  - Motor Control (with arrow keys, buttons)
-  - Camera Picture (by refreshing the page, you get a new picture)
-- Websocket Control
-  - Motor Control (with arrow keys, buttons)
+- No UI Robot
+  - Basic robot driving
+  - Single picture with camera
+  - Print continuous lidar Data
+- Flask Robot
+  - Robot driving (with arrow keys, buttons)
+  - Camera pictures (by refreshing the page, you get a new picture)
+- Websocket Robot
+  - Robot driving (with arrow keys, buttons)
   - Camera Video Stream
-  - Lidar Data Realtime Graphing
+  - Lidar Data Graphing
 - Final Versions
   - Version1 (Complete Robot Driving Web UI)
 - ROS integration (COMING SOON!)
 
-Many of these scripts have little documentation, comments but will soon be!
+Many of these scripts have little documentation, comments but will soon have.
 
-Materials needed:
-Raspberry Pi 4 (Ubuntu)
-Raspberry Pi Camera 
-Slamtec RPLidar A1 M8
-Motor Controller Board
-2 Motors
+Basic materials needed:
+- Raspberry Pi 4 (Ubuntu)
+- Raspberry Pi Camera 
+- Slamtec RPLidar A1 M8
+- Motor Controller Board
+- 2 Motors
+
+How to use:
+- Clone repository to a local machine
+- Set up and activate a virtual environment under the main directory
+- pip3.9 install -r requirements.txt (install all needed python modules)
+- Each project has a main python script to run (either init.py, main.py, or server.py)
+- after running the python script, go to Google Chrome and type the IP Address of the robot
