@@ -36,6 +36,7 @@ socket.on('scanData', function(data) {
         y = data[i]*Math.sin(radians);
         scaled_x = (SCREEN_WIDTH/2) + (SCREEN_WIDTH * x/MAX_DISTANCE);
         scaled_y = (SCREEN_HEIGHT/2) + (SCREEN_HEIGHT * y/MAX_DISTANCE);
+        console.log(scaled_x + " " + scaled_y);
         ctx.fillRect(scaled_x,scaled_y,1,1);
     }
 });
