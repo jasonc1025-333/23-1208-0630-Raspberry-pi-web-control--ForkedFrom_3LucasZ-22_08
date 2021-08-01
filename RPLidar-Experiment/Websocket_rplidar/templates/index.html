@@ -30,7 +30,7 @@ socket.on('disconnect', function(){
     console.log('disconnected');
 });
 socket.on('scanData', function(data) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, graph.width, graph.height);
     for (let i=0;i<360;i++) {
         radians = i * (Math.PI / 180);
         distance = data[i];
