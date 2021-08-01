@@ -15,7 +15,6 @@ def process_data(data):
 
 scan_data = [0]*360
 
-print(lidar.iter_measurements()[-1])
 try:
     #get the most recent scan
     for scan in lidar.iter_measurements(): 
@@ -25,6 +24,6 @@ try:
 
 except KeyboardInterrupt:
     print('Stopping.')
-    
+
 lidar.stop()
 lidar.disconnect()
