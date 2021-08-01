@@ -1,5 +1,5 @@
 #IMPORTS
-from flask import Flask,request, render_template
+from flask import Flask, request, render_template
 from flask_socketio import SocketIO
 import cv2
 import base64
@@ -35,8 +35,7 @@ time.sleep(0.1) #important
 speed = 50
 
 
-#SENDERS
-#constantly send camera data
+#constantly send camera data if client sends needCamera message
 @socketio.on('needCamera')
 def sendCamera():
     while True:
