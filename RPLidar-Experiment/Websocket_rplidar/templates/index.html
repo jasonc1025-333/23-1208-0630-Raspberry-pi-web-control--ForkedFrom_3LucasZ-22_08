@@ -14,6 +14,12 @@
 var socket = io();
 //distanceDiv
 var distanceDiv = document.getElementById('distanceDiv');
+const SCREEN_WIDTH = 700;
+const SCREEN_HEIGHT = 700;
+const MIN_DISTANCE = 0;
+const MAX_DISTANCE = 6000;
+var graph = document.getElementById('graph');
+var ctx = c.getContext("2d");
 
 //LISTENERS
 socket.on('connect', function(){
@@ -27,21 +33,10 @@ socket.on('scanData', function(data) {
     for (let i=0;i<360;i++) {
         x = data[i]*Math.cos(i);
         y = data[i]*Math.sin(i);
-        graph(x,y);
+        x = SCREEN_WIDTH * x/MAX_DISTANCE;
+        y = SCREEN_HEIGHT * y/MAX_DISTANCE;
+        ctx.fillRect(x,y,1,1);
     }
 });
-//SENDERS
-//FUNCTIONS
-const SCREEN_WIDTH = 700;
-const SCREEN_HEIGHT = 700;
-const MIN_DISTANCE = 0;
-const MAX_DISTANCE = 6000;
-var graph = document.getElementById('graph');
-var ctx = c.getContext("2d");
-function graph(x,y) {
-    x = SCREEN_WIDTH * x/MAX_DISTANCE
-    y = SCREEN_HEIGHT * y/MAX_DISTANCE
-    ctx.fillRect(x,y,1,1);
-}
 </script>
 </html>
