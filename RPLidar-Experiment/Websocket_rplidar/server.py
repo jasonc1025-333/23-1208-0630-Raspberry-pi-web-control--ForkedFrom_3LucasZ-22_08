@@ -33,8 +33,8 @@ def send_lidar():
         for scan in lidar.iter_measurements(): 
             #scan has 4 properties: new_scan, quality, angle, distance
             socketio.emit("scanData", {
-                "angle":scan[2]
-                "distance":scan[3]
+                "angle": scan[2],
+                "distance": scan[3]
             })
 
     except KeyboardInterrupt:
