@@ -14,22 +14,21 @@
 //websocket
 var socket = io();
 //distanceDiv
-var distanceDiv = document.getElementById('distanceDiv')
+var distanceDiv = document.getElementById('distanceDiv');
 
 //LISTENERS
 socket.on('connect', function(){
     console.log('connected');
-    socket.emit('needLidar')
+    socket.emit('needLidar');
 });
 socket.on('disconnect', function(){
     console.log('disconnected');
 });
 socket.on('scanData', function(data) {
-    console.log(data.angle)
-    console.log(data.distance)
-})
-
-
+    console.log(data);
+    console.log(data.angle);
+    console.log(data.distance);
+});
 //SENDERS
 </script>
 </html>
