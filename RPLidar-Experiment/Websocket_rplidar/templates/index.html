@@ -19,7 +19,7 @@ const SCREEN_HEIGHT = 700;
 const MIN_DISTANCE = 0;
 const MAX_DISTANCE = 6000;
 var graph = document.getElementById('graph');
-var ctx = c.getContext("2d");
+var ctx = graph.getContext("2d");
 
 //LISTENERS
 socket.on('connect', function(){
