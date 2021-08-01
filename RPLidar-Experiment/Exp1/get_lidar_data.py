@@ -19,7 +19,7 @@ try:
 #    print(lidar.get_info())
     for scan in lidar.iter_measurements():
         print(scan[0])
-        print(scan[1]])
+        print(scan[1])
 
 except KeyboardInterrupt:
     print('Stopping.')
