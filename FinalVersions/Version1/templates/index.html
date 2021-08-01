@@ -15,10 +15,15 @@
 </head>
     <body>
         <div class='row no-margin no-padding'>
-            <div class='col-6 no-padding'>
+            <div class='col-4 no-padding'>
                 <img id='livestream' width=100%>
             </div>
-            <div class='col-6'>
+            <div class='col-4'>
+                <canvas id="lidarGraph" width="700" height="700"></canvas>
+                <h3>Pixel Size: </h3>
+                <input type="text" id="pixelSizeInput">
+            </div>
+            <div class='col-4'>
                 <div class='row'>
                     <button onclick="motorsOn()" class='col-6 btn btn-outline-success straight-border header-button'>Motors On</button>
                     <button onclick="motorsOff()" class='col-6 btn btn-outline-danger straight-border header-button'>Motors Off</button>
