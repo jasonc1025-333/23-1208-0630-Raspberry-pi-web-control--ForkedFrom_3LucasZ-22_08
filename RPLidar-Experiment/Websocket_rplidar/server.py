@@ -26,7 +26,7 @@ def disconnect():
     print('A client disconnected.')
 
 
-
+scan_data = [0]*360
 @socketio.on('needLidar')
 def send_lidar():
     global sentLidar
@@ -34,15 +34,13 @@ def send_lidar():
         sentLidar = True
         try:
             while True:
-                #get the most recent scans from measurement generator
+                #get the most recent scans from scan generator
                 for scan in lidar.iter_scans(1): 
                     #scan has array of points
                     #each point has 3 properties: quality, angle, distance
-                    #socketio.emit("scanData", {
-                    #    scan
-                    #})
-                    print(scan)
-                    socketio.sleep(0)
+                    for (_, angle, distance) in scan:
+                        scan_data[min([359, floor(angle)])] = distance
+                    socketio.emit("scanData", {scan_data})
         except KeyboardInterrupt:
             print('Stopping.')
 

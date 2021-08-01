@@ -25,9 +25,8 @@ socket.on('disconnect', function(){
     console.log('disconnected');
 });
 socket.on('scanData', function(data) {
-    console.log(data.angle);
-    console.log(data.distance);
-    distanceDiv.innerText = data.distance;
+    console.log(data);
+    distanceDiv.innerText = data;
 });
 //SENDERS
 </script>
