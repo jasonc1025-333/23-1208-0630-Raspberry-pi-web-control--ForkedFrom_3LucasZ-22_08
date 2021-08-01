@@ -1,5 +1,6 @@
 from math import floor
 from adafruit_rplidar import RPLidar
+import time
 
 # Setup RPLidar
 PORT_NAME='/dev/ttyUSB0'
