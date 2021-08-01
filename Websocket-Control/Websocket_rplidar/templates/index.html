@@ -49,7 +49,11 @@ socket.on('scanData', function(data) {
 
     //draw the robot shape
     ctx.strokeStyle = "#0000FF";
-    ctx.strokeRect(SCREEN_WIDTH / 2, SCREEN_WIDTH / 2, ROBOT_WIDTH * PIXEL_PER_CM, ROBOT_LENGTH * PIXEL_PER_CM)
+    ctx.strokeRect(
+        (SCREEN_WIDTH / 2) - (ROBOT_WIDTH * PIXEL_PER_CM / 2), 
+        (SCREEN_WIDTH / 2) - (ROBOT_LENGTH * PIXEL_PER_CM / 2), 
+        ROBOT_WIDTH * PIXEL_PER_CM, 
+        ROBOT_LENGTH * PIXEL_PER_CM)
     for (let i=0;i<360;i++) {
         //Plot the lidar points
         //lidar is turned 90 degrees too much to the right
@@ -62,15 +66,26 @@ socket.on('scanData', function(data) {
 
         //This tells us where angle 0 is
         if (i == 0) {
+            //graph special point
             ctx.fillStyle = "#FF0000";
-            ctx.fillRect(scaled_x, scaled_y, pixelSize*2, pixelSize*2);
+            ctx.fillRect(
+                scaled_x - pixelSize, 
+                scaled_y - pixelSize, 
+                pixelSize * 2, 
+                pixelSize * 2);
         }
         else {
+            //graph point
             ctx.fillStyle = "#000000";
-            ctx.fillRect(scaled_x, scaled_y, pixelSize, pixelSize);
+            ctx.fillRect(
+                scaled_x - (pixelSize / 2), 
+                scaled_y - (pixelSize / 2), 
+                pixelSize, 
+                pixelSize);
         }
     }
 });
+//get pixelSizeInput and update pixelSize
 var pixelSizeInput = document.getElementById("pixelSizeInput");
 
 pixelSizeInput.oninput = function() {
