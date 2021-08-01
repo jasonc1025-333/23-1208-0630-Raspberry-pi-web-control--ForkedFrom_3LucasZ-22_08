@@ -16,10 +16,11 @@ def process_data(data):
 scan_data = [0]*360
 
 try:
-#    print(lidar.get_info())
-    for scan in lidar.iter_measurements():
-        print(scan[1])
-        print(scan[2])
+    #get the most recent scan
+    for scan in lidar.iter_measurements(): 
+        #scan has 4 properties: new_scan, quality, angle, distance
+        print(scan[2]) 
+        print(scan[3])
 
 except KeyboardInterrupt:
     print('Stopping.')
