@@ -48,8 +48,8 @@ socket.on('scanData', function(data) {
     ctx.clearRect(0, 0, graph.width, graph.height);
 
     //draw the robot shape
-    ctx.fillStyle = "#0000FF";
-    ctx.strokeRect(SCREEN_WIDTH / 2, SCREEN_WIDTH / 2, ROBOT_LENGTH * PIXEL_PER_CM, ROBOT_WIDTH * PIXEL_PER_CM)
+    ctx.strokeStyle = "#0000FF";
+    ctx.strokeRect(SCREEN_WIDTH / 2, SCREEN_WIDTH / 2, ROBOT_WIDTH * PIXEL_PER_CM, ROBOT_LENGTH * PIXEL_PER_CM)
     for (let i=0;i<360;i++) {
         //Plot the lidar points
         //lidar is turned 90 degrees too much to the right
