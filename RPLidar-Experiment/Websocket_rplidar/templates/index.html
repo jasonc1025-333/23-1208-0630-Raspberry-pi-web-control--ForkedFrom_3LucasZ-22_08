@@ -32,9 +32,13 @@ socket.on('disconnect', function(){
 socket.on('scanData', function(data) {
     for (let i=0;i<360;i++) {
         radians = i * 180 / Math.Pi;
+        console.log(radians);
         distance = data[i];
+        console.log(distance);
         x = distance * Math.cos(radians);
+        console.log(x);
         y = distance * Math.sin(radians);
+        console.log(y);
         scaled_x = (SCREEN_WIDTH / 2) + (x * SCREEN_WIDTH / MAX_DISTANCE);
         scaled_y = (SCREEN_HEIGHT / 2) + (y * SCREEN_HEIGHT / MAX_DISTANCE);
         console.log(scaled_x + " " + scaled_y);
