@@ -36,7 +36,7 @@ socket.on('jpg_string', function(data){
 
 socket.on('scanData', function(data) {
     //clear the old canvas
-    ctx.clearRect(0, 0, graph.width, graph.height);
+    ctx.clearRect(0, 0, lidarGraph.width, lidarGraph.height);
 
     //draw the robot shape
     ctx.strokeStyle = "#0000FF";
@@ -58,7 +58,7 @@ socket.on('scanData', function(data) {
 
         //This tells us where angle 0 is
         if (i == 0) {
-            //graph special point
+            //draw special point
             ctx.fillStyle = "#FF0000";
             ctx.fillRect(
                 scaled_x - pixelSize, 
@@ -67,7 +67,7 @@ socket.on('scanData', function(data) {
                 pixelSize * 2);
         }
         else {
-            //graph point
+            //draw regular point
             ctx.fillStyle = "#000000";
             ctx.fillRect(
                 scaled_x - (pixelSize / 2), 
