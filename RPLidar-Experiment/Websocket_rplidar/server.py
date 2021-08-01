@@ -31,12 +31,13 @@ def send_lidar():
     try:
         while True:
             #get the most recent scans from measurement generator
-            for scan in lidar.iter_measurements(3): 
+            for scan in lidar.iter_measurements(1): 
                 #scan has 4 properties: new_scan, quality, angle, distance
                 socketio.emit("scanData", {
                     "angle": scan[2],
                     "distance": scan[3]
                 })
+                print(scan)
                 socketio.sleep(0)
     except KeyboardInterrupt:
         print('Stopping.')
