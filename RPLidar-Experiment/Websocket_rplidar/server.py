@@ -13,7 +13,7 @@ socketio = SocketIO(app)
 # Setup the RPLidar
 PORT_NAME = '/dev/ttyUSB0'
 lidar = RPLidar(None, PORT_NAME, timeout=3)
-
+sentLidar = False
 
 #LISTENERS
 @socketio.on('connect')
@@ -26,9 +26,10 @@ def disconnect():
     print('A client disconnected.')
 
 
-sentLidar = False
+
 @socketio.on('needLidar')
 def send_lidar():
+    global sentLidar
     if sentLidar == False:
         sentLidar = True
         try:
