@@ -34,7 +34,7 @@ camera = cv2.VideoCapture(0)
 time.sleep(1)
 camera.set(3, 64)
 camera.set(4, 64)
-FPS = 30
+FPS = 15
 sentCamera = False
 
 
@@ -79,7 +79,7 @@ def send_lidar():
     try:
         while True:
             #get the most recent scans from scan generator
-            for scan in lidar.iter_scans(5): 
+            for scan in lidar.iter_scans(1): 
                 #scan has array of points
                 #each point has 3 properties: quality, angle, distance
                 for (_, angle, distance) in scan:
@@ -89,6 +89,7 @@ def send_lidar():
                 #print(scan_data)
                 emit("scanData", scan_data)
                 socketio.sleep(0)
+            socketio.sleep(0.5)
     except KeyboardInterrupt:
         print('Stopping.')
 
