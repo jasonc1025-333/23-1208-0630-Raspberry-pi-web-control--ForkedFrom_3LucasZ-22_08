@@ -25,5 +25,6 @@ try:
 
 except KeyboardInterrupt:
     print('Stopping.')
+    
 lidar.stop()
 lidar.disconnect()
