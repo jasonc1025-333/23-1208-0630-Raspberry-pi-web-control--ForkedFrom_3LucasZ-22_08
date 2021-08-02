@@ -64,8 +64,8 @@ socket.on('scanData', function(data) {
             ctx.fillRect(
                 scaled_x - pixelSize, 
                 scaled_y - pixelSize, 
-                pixelSize * 2, 
-                pixelSize * 2);
+                pixelSize * 3, 
+                pixelSize * 3);
         }
         else {
             //draw regular point
