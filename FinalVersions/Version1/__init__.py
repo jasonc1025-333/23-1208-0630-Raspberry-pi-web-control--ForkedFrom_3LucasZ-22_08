@@ -22,6 +22,10 @@ from math import floor
 from adafruit_rplidar import RPLidar
 
 
+#other
+import sys
+
+
 #SETUP
 #set up app
 app = Flask(__name__)
@@ -34,7 +38,7 @@ camera = cv2.VideoCapture(0)
 time.sleep(1)
 camera.set(3, 64)
 camera.set(4, 64)
-FPS = 10
+FPS = 20
 sentCamera = False
 
 
@@ -85,6 +89,10 @@ def send_lidar():
                 for (_, angle, distance) in scan:
                     #ensure accessing index in range
                     scan_data[min([359, floor(angle)])] = distance
+                    print(distance)
+                    print(type(distance))
+                    print(sys.getsizeof(distance))
+                    print(sys.getsizeof(int(distance)))
                 #send all clients scan_data array
                 #print(scan_data)
                 emit("scanData", scan_data)
