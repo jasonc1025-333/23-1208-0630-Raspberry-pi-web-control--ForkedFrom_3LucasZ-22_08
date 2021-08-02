@@ -18,8 +18,8 @@ speedSpan.innerHTML = speedSlider.value;
 //pixel size input setup
 var pixelSizeInput = document.getElementById("pixelSizeInput");
 
-var prevTimeCam = 0
-var prevTimeScan = 0
+var prevTimeCam = 0;
+var prevTimeScan = 0;
 
 //LISTENERS
 socket.on('connect', function(){
