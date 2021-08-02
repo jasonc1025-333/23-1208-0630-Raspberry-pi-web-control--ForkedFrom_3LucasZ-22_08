@@ -34,7 +34,7 @@ camera = cv2.VideoCapture(0)
 time.sleep(1)
 camera.set(3, 64)
 camera.set(4, 64)
-FPS = 30
+FPS = 10
 sentCamera = False
 
 
