@@ -105,7 +105,7 @@ def send_lidar():
                 emit("scanData", scan_data)
                 print("sent a scan! time: " + str(time.time()-prev_t_lidar))
                 prev_t_lidar = time.time()
-                #socketio.sleep(0)
+                socketio.sleep(0)
            
     except KeyboardInterrupt:
         print('Stopping.')
