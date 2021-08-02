@@ -31,11 +31,13 @@ socket.on('disconnect', function(){
     console.log('disconnected');
 });
 
-socket.on('jpg_string', function(data){
+socket.on('jpg_string', function(data) {
+    console.log("Received camera" );
     livestream.src = 'data:image/jpeg;base64,' + data;
 })
 
 socket.on('scanData', function(data) {
+    console.log("Received scan");
     //clear the old canvas
     ctx.clearRect(0, 0, lidarGraph.width, lidarGraph.height);
 

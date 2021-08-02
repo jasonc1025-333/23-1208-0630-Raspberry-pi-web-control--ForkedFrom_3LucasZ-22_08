@@ -65,17 +65,20 @@ scan_data = [0]*360
 #constantly send camera data if client send needCamera message
 @socketio.on('needCamera')
 def send_camera():
-    while True:
-        retval, frame = camera.read()
-        #my camera is placed upside down ._.
-        #to get the correct image, we must flip the camera vertically and horizontally
-        frame = cv2.flip(frame, -1)
-        retval, jpg = cv2.imencode('.jpg', frame)
-        jpg_as_text = str(base64.b64encode(jpg))
-        jpg_as_text = jpg_as_text[2:-1]
-        emit('jpg_string', jpg_as_text)
-        print("Sent a picture!")
-        socketio.sleep(1/FPS)
+    try:
+        while True:
+            retval, frame = camera.read()
+            #my camera is placed upside down ._.
+            #to get the correct image, we must flip the camera vertically and horizontally
+            frame = cv2.flip(frame, -1)
+            retval, jpg = cv2.imencode('.jpg', frame)
+            jpg_as_text = str(base64.b64encode(jpg))
+            jpg_as_text = jpg_as_text[2:-1]
+            emit('jpg_string', jpg_as_text)
+            print("Sent a picture!")
+            socketio.sleep(1/FPS)
+    except KeyboardInterrupt:
+        print('Stopping.')
 
 
 #constantly send lidar data if client sends needLidar message
