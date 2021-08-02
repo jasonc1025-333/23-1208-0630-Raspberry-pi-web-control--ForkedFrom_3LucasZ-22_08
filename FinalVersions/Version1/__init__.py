@@ -88,7 +88,7 @@ def send_lidar():
                 #send all clients scan_data array
                 #print(scan_data)
                 emit("scanData", scan_data)
-                socketio.sleep(0)
+                socketio.sleep(0.5)
     except KeyboardInterrupt:
         print('Stopping.')
 
