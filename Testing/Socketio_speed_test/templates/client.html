@@ -1,0 +1,44 @@
+</html>
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Lidar websocket</title>
+</head>
+<body>
+    <button onclick="getData()">Get Data</button>
+    <h1>Total ms: <span id="tot"></span></h1>
+    <h1>Total received: <span id="rec"></span></h1>
+    <h1>Average time to receive packet: <span id="avg"></span></h1>
+</body>
+<script src="https://cdn.socket.io/3.1.3/socket.io.min.js" integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh" crossorigin="anonymous"></script>
+<script>
+//SETUP
+//websocket connect
+var socket = io();
+
+var counter = 0;
+var startingMs = 0;
+var currentMs = 0;
+
+var tot = document.getElementById('tot');
+var rec = document.getElementById('rec');
+var avg = document.getElementById('avg');
+
+socket.on('connect', function() {
+    console.log("CONNECTED");
+    counter = 0;
+    startingMs = Date.now();
+    socket.emit("server");
+})
+socket.on('ms', function(serverMs) {
+    currentMs = Date.now(); 
+    counter += 1
+    console.log("took: " + (currentMs - serverMs))
+});
+function getData() {
+    totalMs = currentMs - startingMs;
+    tot.innerHTML = totalMs;
+    rec.innerHTML = counter;
+    avg.innerHTML = counter / totalMs;
+}
+</script>
