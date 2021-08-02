@@ -79,7 +79,7 @@ def send_camera():
             jpg_as_text = str(base64.b64encode(jpg))
             jpg_as_text = jpg_as_text[2:-1]
             emit('jpg_string', jpg_as_text)
-            print("sent a picture! time: " + (time.time()-prev_t_cam))
+            print("sent a picture! time: " + str(time.time()-prev_t_cam))
             prev_t_cam = time.time()
             socketio.sleep(1/FPS)
     except KeyboardInterrupt:
@@ -102,7 +102,7 @@ def send_lidar():
                 #send all clients scan_data array
                 #print(scan_data)
                 emit("scanData", scan_data)
-                print("sent a scan! time: " + (time.time()-prev_t_lidar))
+                print("sent a scan! time: " + str(time.time()-prev_t_lidar))
                 prev_t_lidar = time.time()
                 socketio.sleep(0)
            
