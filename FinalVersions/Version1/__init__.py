@@ -79,7 +79,7 @@ def send_camera():
             jpg_as_text = str(base64.b64encode(jpg))
             jpg_as_text = jpg_as_text[2:-1]
             emit('jpg_string', jpg_as_text)
-            print("sent a picture! time: " + str(time.time()-prev_t_cam))
+            print("sent a picture. time: " + str(time.time()-prev_t_cam))
             prev_t_cam = time.time()
             socketio.sleep(1/FPS)
     except KeyboardInterrupt:
@@ -92,7 +92,9 @@ def send_lidar():
     global prev_t_lidar
     try:
         #get the most recent scans from scan generator
-        for scan in lidar.iter_scans(3): 
+        counter = 0
+        for scan in lidar.iter_scans(3):
+            counter += 1 
             #scan has array of points
             #each point has 3 properties: quality, angle, distance
             for (_, angle, distance) in scan:
@@ -101,9 +103,10 @@ def send_lidar():
                 socketio.sleep(0)
             #send all clients scan_data array
             #print(scan_data)
-            emit("scanData", scan_data)
-            print("sent a scan! time: " + str(time.time()-prev_t_lidar))
-            prev_t_lidar = time.time()
+            if counter % 5 == 0:
+                emit("scanData", scan_data)
+                print("sent a scan. time: " + str(time.time()-prev_t_lidar))
+                prev_t_lidar = time.time()
             socketio.sleep(0)
            
     except KeyboardInterrupt:
