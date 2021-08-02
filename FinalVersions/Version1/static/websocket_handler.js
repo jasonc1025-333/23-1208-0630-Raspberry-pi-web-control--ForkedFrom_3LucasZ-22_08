@@ -22,7 +22,8 @@ var pixelSizeInput = document.getElementById("pixelSizeInput");
 //LISTENERS
 socket.on('connect', function(){
     console.log('connected');
-    socket.emit('needCamera');
+    //comment out what is not needed
+    //socket.emit('needCamera');
     socket.emit('needLidar');
 });
 
