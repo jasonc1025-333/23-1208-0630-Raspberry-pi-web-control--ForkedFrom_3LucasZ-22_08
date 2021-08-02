@@ -91,21 +91,20 @@ def send_camera():
 def send_lidar():
     global prev_t_lidar
     try:
-        while True:
-            #get the most recent scans from scan generator
-            for scan in lidar.iter_scans(3): 
-                #scan has array of points
-                #each point has 3 properties: quality, angle, distance
-                for (_, angle, distance) in scan:
-                    #ensure accessing index in range
-                    scan_data[min([359, floor(angle)])] = int(distance)
-                    socketio.sleep(0)
-                #send all clients scan_data array
-                #print(scan_data)
-                emit("scanData", scan_data)
-                print("sent a scan! time: " + str(time.time()-prev_t_lidar))
-                prev_t_lidar = time.time()
+        #get the most recent scans from scan generator
+        for scan in lidar.iter_scans(3): 
+            #scan has array of points
+            #each point has 3 properties: quality, angle, distance
+            for (_, angle, distance) in scan:
+                #ensure accessing index in range
+                scan_data[min([359, floor(angle)])] = int(distance)
                 socketio.sleep(0)
+            #send all clients scan_data array
+            #print(scan_data)
+            emit("scanData", scan_data)
+            print("sent a scan! time: " + str(time.time()-prev_t_lidar))
+            prev_t_lidar = time.time()
+            socketio.sleep(0)
            
     except KeyboardInterrupt:
         print('Stopping.')
