@@ -68,6 +68,7 @@ scan_data = [0]*360
 #constantly send camera data if client send needCamera message
 @socketio.on('needCamera')
 def send_camera():
+    global prev_t_cam
     try:
         while True:
             retval, frame = camera.read()
@@ -88,6 +89,7 @@ def send_camera():
 #constantly send lidar data if client sends needLidar message
 @socketio.on('needLidar')
 def send_lidar():
+    global prev_t_lidar
     try:
         while True:
             #get the most recent scans from scan generator
