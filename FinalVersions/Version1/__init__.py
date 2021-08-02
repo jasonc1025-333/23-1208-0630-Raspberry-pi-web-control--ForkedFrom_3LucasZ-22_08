@@ -99,12 +99,13 @@ def send_lidar():
                 for (_, angle, distance) in scan:
                     #ensure accessing index in range
                     scan_data[min([359, floor(angle)])] = int(distance)
+                    socketio.sleep(0)
                 #send all clients scan_data array
                 #print(scan_data)
                 emit("scanData", scan_data)
                 print("sent a scan! time: " + str(time.time()-prev_t_lidar))
                 prev_t_lidar = time.time()
-                socketio.sleep(0)
+                #socketio.sleep(0)
            
     except KeyboardInterrupt:
         print('Stopping.')
