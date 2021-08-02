@@ -52,6 +52,9 @@ GPIO.setup(PIN_I2C6_POWER_ENABLE, GPIO.OUT)
 time.sleep(0.1) #important
 speed = 50
 
+#debug
+prev_t_lidar = 0
+prev_t_cam = 0
 
 # Setup the RPLidar
 PORT_NAME = '/dev/ttyUSB0'
@@ -75,7 +78,8 @@ def send_camera():
             jpg_as_text = str(base64.b64encode(jpg))
             jpg_as_text = jpg_as_text[2:-1]
             emit('jpg_string', jpg_as_text)
-            print("Sent a picture!")
+            print("sent a picture! time: " + (time.time()-prev_t_cam))
+            prev_t_cam = time.time()
             socketio.sleep(1/FPS)
     except KeyboardInterrupt:
         print('Stopping.')
@@ -96,7 +100,8 @@ def send_lidar():
                 #send all clients scan_data array
                 #print(scan_data)
                 emit("scanData", scan_data)
-                print("sent a scan!")
+                print("sent a scan! time: " + (time.time()-prev_t_lidar))
+                prev_t_lidar = time.time()
                 socketio.sleep(0)
            
     except KeyboardInterrupt:
