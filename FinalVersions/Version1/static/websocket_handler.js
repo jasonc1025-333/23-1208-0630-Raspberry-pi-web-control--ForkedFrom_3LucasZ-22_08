@@ -79,7 +79,6 @@ socket.on('scanData', function(data) {
     }
 });
 
-
 //SENDERS
 //button presses
 function motorsOn(){
