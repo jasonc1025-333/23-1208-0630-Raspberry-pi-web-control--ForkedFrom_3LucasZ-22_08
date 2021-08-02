@@ -88,11 +88,7 @@ def send_lidar():
                 #each point has 3 properties: quality, angle, distance
                 for (_, angle, distance) in scan:
                     #ensure accessing index in range
-                    scan_data[min([359, floor(angle)])] = distance
-                    print(distance)
-                    print(type(distance))
-                    print(sys.getsizeof(distance))
-                    print(sys.getsizeof(int(distance)))
+                    scan_data[min([359, floor(angle)])] = int(distance)
                 #send all clients scan_data array
                 #print(scan_data)
                 emit("scanData", scan_data)
