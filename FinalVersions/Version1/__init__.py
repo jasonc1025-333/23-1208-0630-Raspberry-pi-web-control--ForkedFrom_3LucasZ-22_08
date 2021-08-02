@@ -62,7 +62,7 @@ scan_data = [0]*360
 
 
 #INFINITE SENDING
-#constantly send camera data to clients who send needCamera message
+#constantly send camera data if client send needCamera message
 @socketio.on('needCamera')
 def send_camera():
     while True:
@@ -74,10 +74,11 @@ def send_camera():
         jpg_as_text = str(base64.b64encode(jpg))
         jpg_as_text = jpg_as_text[2:-1]
         emit('jpg_string', jpg_as_text)
+        print("Sent a picture!")
         socketio.sleep(1/FPS)
 
 
-#constantly send lidar data to clients who send needLidar message
+#constantly send lidar data if client sends needLidar message
 @socketio.on('needLidar')
 def send_lidar():
     try:
@@ -92,6 +93,7 @@ def send_lidar():
                 #send all clients scan_data array
                 #print(scan_data)
                 emit("scanData", scan_data)
+                print("sent a scan!")
                 socketio.sleep(0)
            
     except KeyboardInterrupt:
