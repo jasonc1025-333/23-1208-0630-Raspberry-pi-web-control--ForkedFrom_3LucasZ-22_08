@@ -18,6 +18,8 @@ speedSpan.innerHTML = speedSlider.value;
 //pixel size input setup
 var pixelSizeInput = document.getElementById("pixelSizeInput");
 
+var prevTimeCam = 0
+var prevTimeScan = 0
 
 //LISTENERS
 socket.on('connect', function(){
@@ -32,12 +34,14 @@ socket.on('disconnect', function(){
 });
 
 socket.on('jpg_string', function(data) {
-    console.log("Received camera" );
+    console.log("Received camera, time: "+(Date.now()-prevTimeCam).toString());
+    prevTimeCam=Date.now();
     livestream.src = 'data:image/jpeg;base64,' + data;
 })
 
 socket.on('scanData', function(data) {
-    console.log("Received scan");
+    console.log("Received scan, time: "+(Date.now()-prevTimeScan).toString());
+    prevTimeScan=Date.now();
     //clear the old canvas
     ctx.clearRect(0, 0, lidarGraph.width, lidarGraph.height);
 
