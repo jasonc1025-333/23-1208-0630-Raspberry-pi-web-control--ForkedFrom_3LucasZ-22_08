@@ -2,3 +2,5 @@ venv
 .vscode
 __pycache__
 start-server.sh
+tub*
+.DS_Store
