@@ -12,6 +12,7 @@ import base64
 #data collection
 import os
 import shutil
+import pathlib
 import time
 
 
@@ -37,7 +38,7 @@ motorBias = 0
 
 #data collection
 #path names
-datasetPath = os.path.join(os.getcwd(), "Testing/datacollection-Proto/datasets/")
+datasetPath = os.path.join(pathlib.Path(__file__).parent.resolve(), "datasets/")
 #clear all the tubs (for debugging only)
 for oldTub in os.listdir(datasetPath):
     shutil.rmtree(os.path.join(datasetPath, oldTub))
