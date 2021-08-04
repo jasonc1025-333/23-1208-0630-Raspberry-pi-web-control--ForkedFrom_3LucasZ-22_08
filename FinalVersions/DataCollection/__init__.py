@@ -48,7 +48,8 @@ time.sleep(0.5)
 camera.set(3, 64)
 camera.set(4, 64)
 time.sleep(0.5)
-FPS = 5
+#Fine-tune this
+FPS = 15
 canRecord = False
 
 
