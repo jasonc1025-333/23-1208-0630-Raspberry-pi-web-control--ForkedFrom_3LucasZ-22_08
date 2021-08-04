@@ -102,26 +102,29 @@ def recording_system():
     print("cam px width:", width)
     print("cam channels:", channels)
     while True:
+        
+        framesTaken += 1
+        #take picture into frame
+        retval, frame = camera.read()
+        #crop the image
+        #frame = frame[height-50:height, 0:width]
+        #flip the image horiz and vert
+        frame = cv2.flip(frame, -1)
+
         if canRecord:
-            framesTaken += 1
-            #take picture into frame
-            retval, frame = camera.read()
-            #crop the image
-            #frame = frame[height-50:height, 0:width]
-            #flip the image horiz and vert
-            frame = cv2.flip(frame, -1)
             #save image into images
             cv2.imwrite(imagesPath + "frame" + str(framesTaken) + ".jpg", frame)
             #save current motor bias to bias.txt
             biasFile.write(str(motorBias) + "\n")
-            #encode picture to jpg
-            retval, jpg = cv2.imencode('.jpg', frame)
-            #encode to base 64 string
-            jpg_as_text = str(base64.b64encode(jpg))
-            #remove b''
-            jpg_as_text = jpg_as_text[2:-1]
-            #emit text
-            socketio.emit('jpg_string', jpg_as_text)
+            
+        #encode picture to jpg
+        retval, jpg = cv2.imencode('.jpg', frame)
+        #encode to base 64 string
+        jpg_as_text = str(base64.b64encode(jpg))
+        #remove b''
+        jpg_as_text = jpg_as_text[2:-1]
+        #emit text
+        socketio.emit('jpg_string', jpg_as_text)
         #async sleep
         socketio.sleep(1/FPS)  
         
