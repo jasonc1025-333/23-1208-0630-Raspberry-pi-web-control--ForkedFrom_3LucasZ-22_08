@@ -188,7 +188,9 @@ if __name__ == '__main__':
     socketio.run(app, host='0.0.0.0', port=5000)
     
 print("Closing program")
+#close
 biasFile.close()
+GPIO.cleanup()
 #sanity check
 print("recorded motor values: " + os.popen("wc -l < " + biasFilePath).read().strip())
 print("recorded images: " + os.popen("ls " + imagesPath + " | wc -l").read().strip())
