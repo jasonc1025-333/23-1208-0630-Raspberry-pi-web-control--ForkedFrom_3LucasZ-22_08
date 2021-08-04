@@ -106,8 +106,6 @@ def recording_system():
             framesTaken += 1
             #take picture into frame
             retval, frame = camera.read()
-            #flip the image horiz and vert
-            frame = cv2.flip(frame, -1)
             #crop the image
             #frame = frame[height-50:height, 0:width]
             #save image into images
@@ -123,7 +121,7 @@ def recording_system():
             #emit text
             socketio.emit('jpg_string', jpg_as_text)
         #async sleep
-        socketio.sleep(1/FPS)    
+        socketio.sleep(1/FPS)  
         
 '''
 @socketio.on('startPracticing')
