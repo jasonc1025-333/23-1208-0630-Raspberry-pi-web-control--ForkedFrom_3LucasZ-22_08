@@ -98,7 +98,7 @@ def recording_system():
     channels = frame.shape[2]
     print("cam px height:", height)
     print("cam px width:", width)
-    print("cam channels:", hannels)
+    print("cam channels:", channels)
     while True:
         if canRecord:
             framesTaken += 1
