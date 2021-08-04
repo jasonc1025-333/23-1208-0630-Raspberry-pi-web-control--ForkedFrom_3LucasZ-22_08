@@ -44,6 +44,7 @@ motorBias = 0
 #camera setup
 camera = cv2.VideoCapture(0)
 time.sleep(0.5)
+#changing these might break the camera!!
 camera.set(3, 64)
 camera.set(4, 64)
 time.sleep(0.5)
@@ -106,6 +107,8 @@ def recording_system():
             retval, frame = camera.read()
             #crop the image
             #frame = frame[height-50:height, 0:width]
+            #flip the image horiz and vert
+            frame = cv2.flip(frame, -1)
             #save image into images
             cv2.imwrite(imagesPath + "frame" + str(framesTaken) + ".jpg", frame)
             #save current motor bias to bias.txt
