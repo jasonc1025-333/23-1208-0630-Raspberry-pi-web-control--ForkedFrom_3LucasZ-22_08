@@ -39,7 +39,14 @@ FPS = 5
 canRecord = False
 
 
-#motors
+#motor setup
+PIN_I2C6_POWER_ENABLE = 17
+bus = smbus.SMBus(3)
+DEVICE_ADDRESS = 0x53
+GPIO.setmode(GPIO.BCM)
+time.sleep(0.1) #important
+GPIO.setup(PIN_I2C6_POWER_ENABLE, GPIO.OUT)
+time.sleep(0.1) #important
 MOTOR_DEFAULT = 50
 motorBias = 0
 
