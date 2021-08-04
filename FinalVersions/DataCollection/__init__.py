@@ -33,10 +33,12 @@ socketio = SocketIO(app)
 
 #camera
 camera = cv2.VideoCapture(0)
+time.sleep(0.5)
 camera.set(3, 100)
 camera.set(4, 100)
 FPS = 5
 canRecord = False
+time.sleep(0.5)
 
 
 #motor setup
