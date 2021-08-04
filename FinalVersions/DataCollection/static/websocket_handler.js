@@ -1,6 +1,8 @@
 //SETUP
 const socket = io();
 const livestream = document.getElementById('livestream')
+const biasDisplay = document.getElementById("biasDisplay");
+var motorBias = 0;
 
 //LISTENERS
 socket.on('connect', function(){
@@ -30,15 +32,18 @@ function motorsOn(){
 function motorsOff(){
     socket.emit('motorsOff');
 }
-var motorBias = 0;
-var biasDisplay = document.getElementById("biasDisplay");
 function turnLeft(){
-    motorBias -= 2;
+    motorBias = Math.min(-20, motorBias - 2);
     socket.emit('motorBias', motorBias);
     biasDisplay.innerHTML = motorBias;
 }
 function turnRight(){
-    motorBias += 2;
+    motorBias = Math.max(20, motorBias + 2);
+    socket.emit('motorBias', motorBias);
+    biasDisplay.innerHTML = motorBias;
+}
+function forward(){
+    motorBias = 0;
     socket.emit('motorBias', motorBias);
     biasDisplay.innerHTML = motorBias;
 }
