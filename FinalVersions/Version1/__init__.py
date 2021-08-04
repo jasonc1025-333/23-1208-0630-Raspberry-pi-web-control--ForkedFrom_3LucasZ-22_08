@@ -69,51 +69,44 @@ scan_data = [0]*360
 @socketio.on('needCamera')
 def send_camera():
     global prev_t_cam
-    try:
-        while True:
-            retval, frame = camera.read()
-            #my camera is placed upside down ._.
-            #to get the correct image, we must flip the camera vertically and horizontally
-            frame = cv2.flip(frame, -1)
-            retval, jpg = cv2.imencode('.jpg', frame)
-            jpg_as_text = str(base64.b64encode(jpg))
-            jpg_as_text = jpg_as_text[2:-1]
-            emit('jpg_string', jpg_as_text)
-            print("sent a picture. time: " + str(time.time()-prev_t_cam))
-            prev_t_cam = time.time()
-            socketio.sleep(1/FPS)
-    except KeyboardInterrupt:
-        print('Stopping.')
+    print("sending lidar data now")
+    while True:
+        retval, frame = camera.read()
+        #my camera is placed upside down ._.
+        #to get the correct image, we must flip the camera vertically and horizontally
+        frame = cv2.flip(frame, -1)
+        retval, jpg = cv2.imencode('.jpg', frame)
+        jpg_as_text = str(base64.b64encode(jpg))
+        jpg_as_text = jpg_as_text[2:-1]
+        emit('jpg_string', jpg_as_text)
+        print("sent a picture. time: " + str(time.time()-prev_t_cam))
+        prev_t_cam = time.time()
+        socketio.sleep(1/FPS)
 
 
 #constantly send lidar data if client sends needLidar message
 @socketio.on('needLidar')
 def send_lidar():
     global prev_t_lidar
-    try:
-        #get the most recent scans from scan generator
-        counter = 0
-        for scan in lidar.iter_scans(3):
-            counter += 1 
-            #scan has array of points
-            #each point has 3 properties: quality, angle, distance
-            for (_, angle, distance) in scan:
-                #ensure accessing index in range
-                scan_data[min([359, floor(angle)])] = int(distance)
-                socketio.sleep(0)
-            #send all clients scan_data array
-            #print(scan_data)
-            if counter % 5 == 0:
-                emit("scanData", scan_data)
-                print("sent a scan. time: " + str(time.time()-prev_t_lidar))
-                prev_t_lidar = time.time()
+    print("sending lidar data now")
+ 
+    #get the most recent scans from scan generator
+    counter = 0
+    for scan in lidar.iter_scans(3):
+        counter += 1 
+        #scan has array of points
+        #each point has 3 properties: quality, angle, distance
+        for (_, angle, distance) in scan:
+            #ensure accessing index in range
+            scan_data[min([359, floor(angle)])] = int(distance)
             socketio.sleep(0)
-           
-    except KeyboardInterrupt:
-        print('Stopping.')
-
-    lidar.stop()
-    lidar.disconnect()
+        #send all clients scan_data array
+        #print(scan_data)
+        if counter % 5 == 0:
+            emit("scanData", scan_data)
+            print("sent a scan. time: " + str(time.time()-prev_t_lidar))
+            prev_t_lidar = time.time()
+        socketio.sleep(0)
 
 
 #COMMAND LISTENERS
@@ -192,3 +185,8 @@ def home():
 if __name__ == '__main__':
     print("ready for clients!")
     socketio.run(app, host='0.0.0.0', port=5000)
+
+#PROGRAM CLEAN UP
+GPIO.cleanup()
+lidar.stop()
+lidar.disconnect()
