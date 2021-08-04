@@ -44,8 +44,8 @@ motorBias = 0
 #camera setup
 camera = cv2.VideoCapture(0)
 time.sleep(0.5)
-camera.set(3, 100)
-camera.set(4, 100)
+camera.set(3, 64)
+camera.set(4, 64)
 time.sleep(0.5)
 FPS = 5
 canRecord = False
