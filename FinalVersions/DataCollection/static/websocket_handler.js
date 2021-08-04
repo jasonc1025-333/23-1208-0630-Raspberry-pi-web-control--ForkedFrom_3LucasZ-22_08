@@ -16,12 +16,13 @@ socket.on('jpg_string', function(data){
 
 //SENDERS
 function startRecording() {
-    console.log('starting the recording')
-    socket.emit('startRecording')
+    motorBias = 0;
+    socket.emit('startRecording');
+    console.log('starting the recording');
 }
 function pauseRecording() {
-    console.log('pausing the recording')
-    socket.emit('pauseRecording')
+    socket.emit('pauseRecording');
+    console.log('pausing the recording');
 }
 function motorsOn(){
     socket.emit('motorsOn');

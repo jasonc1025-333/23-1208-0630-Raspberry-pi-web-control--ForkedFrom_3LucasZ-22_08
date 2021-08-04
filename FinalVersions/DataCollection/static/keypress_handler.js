@@ -15,7 +15,7 @@ document.onkeydown = function (event) {
             break;
         case 32:
             console.log("Space bar pressed")
-            stopBtn.click();
+            pauseBtn.click();
             break;
     }
 };
