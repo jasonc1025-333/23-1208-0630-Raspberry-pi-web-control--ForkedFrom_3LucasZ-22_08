@@ -116,6 +116,7 @@ def recording_system():
             cv2.imwrite(imagesPath + "frame" + str(framesTaken) + ".jpg", frame)
             #save current motor bias to bias.txt
             biasFile.write(str(motorBias) + "\n")
+            print("On frame: " + str(framesTaken))
 
         #encode picture to jpg
         retval, jpg = cv2.imencode('.jpg', frame)
