@@ -37,7 +37,7 @@ GPIO.setmode(GPIO.BCM)
 time.sleep(0.1) #important
 GPIO.setup(PIN_I2C6_POWER_ENABLE, GPIO.OUT)
 time.sleep(0.1) #important
-MOTOR_DEFAULT = 50
+MOTOR_DEFAULT = 20
 motorBias = 0
 
 
@@ -116,7 +116,7 @@ def recording_system():
             cv2.imwrite(imagesPath + "frame" + str(framesTaken) + ".jpg", frame)
             #save current motor bias to bias.txt
             biasFile.write(str(motorBias) + "\n")
-            
+
         #encode picture to jpg
         retval, jpg = cv2.imencode('.jpg', frame)
         #encode to base 64 string
