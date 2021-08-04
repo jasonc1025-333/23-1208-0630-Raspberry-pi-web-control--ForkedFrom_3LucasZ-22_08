@@ -77,6 +77,9 @@ def recording_system():
     retval, frame = camera.read()
     height = frame.shape[0]
     width = frame.shape[1]
+    print("cam px height:", height)
+    print("cam px width:", width)
+    print("cam channels:", channels)
     while True:
         if canRecord:
             framesTaken += 1
