@@ -33,12 +33,12 @@ function motorsOff(){
     socket.emit('motorsOff');
 }
 function turnLeft(){
-    motorBias = Math.min(-20, motorBias - 2);
+    motorBias = Math.max(-20, motorBias - 2);
     socket.emit('motorBias', motorBias);
     biasDisplay.innerHTML = motorBias;
 }
 function turnRight(){
-    motorBias = Math.max(20, motorBias + 2);
+    motorBias = Math.min(20, motorBias + 2);
     socket.emit('motorBias', motorBias);
     biasDisplay.innerHTML = motorBias;
 }
