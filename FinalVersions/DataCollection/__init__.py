@@ -63,11 +63,11 @@ tubName = "tub" + str(int(time.time())) + "/"
 tubPath = os.path.join(datasetPath, tubName)
 imagesPath = os.path.join(tubPath, "Images/")
 biasFilePath = os.path.join(tubPath, "bias.txt")
+biasList = []
 
 #create the directories
 os.mkdir(tubPath)
 os.mkdir(imagesPath)
-
 #open bias file and allow writing data. If file already exists it is overridden.
 biasFile = open(biasFilePath, "w")
 
@@ -76,9 +76,9 @@ biasFile = open(biasFilePath, "w")
 def record():
     global canRecord
     canRecord = True
-    print("Recording started")
     bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte.int_to_byte_array(MOTOR_DEFAULT))
     bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte.int_to_byte_array(MOTOR_DEFAULT))
+    print("Recording started")
 
 
 @socketio.on('pauseRecording')
@@ -113,9 +113,11 @@ def recording_system():
             framesTaken += 1
             #save image into images
             cv2.imwrite(imagesPath + "frame" + str(framesTaken) + ".jpg", frame)
-            #save current motor bias to bias.txt
-            biasFile.write(str(motorBias) + "\n")
+            #save current motor bias
+            biasList.append(motorBias)
+            #sanity checks
             print("On frame: " + str(framesTaken))
+            print("BiasList elements: " + str(biasList.size())
 
         #encode picture to jpg
         retval, jpg = cv2.imencode('.jpg', frame)
@@ -191,7 +193,10 @@ if __name__ == '__main__':
     socketio.run(app, host='0.0.0.0', port=5000)
     
 print("Closing program")
-#close
+#clean up
+#add biases to biasFile and close the file
+for e in biasList:
+    biasFile.write(str(e) + "/n")
 biasFile.close()
 GPIO.cleanup()
 #sanity check
