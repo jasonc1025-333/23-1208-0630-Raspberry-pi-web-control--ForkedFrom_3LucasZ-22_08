@@ -13,6 +13,7 @@ import base64
 import os
 import shutil
 import pathlib
+import subprocess
 import time
 
 
@@ -149,8 +150,11 @@ def home():
     return render_template('index.html')
 
 if __name__ == '__main__':
-    try:
-        print("Ready for clients.")
-        socketio.run(app, host='0.0.0.0', port=5000)
-    except KeyboardInterrupt:
-        biasFile.close()
+    print("Ready for clients.")
+    socketio.run(app, host='0.0.0.0', port=5000)
+    
+print("Closing program")
+biasFile.close()
+#sanity check
+print("recorded motor values: " + os.popen("wc -l < " + biasFilePath).read().strip())
+print("recorded images: " + os.popen("ls " + imagesPath + " | wc -l").read().strip())
