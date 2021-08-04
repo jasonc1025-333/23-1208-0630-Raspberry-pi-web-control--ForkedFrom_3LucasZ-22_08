@@ -102,8 +102,6 @@ def recording_system():
     print("cam px width:", width)
     print("cam channels:", channels)
     while True:
-        
-        framesTaken += 1
         #take picture into frame
         retval, frame = camera.read()
         #crop the image
@@ -112,6 +110,7 @@ def recording_system():
         frame = cv2.flip(frame, -1)
 
         if canRecord:
+            framesTaken += 1
             #save image into images
             cv2.imwrite(imagesPath + "frame" + str(framesTaken) + ".jpg", frame)
             #save current motor bias to bias.txt
