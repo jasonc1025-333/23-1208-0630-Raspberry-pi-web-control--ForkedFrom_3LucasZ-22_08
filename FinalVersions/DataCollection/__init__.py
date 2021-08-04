@@ -13,14 +13,12 @@ import base64
 import RPi.GPIO as GPIO
 import smbus2 as smbus
 import int_to_byte
-import time
 
 
 #data collection
 import os
 import shutil
 import pathlib
-import subprocess
 import time
 
 
@@ -29,16 +27,6 @@ import time
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
 socketio = SocketIO(app)
-
-
-#camera
-camera = cv2.VideoCapture(0)
-time.sleep(0.5)
-camera.set(3, 100)
-camera.set(4, 100)
-FPS = 5
-canRecord = False
-time.sleep(0.5)
 
 
 #motor setup
@@ -51,6 +39,16 @@ GPIO.setup(PIN_I2C6_POWER_ENABLE, GPIO.OUT)
 time.sleep(0.1) #important
 MOTOR_DEFAULT = 50
 motorBias = 0
+
+
+#camera setup
+camera = cv2.VideoCapture(0)
+time.sleep(0.5)
+camera.set(3, 100)
+camera.set(4, 100)
+time.sleep(0.5)
+FPS = 5
+canRecord = False
 
 
 #data collection
