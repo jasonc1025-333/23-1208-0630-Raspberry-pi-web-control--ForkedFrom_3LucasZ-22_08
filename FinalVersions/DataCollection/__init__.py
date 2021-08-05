@@ -196,7 +196,7 @@ print("Closing program")
 #clean up
 #add biases to biasFile and close the file
 for e in biasList:
-    biasFile.write(str(e) + "/n")
+    biasFile.write(str(e) + "\n")
 biasFile.close()
 GPIO.cleanup()
 #sanity check
