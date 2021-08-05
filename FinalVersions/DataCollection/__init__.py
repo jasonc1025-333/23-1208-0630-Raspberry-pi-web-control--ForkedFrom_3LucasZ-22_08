@@ -111,13 +111,13 @@ def recording_system():
 
         if canRecord:
             framesTaken += 1
-            #save image into images
+            #save frame
             cv2.imwrite(imagesPath + "frame" + str(framesTaken) + ".jpg", frame)
             #save current motor bias
             biasList.append(motorBias)
             #sanity checks
             print("On frame: " + str(framesTaken))
-            print("BiasList elements: " + str(biasList.size())
+            print("BiasList elements: " + str(biasList.size()))
 
         #encode picture to jpg
         retval, jpg = cv2.imencode('.jpg', frame)
