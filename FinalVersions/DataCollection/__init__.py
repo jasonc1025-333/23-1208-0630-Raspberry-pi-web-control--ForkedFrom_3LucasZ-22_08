@@ -117,7 +117,7 @@ def recording_system():
             biasList.append(motorBias)
             #sanity checks
             print("On frame: " + str(framesTaken))
-            print("BiasList elements: " + str(biasList.size()))
+            print("BiasList elements: " + str(len(biasList)))
 
         #encode picture to jpg
         retval, jpg = cv2.imencode('.jpg', frame)
