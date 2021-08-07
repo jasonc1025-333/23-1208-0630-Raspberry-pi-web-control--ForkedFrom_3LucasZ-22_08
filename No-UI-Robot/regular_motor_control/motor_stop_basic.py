@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-import smbus
+import smbus2 as smbus
 import math
 import RPi.GPIO as GPIO
 import time
