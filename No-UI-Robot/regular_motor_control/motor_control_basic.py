@@ -1,4 +1,3 @@
-#! /usr/bin/env python
 import smbus2 as smbus
 import math
 import RPi.GPIO as GPIO
@@ -6,7 +5,7 @@ import time
 from textwrap import wrap
 import int_to_byte
 
-PIN_I2C6_POWER_ENABLE = 15
+PIN_I2C6_POWER_ENABLE = 17
 
 bus = smbus.SMBus(1)      #this is I2C6 on the pi4 for some reason
 DEVICE_ADDRESS = 0x53
