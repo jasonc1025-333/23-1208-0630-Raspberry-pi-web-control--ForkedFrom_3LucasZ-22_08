@@ -7,7 +7,7 @@ from textwrap import wrap
 
 PIN_I2C6_POWER_ENABLE = 17
 
-bus = smbus.SMBus(3)      #this is I2C6 on the pi4 for some reason
+bus = smbus.SMBus(1)      #this is I2C6 on the pi4 for some reason
 DEVICE_ADDRESS = 0x53
 
 GPIO.setmode(GPIO.BCM)
