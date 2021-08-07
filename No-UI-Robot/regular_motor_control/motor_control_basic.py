@@ -6,7 +6,7 @@ import time
 from textwrap import wrap
 import int_to_byte
 
-PIN_I2C6_POWER_ENABLE = 11
+PIN_I2C6_POWER_ENABLE = 15
 
 bus = smbus.SMBus(1)      #this is I2C6 on the pi4 for some reason
 DEVICE_ADDRESS = 0x53
