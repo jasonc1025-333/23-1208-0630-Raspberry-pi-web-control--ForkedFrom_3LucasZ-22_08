@@ -15,10 +15,9 @@ GPIO.setup(PIN_I2C6_POWER_ENABLE, GPIO.OUT)
 time.sleep(0.1) #EXTREMELY important
 GPIO.output(PIN_I2C6_POWER_ENABLE, GPIO.HIGH)
 time.sleep(0.1) #EXTREMELY important
-bus.write_i2c_block_data(DEVICE_ADDRESS,0,int_to_byte.int_to_byte_array(0))
-bus.write_i2c_block_data(DEVICE_ADDRESS,1,int_to_byte.int_to_byte_array(0))
-bus.write_i2c_block_data(DEVICE_ADDRESS,2,int_to_byte.int_to_byte_array(0))
-bus.write_i2c_block_data(DEVICE_ADDRESS,5,int_to_byte.int_to_byte_array(0))
+bus.write_i2c_block_data(DEVICE_ADDRESS,1,int_to_byte.int_to_byte_array(7))
+bus.write_i2c_block_data(DEVICE_ADDRESS,2,int_to_byte.int_to_byte_array(5))
+
 bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte.int_to_byte_array(30))
 bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte.int_to_byte_array(30))
 time.sleep(3)
@@ -28,4 +27,3 @@ time.sleep(1)
 #GPIO.output(PIN_I2C6_POWER_ENABLE, GPIO.LOW)
 #time.sleep(1)
 #GPIO.cleanup()
-
