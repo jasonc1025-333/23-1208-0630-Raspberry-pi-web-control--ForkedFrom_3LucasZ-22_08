@@ -18,4 +18,4 @@ def int_to_byte_array(num):
    return array
 
 if __name__ == 'main':
-    print(int_to_byte_array(-100))
+    print(int_to_byte_array(100))
