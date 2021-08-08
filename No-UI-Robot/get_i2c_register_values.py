@@ -13,5 +13,5 @@ time.sleep(0.1)
 bus = smbus.SMBus(6)
 DEVICE_ADDRESS = 0x53
 
-for i in range(10):
-    print(bus.read_byte_data(DEVICE_ADDRESS, i))
+for i in range(0,10):
+    print(i,":", bus.read_block_data(DEVICE_ADDRESS, i, 8))
