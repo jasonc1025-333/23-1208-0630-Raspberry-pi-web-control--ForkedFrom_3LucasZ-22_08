@@ -14,8 +14,8 @@ time.sleep(0.1)
 GPIO.output(PIN_I2C6_POWER_ENABLE, GPIO.HIGH)
 time.sleep(0.1)
 
-bus.write_block_data(DEVICE_ADDRESS, 1, int_to_byte.int_to_byte_array(7))
-bus.write_block_data(DEVICE_ADDRESS, 2, int_to_byte.int_to_byte_array(5))
+bus.write_block_data(DEVICE_ADDRESS, 1, 7)
+bus.write_block_data(DEVICE_ADDRESS, 2, 5)
 
 #bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte.int_to_byte_array(30))
 #bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte.int_to_byte_array(30))
