@@ -1,3 +1,0 @@
-run source before bash script to run in cwd
-wc -l to count file lines
-ls directory | wc -l to count files in directory 

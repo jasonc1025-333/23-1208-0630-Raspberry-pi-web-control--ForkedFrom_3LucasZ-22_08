@@ -1,0 +1,5 @@
+Q: How to find which I2C are available?
+A: echo /dev/i2c* will list all available i2c device names/ids
+
+Q: How to find what addresses are connected to I2C?
+A: sudo i2cdetect -y <i2c ID>
