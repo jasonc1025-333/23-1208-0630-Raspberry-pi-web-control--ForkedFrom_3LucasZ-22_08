@@ -52,35 +52,35 @@ def motors_off():
 
 @socketio.on('turnLeft')
 def turn_left():
-    bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte.int_to_byte_array(speed))
-    bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte.int_to_byte_array(-1 * speed))
+    bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte_array(speed))
+    bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte_array(-1 * speed))
     print("turn left received")
 
 
 @socketio.on('turnRight')
 def turn_right():
-    bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte.int_to_byte_array(-1 * speed))
-    bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte.int_to_byte_array(speed))
+    bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte_array(-1 * speed))
+    bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte_array(speed))
     print("turn right received")
 
 
 @socketio.on('forward')
 def forward():
-    bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte.int_to_byte_array(speed))
-    bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte.int_to_byte_array(speed))
+    bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte_array(speed))
+    bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte_array(speed))
     print("forward received")
 
 @socketio.on('backward')
 def backward():
-    bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte.int_to_byte_array(-1 * speed))
-    bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte.int_to_byte_array(-1 * speed))
+    bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte_array(-1 * speed))
+    bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte_array(-1 * speed))
     print("backward received")
 
 
 @socketio.on('stopMotors')
 def stop_motors():
-    bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte.int_to_byte_array(0))
-    bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte.int_to_byte_array(0))
+    bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte_array(0))
+    bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte_array(0))
     print("stopp motors received")
 
 
