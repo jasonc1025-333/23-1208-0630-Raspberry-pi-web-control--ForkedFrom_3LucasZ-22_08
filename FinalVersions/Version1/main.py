@@ -12,7 +12,7 @@ import base64
 #motor control
 import RPi.GPIO as GPIO
 import smbus2 as smbus
-import int_to_byte
+from Modules.utils import int_to_byte_array
 import time
 
 

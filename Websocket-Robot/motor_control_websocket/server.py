@@ -4,7 +4,7 @@ from flask_socketio import SocketIO
 import smbus2 as smbus
 import RPi.GPIO as GPIO
 import time
-import int_to_byte
+from Modules.int_to_byte import int_to_byte_array 
 
 
 #app setup
@@ -92,4 +92,6 @@ def set_speed(data):
 
 
 if __name__ == '__main__':
+    print("Ready for clients!")
+    print("Running on: <Server IP Address>:8080")
     socketio.run(app, host='0.0.0.0', port='8080')

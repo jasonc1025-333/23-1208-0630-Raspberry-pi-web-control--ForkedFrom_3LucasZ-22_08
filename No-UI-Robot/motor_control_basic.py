@@ -1,7 +1,7 @@
 import smbus2 as smbus
 import RPi.GPIO as GPIO
 import time
-import int_to_byte
+from Modules.utils import int_to_byte_array
 
 PIN_I2C6_POWER_ENABLE = 17
 
@@ -19,3 +19,5 @@ bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte.int_to_byte_array(30))
 time.sleep(3)
 bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte.int_to_byte_array(0))
 bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte.int_to_byte_array(0))
+
+#right side not working

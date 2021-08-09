@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 from flask import Flask, render_template, request
-import int_to_byte
-import smbus
+from Modules.utils import int_to_byte_array
+import smbus2 as smbus
 import math
 import RPi.GPIO as GPIO
 import time
