@@ -1,5 +1,14 @@
 # Raspberry-Pi-web-control
 
+* FinalVersions: Best
+  ** SocketIO: Final
+* Websocket-Robot: Better
+  ** SocketIO: Prototype
+* Flask-Robot: Good
+  ** Sending raw 'jpg' 
+* No-UI-Robot: Nothing
+  ** No GUI, Manual Code Control
+
 Controlling a Raspberry Pi based robot with any device using websites.
 Everything happens realtime!
 
