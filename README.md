@@ -2,13 +2,13 @@
 
 23-1123-1040 JasonC:
 * FinalVersions: Best
-  ** SocketIO: Final
+  * SocketIO: Final
 * Websocket-Robot: Better
-  ** SocketIO: Prototype
+  * SocketIO: Prototype
 * Flask-Robot: Good
-  ** Sending raw 'jpg' 
+  * Sending raw 'jpg' 
 * No-UI-Robot: Nothing
-  ** No GUI, Manual Code Control
+  * No GUI, Manual Code Control
 
 Controlling a Raspberry Pi based robot with any device using websites.
 Everything happens realtime!
