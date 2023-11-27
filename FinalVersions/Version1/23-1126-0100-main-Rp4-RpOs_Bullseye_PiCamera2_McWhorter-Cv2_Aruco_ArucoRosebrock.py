@@ -455,7 +455,8 @@ def home():
 #RUN THE APP
 if __name__ == '__main__':
     print("ready for clients!")
-    socketio.run(app, host='0.0.0.0', port=5000)
+    ###jwc o socketio.run(app, host='0.0.0.0', port=5000)
+    socketio.run(app, host='0.0.0.0', port=5000, debug=True)
 
 #PROGRAM CLEAN UP
 GPIO.cleanup()
