@@ -5,6 +5,7 @@ from flask_socketio import SocketIO, emit, send
 
 
 #video stream
+# jwc, install simply and briefly 'sudo apt install python3-opencv'
 import cv2
 import base64
 
