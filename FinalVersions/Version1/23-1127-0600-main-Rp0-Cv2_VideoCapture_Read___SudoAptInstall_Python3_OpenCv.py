@@ -34,13 +34,16 @@ app.config['SECRET_KEY'] = 'mysecret'
 socketio = SocketIO(app)
 
 
-#camera setup
-camera = cv2.VideoCapture(0)
-time.sleep(1)
-camera.set(3, 64)
-camera.set(4, 64)
-FPS = 10
-sentCamera = False
+###jwc 23-1128-0100: https://github.com/opencv/opencv/issues/19527
+###
+###jwc 23-1128-0100 o: #camera setup
+###jwc 23-1128-0100 o: ###jwc 23-1128-0050 o: camera = cv2.VideoCapture(0)
+###jwc 23-1128-0100 o: camera = cv2.VideoCapture(0, cv2.CAP_V4L)
+###jwc 23-1128-0100 o: time.sleep(1)
+###jwc 23-1128-0100 o: camera.set(3, 64)
+###jwc 23-1128-0100 o: camera.set(4, 64)
+###jwc 23-1128-0100 o: FPS = 10
+###jwc 23-1128-0100 o: sentCamera = False
 
 
 ###jwc o #motor setup
@@ -71,6 +74,17 @@ prev_t_cam = 0
 def send_camera():
     global prev_t_cam
     print("sending cam data now")
+
+    #camera setup
+    ###jwc 23-1128-0050 o: camera = cv2.VideoCapture(0)
+    ###jwc ? camera = cv2.VideoCapture(0, cv2.CAP_V4L)
+    camera = cv2.VideoCapture(0)
+    time.sleep(1)
+    camera.set(3, 64)
+    camera.set(4, 64)
+    FPS = 10
+    sentCamera = False
+
     while True:
         retval, frame = camera.read()
         #my camera is placed upside down ._.
