@@ -123,13 +123,13 @@ def disconnect():
 
 @socketio.on('motorsOn')
 def motors_on():
-    GPIO.output(PIN_I2C6_POWER_ENABLE, GPIO.HIGH)
+    ###jwc o GPIO.output(PIN_I2C6_POWER_ENABLE, GPIO.HIGH)
     print("motor on received")
 
 
 @socketio.on('motorsOff')
 def motors_off():
-    GPIO.output(PIN_I2C6_POWER_ENABLE, GPIO.LOW)
+    ###jwc o GPIO.output(PIN_I2C6_POWER_ENABLE, GPIO.LOW)
     print("motor off received")
 
 
