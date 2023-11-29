@@ -3,6 +3,24 @@
 from flask import Flask, request, render_template
 from flask_socketio import SocketIO, emit, send
 
+# * SocketIO will use the following WSGI servers even if not imported with this file.  
+# * As long as 'pip3 install' in OS, will be activated in this order
+#   * 'eventlet', 'gevent' then 'flask'
+#     * 'eventlet' and 'flask' works
+#     * 'gevent' not work
+
+# pip3 install eventlet
+# TYJ Works
+import eventlet
+
+# jwc hopefully to resolve 'RuntimeError: Cannot obtain socket from WSGI environment'
+# jwc not work for socketio: from waitress import serve
+
+# NOT GOOD: pip3 install gevent & gevent-websocket
+# HUJ not work
+# * https://flask.palletsprojects.com/en/1.1.x/deploying/wsgi-standalone/ : Gevent
+###jwc n from gevent.pywsgi import WSGIServer
+
 
 #video stream
 import cv2
@@ -38,7 +56,6 @@ import time
 
 #other
 import sys
-
 
 
 # jwc 
@@ -86,7 +103,12 @@ ARUCO_DICT = {
 #set up app
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
-socketio = SocketIO(app)
+###jwc y socketio = SocketIO(app)
+###jwc y socketio = SocketIO(app, logger=True, engineio_logger=True)
+###jwc y socketio = SocketIO(app, logger=True, engineio_logger=False)
+###jwc y socketio = SocketIO(app, logger=False, engineio_logger=True)
+###jwc y laggy w/ 'eventlet' socketio = SocketIO(app, logger=True, engineio_logger=False)
+socketio = SocketIO(app, logger=False, engineio_logger=False)
 
 
 
@@ -174,7 +196,8 @@ def fpsCount():
     millis = int(round(time.time() * 1000))
     framecount += 1
     if millis - prevMillis > 1000:
-        print(framecount)
+        ###jwc y print(framecount)
+        print("FPS:" + str(framecount))
         prevMillis = millis 
         framecount = 0
 
@@ -258,17 +281,17 @@ def send_camera():
     piCam.preview_configuration.controls.FrameRate=90
     piCam.preview_configuration.align()
     
-    framecount = 0
-    prevMillis = 0
-    def fpsCount():
-        global prevMillis
-        global framecount
-        millis = int(round(time.time() * 1000))
-        framecount += 1
-        if millis - prevMillis > 1000:
-            print(framecount)
-            prevMillis = millis 
-            framecount = 0
+    ###jwc o framecount = 0
+    ###jwc o prevMillis = 0
+    ###jwc o def fpsCount():
+    ###jwc o     global prevMillis
+    ###jwc o     global framecount
+    ###jwc o     millis = int(round(time.time() * 1000))
+    ###jwc o     framecount += 1
+    ###jwc o     if millis - prevMillis > 1000:
+    ###jwc o         print(framecount)
+    ###jwc o         prevMillis = millis 
+    ###jwc o         framecount = 0
             
     # verify that the supplied ArUCo tag exists and is supported by
     # OpenCV
@@ -385,7 +408,7 @@ def send_camera():
                 if markerID == 0:                
                     ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=120
                     ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=120
-                    print("*** MarkerID: "+ str(markerID))
+                    ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
                     ###jwc o sleep(timeDuration)
                     time.sleep(timeDuration)
                 if markerID == 1:                
@@ -393,7 +416,7 @@ def send_camera():
                     ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=60
                     ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=70
                     ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=70
-                    print("*** MarkerID: "+ str(markerID))
+                    ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
                     ###jwc o sleep(timeDuration)
                     time.sleep(timeDuration)
                 if markerID == 2:                
@@ -401,7 +424,7 @@ def send_camera():
                     ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=60
                     ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=120
                     ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=70
-                    print("*** MarkerID: "+ str(markerID))
+                    ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
                     ###jwc o sleep(timeDuration)
                     time.sleep(timeDuration)
                 if markerID == 3:                
@@ -409,13 +432,13 @@ def send_camera():
                     ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=120
                     ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=80
                     ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=120
-                    print("*** MarkerID: "+ str(markerID))
+                    ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
                     ###jwc o sleep(timeDuration)
                     time.sleep(timeDuration)
                 if markerID == 4:                
                     ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=90
                     ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=90
-                    print("*** MarkerID: "+ str(markerID))
+                    ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
                     ###jwc o sleep(timeDuration)
                     time.sleep(timeDuration)
 
@@ -431,12 +454,12 @@ def send_camera():
         jpg_as_text = str(base64.b64encode(jpg))
         jpg_as_text = jpg_as_text[2:-1]
         emit('jpg_string', jpg_as_text)
-        print("sent a picture. time: " + str(time.time()-prev_t_cam))
+        ###jwc y print("sent a picture. time: " + str(time.time()-prev_t_cam))
         prev_t_cam = time.time()
         socketio.sleep(1/FPS)
         
     
-        cv2.imshow("piCam", frame)
+        ###jwc y caused significant lag: cv2.imshow("piCam", frame)
                 
         fpsCount()        
             
@@ -537,6 +560,12 @@ def set_speed(data):
     print("Speed:", speed)
 
 
+@socketio.on_error_default
+def default_error_handler(e):
+    print(request.event["message"]) # "my error event"
+    print(request.event["args"])    # (data,)
+
+
 #FLASK SERVING
 #serve the webpage when a client connects to IP:5000
 @app.route('/')
@@ -548,7 +577,19 @@ def home():
 if __name__ == '__main__':
     print("ready for clients!")
     ###jwc o socketio.run(app, host='0.0.0.0', port=5000)
-    socketio.run(app, host='0.0.0.0', port=5000, debug=True)
+    
+    ###jwc y socketio.run(app, host='0.0.0.0', port=5000, debug=True)
+    
+    ###jwc n serve( app, host='0.0.0.0', port=5000, url_scheme='https', threads=100 )
+        
+    ###jwc n socketio = SocketIO(app, cors_allowed_origins="*") 
+    ###jwc n socketio = SocketIO(app, cors_allowed_origins=['http://127.0.0.1:5500'])     
+
+    ###jwc y socketio.run(app, host='0.0.0.0', port=5000, debug=True)
+    ###jwc   socketio.run(app, host='10.78.25.75', port=5000, debug=True)
+    ###jwc y socketio.run(app, host='0.0.0.0', port=5000, debug=True)
+    socketio.run(app, host='0.0.0.0', port=5000, debug=False)
+
 
 #PROGRAM CLEAN UP
 GPIO.cleanup()
