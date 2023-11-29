@@ -8,6 +8,7 @@ from flask_socketio import SocketIO, emit, send
 #   * 'eventlet', 'gevent' then 'flask'
 #     * 'eventlet' and 'flask' works
 #     * 'gevent' not work
+#
 
 # pip3 install eventlet
 # TYJ Works
