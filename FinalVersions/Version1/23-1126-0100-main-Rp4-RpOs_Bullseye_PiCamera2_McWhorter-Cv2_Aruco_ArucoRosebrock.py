@@ -172,14 +172,15 @@ time.sleep(2.0)
 
 
 ###jwc o motor setup
-###jwc o IN_I2C6_POWER_ENABLE = 17
-###jwc o us = smbus.SMBus(1)
-###jwc o EVICE_ADDRESS = 0x53
-###jwc o PIO.setmode(GPIO.BCM)
-###jwc o ime.sleep(0.1) #important
-###jwc o PIO.setup(PIN_I2C6_POWER_ENABLE, GPIO.OUT)
-###jwc o ime.sleep(0.1) #important
-###jwc o peed = 50
+###jwc o PIN_I2C6_POWER_ENABLE = 17
+###jwc o bus = smbus.SMBus(1)
+###jwc o DEVICE_ADDRESS = 0x53
+###jwc o GPIO.setmode(GPIO.BCM)
+###jwc o time.sleep(0.1) #important
+###jwc o GPIO.setup(PIN_I2C6_POWER_ENABLE, GPIO.OUT)
+###jwc o time.sleep(0.1) #important
+###jwc o speed = 50
+
 
 #debug
 ###jwc o prev_t_lidar = 0
@@ -454,7 +455,8 @@ def home():
 #RUN THE APP
 if __name__ == '__main__':
     print("ready for clients!")
-    socketio.run(app, host='0.0.0.0', port=5000)
+    ###jwc o socketio.run(app, host='0.0.0.0', port=5000)
+    socketio.run(app, host='0.0.0.0', port=5000, debug=True)
 
 #PROGRAM CLEAN UP
 GPIO.cleanup()
