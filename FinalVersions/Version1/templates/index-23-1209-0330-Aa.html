@@ -15,14 +15,18 @@
 </head>
     <body>
         <div class='row no-margin no-padding'>
-            <div class='col-4 no-padding'>
-                <img id='livestream' width=100%>
+            <!-- jwc o <div class='col-4 no-padding'>
+            -->
+            <div class='col-7 no-padding'>
+                    <img id='livestream' width=100%>
             </div>
-            <div class='col-1'>
+            <!--
+            <div jwc o class='col-4'>
                 <canvas id="lidarGraph" width="700" height="700"></canvas>
                 <h3>Pixel Size: </h3>
                 <input type="text" id="pixelSizeInput">
             </div>
+            -->
             <div class='col-4'>
                 <div class='row'>
                     <button onclick="motorsOn()" class='col-6 btn btn-outline-success straight-border header-button'>Motors On</button>
@@ -55,25 +59,3 @@
     <script src="../static/websocket_handler.js"></script>
     <script src="../static/keypress_handler.js"></script>
 </html>
-
-
-<!-- jwc
-
-            <div class='col-6 no-padding'>
-                <img id='livestream' width=100%>
-            </div>
-
-            <div class='col-4 no-padding'>
-                <img id='livestream' width=100%>
-            </div>
-
-            <div class='col-4'>
-                <canvas id="lidarGraph" width="700" height="700"></canvas>
-                <h3>Pixel Size: </h3>
-                <input type="text" id="pixelSizeInput">
-            </div>
-
-
-
-
--->

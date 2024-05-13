@@ -207,6 +207,11 @@ def fpsCount():
         framecount = 0
 
 
+target_00_Score_Int = 0
+target_01_Score_Int = 0
+target_02_Score_Int = 0
+target_03_Score_Int = 0
+
 # jwc Provide time to stabilize
 ###jwc o time.sleep(2.0)
 time.sleep(2.0)
@@ -393,8 +398,10 @@ def send_camera():
         ###jwc y 29 fps: frame = imutils.reszie(frame, height=400, width=300)
         ###jwc y 25 fps: frame = imutils.resize(frame, height=375, width=300)
         ###jwc y 33fps :)+
+        ###jwc yy frame = imutils.resize(frame, height=350, width=250)
+        ###jwc y more laggy: frame = imutils.resize(frame, height=800, width=600)
         frame = imutils.resize(frame, height=350, width=250)
-       
+      
        
         # detect ArUco markers in the input frame
         ###jwc o (corners, ids, rejected) = cv2.aruco.detectMarkers(frame, arucoDict, parameters=arucoParams)
@@ -438,45 +445,120 @@ def send_camera():
                     0.5, (0, 255, 0), 2)
                 
                 # jwc 3, 2, 1
-                timeDuration = 1
+                # seconds
+                timeDuration_Sec_Int = 1
+                
                 
                 if markerID == 0:                
                     ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=120
                     ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=120
                     ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
-                    ###jwc o sleep(timeDuration)
-                    time.sleep(timeDuration)
+                    ###jwc o sleep(timeDuration_Sec_Int)
+                    
+                    ###jwc n crashes cam: stop_motors()
+                     
+                    ###jwc y time.sleep(timeDuration_Sec_Int)
+                    
+                    ###jwc print("*** MarkerID: "+ str(markerID))
+                    
+                    target_00_Score_Int = 0
+                    target_01_Score_Int = 0
+                    target_02_Score_Int = 0
+                    target_03_Score_Int = 0
+                    
+                    print("!!!!!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!!!!!")
+                    print("!!!!!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!!!!!")
+                    print("!!!!!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!!!!!")
+                    print("!!!!!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!!!!!")
+                    print("!!!!!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!!!!!")
+
+                    time.sleep(timeDuration_Sec_Int)
+
                 if markerID == 1:                
                     ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=60
                     ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=60
                     ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=70
                     ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=70
                     ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
-                    ###jwc o sleep(timeDuration)
-                    time.sleep(timeDuration)
+                    ###jwc o sleep(timeDuration_Sec_Int)
+                    
+                    ###jwc n crashes cam: servoId_Left = 0
+                    ###jwc n crashes cam: servoAngle_Left = 135
+                    ###jwc n crashes cam: 
+                    ###jwc n crashes cam: sc.callback_servo_enable(int(servoId_Left), trueMsg)
+                    ###jwc n crashes cam: 
+                    ###jwc n crashes cam: angle_Left = sc.msg(int(servoAngle_Left))
+                    ###jwc n crashes cam: sc.callback_servo_angle(int(servoId_Left),angle_Left)
+                    ###jwc n crashes cam: 
+                    ###jwc n crashes cam: print("motion_Left", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
+                    ###jwc n crashes cam: return ('id_L: ' + str(servoId_Left) + ' angle_L: ' + str(servoAngle_Left) + '|' + 'id_R: ' + str(servoId_Right) + ' angle_R: ' + str(servoAngle_Right))
+                    ###jwc n crashes cam: 
+                    ###jwc n crashes cam: time.sleep(timeDuration_Sec_Int)
+                    ###jwc n crashes cam: 
+                    ###jwc n crashes cam: stop_motors()
+                    
+                    target_01_Score_Int += 1
+                    
+                    print("*** Contact: MarkerID: "+ str(markerID))
+                    
+                    print("               Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
+
                 if markerID == 2:                
                     ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=120
                     ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=60
                     ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=120
                     ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=70
                     ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
-                    ###jwc o sleep(timeDuration)
-                    time.sleep(timeDuration)
+                    ###jwc o sleep(timeDuration_Sec_Int)
+
+                    ###jwc n crashes cam: servoId_Right = 1
+                    ###jwc n crashes cam: servoAngle_Right = 45
+                    ###jwc n crashes cam: 
+                    ###jwc n crashes cam: sc.callback_servo_enable(int(servoId_Right), trueMsg)
+                    ###jwc n crashes cam: 
+                    ###jwc n crashes cam: angle_Right = sc.msg(int(servoAngle_Right))
+                    ###jwc n crashes cam: sc.callback_servo_angle(int(servoId_Right),angle_Right)
+                    ###jwc n crashes cam: 
+                    ###jwc n crashes cam: print("motion_Right", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
+                    ###jwc n crashes cam: return ('id_L: ' + str(servoId_Left) + ' angle_L: ' + str(servoAngle_Left) + '|' + 'id_R: ' + str(servoId_Right) + ' angle_R: ' + str(servoAngle_Right))
+                    ###jwc n crashes cam: 
+                    ###jwc n crashes cam: time.sleep(timeDuration_Sec_Int)
+                    ###jwc n crashes cam: 
+                    ###jwc n crashes cam: stop_motors()
+                    
+                    target_02_Score_Int += 1
+                    
+                    print("*** *** Contact: MarkerID: "+ str(markerID))
+                    
+                    print("               Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
+
                 if markerID == 3:                
                     ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=60
                     ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=120
                     ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=80
                     ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=120
                     ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
-                    ###jwc o sleep(timeDuration)
-                    time.sleep(timeDuration)
+                    ###jwc o sleep(timeDuration_Sec_Int)
+                    
+                    ###jwc n crashes cam: forward()
+                    ###jwc n crashes cam: 
+                    ###jwc n crashes cam: time.sleep(timeDuration_Sec_Int)
+                    ###jwc n crashes cam: 
+                    ###jwc n crashes cam: stop_motors()
+
+                    target_03_Score_Int += 1
+                    
+                    print("*** *** *** Contact: MarkerID: "+ str(markerID))
+                    
+                    print("               Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
+                    
+                    
                 if markerID == 4:                
                     ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=90
                     ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=90
                     ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
-                    ###jwc o sleep(timeDuration)
-                    time.sleep(timeDuration)
-
+                    ###jwc o sleep(timeDuration_Sec_Int)
+                    time.sleep(timeDuration_Sec_Int)
 
                 ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=90
                 ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=90
