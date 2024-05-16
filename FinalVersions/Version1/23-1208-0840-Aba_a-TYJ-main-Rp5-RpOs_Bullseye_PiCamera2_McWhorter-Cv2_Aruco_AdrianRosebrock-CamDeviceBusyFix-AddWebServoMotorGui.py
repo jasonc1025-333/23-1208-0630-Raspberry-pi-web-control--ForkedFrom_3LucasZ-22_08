@@ -287,7 +287,10 @@ def send_camera():
     ###jwc o camera.set(3, 64)
     ###jwc o camera.set(4, 64)
     
-    FPS = 10
+    ###jwc 24-0516-1610 y hopefully increase fps: FPS = 10
+    # was 10, 60fps >> 20-30fps, 120fps >> same rate
+    FPS = 120
+    
     ###jwc o sentCamera = False
     
     piCam = Picamera2()
@@ -586,6 +589,8 @@ def send_camera():
         emit('jpg_string', jpg_as_text)
         ###jwc y print("sent a picture. time: " + str(time.time()-prev_t_cam))
         prev_t_cam = time.time()
+        
+        ###jwc y 24-0516-1630 is this needed?: Fps appeared to improve from 20to30 to 30to40, but may overwhelm the client: socketio.sleep(1/FPS)
         socketio.sleep(1/FPS)
         
     
