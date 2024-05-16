@@ -1,0 +1,40 @@
+###jwc o asn1crypto==0.24.0
+###jwc o bidict==0.22.1
+###jwc o certifi==2018.8.24
+###jwc o chardet==3.0.4
+###jwc o click==8.1.7
+###jwc o colorzero==1.1
+###jwc o ### 24-0514-0710 jwc: ERROR: Could not build wheels for cryptography, pycairo, which is required to install pyproject.toml-based projects pycairo: cryptography==2.6.1
+###jwc o entrypoints==0.3
+Flask==2.2.5
+Flask-SocketIO==5.3.6
+gpiozero==1.6.2
+###jwc o h11==0.14.0
+###jwc o idna==2.6
+###jwc o importlib-metadata==6.7.0
+###jwc o itsdangerous==2.1.2
+###jwc o Jinja2==3.1.2
+###jwc o keyring==17.1.1
+###jwc o keyrings.alt==3.1.1
+###jwc o MarkupSafe==2.1.3
+###jwc o numpy==1.16.2
+###jwc o ### 24-0514-0711 jwc: ERROR: Could not build wheels for pycairo, which is required to install pyproject.toml-based projects: pycrypto==2.6.1
+###jwc o PyGObject==3.30.4
+###jwc o ###
+###jwc o ### 24-0514-0650 jwc: ERROR: No matching distribution found for python-apt==1.8.4.3: python-apt==1.8.4.3
+###jwc o ###
+###jwc o python-engineio==4.8.0
+###jwc o python-socketio==5.10.0
+###jwc o pyxdg==0.25
+###jwc o requests==2.21.0
+###jwc o RPi.GPIO==0.7.0
+###jwc o SecretStorage==2.3.1
+###jwc o simple-websocket==1.0.0
+###jwc o six==1.12.0
+###jwc o spidev==3.5
+###jwc o ssh-import-id==5.7
+###jwc o typing_extensions==4.7.1
+###jwc o urllib3==1.24.1
+###jwc o Werkzeug==2.2.3
+###jwc o wsproto==1.2.0
+###jwc o zipp==3.15.0
