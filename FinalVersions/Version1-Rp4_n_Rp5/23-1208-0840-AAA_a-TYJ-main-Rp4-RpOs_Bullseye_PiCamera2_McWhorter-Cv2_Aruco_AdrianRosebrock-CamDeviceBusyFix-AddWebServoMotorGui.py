@@ -59,8 +59,8 @@ import RPi.GPIO as GPIO
 ###jwc o from adafruit_rplidar import RPLidar
 
 
-#other
-import sys
+### jwc o #other
+### jwc o import sys
 
 
 # jwc 
@@ -290,7 +290,10 @@ def send_camera():
     ###jwc 24-0516-1610 y hopefully increase fps: FPS = 10
     # was 10, 60fps >> 20-30fps, 120fps >> same rate, try 30
     # TYJ 30fps >> 15-20fps local & decent ~1-2 sec lag remote on android phone :)+
-    FPS = 30
+    ###jwc y? FPS = 30
+    ###jwc y: FPS = 10
+    #jwc 24-0517-1500, 30 crashes 'needCamera' though 9 to 19 fps, 20 to 14fps
+    FPS = 60
 
     ###jwc o sentCamera = False
     
@@ -895,7 +898,7 @@ def home():
 
 #RUN THE APP
 if __name__ == '__main__':
-    print("ready for clients!")
+    print("ready for clients: Port = 5000")
     ###jwc o socketio.run(app, host='0.0.0.0', port=5000)
     
     ###jwc y socketio.run(app, host='0.0.0.0', port=5000, debug=True)
