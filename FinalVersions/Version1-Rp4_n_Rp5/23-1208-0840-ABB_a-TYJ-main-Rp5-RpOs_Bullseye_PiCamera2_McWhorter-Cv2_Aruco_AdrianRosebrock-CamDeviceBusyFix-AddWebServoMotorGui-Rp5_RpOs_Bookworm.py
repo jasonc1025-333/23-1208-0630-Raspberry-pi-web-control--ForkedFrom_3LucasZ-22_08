@@ -356,9 +356,15 @@ def send_camera():
     ###jwc 24-0516-1500 y convert to Rp5: arucoDict = cv2.aruco.getPredefinedDictionary(ARUCO_DICT[args["type"]])
     ###jwc 24-0516-1500 y convert to Rp5: arucoParams =  cv2.aruco.DetectorParameters()
     ###jwc 24-0516-1500 y convert to Rp5: arucoDetector = cv2.aruco.ArucoDetector(arucoDict, arucoParams)
-    
+    arucoDict = cv2.aruco.getPredefinedDictionary(ARUCO_DICT[args["type"]])
+    arucoParams =  cv2.aruco.DetectorParameters()
+    arucoDetector = cv2.aruco.ArucoDetector(arucoDict, arucoParams)
+    temp = cv2.aru
+
     ###jwc 24-0516-1500 y convert to Rp5: piCam.configure("preview")
     ###jwc 24-0516-1500 y convert to Rp5: print("* piCam.configure(preview)")
+    piCam.configure("preview")
+    print("* piCam.configure(preview)")
 
 
     piCam.start()
@@ -420,14 +426,14 @@ def send_camera():
         cv2.imshow("preview", frame)
 
 
-        ###jwc 24-0516-1500 y convert to Rp5: # detect ArUco markers in the input frame
-        ###jwc 24-0516-1500 y convert to Rp5: ###jwc o (corners, ids, rejected) = cv2.aruco.detectMarkers(frame, arucoDict, parameters=arucoParams)
-        ###jwc 24-0516-1500 y convert to Rp5: (corners, ids, rejected) = arucoDetector.detectMarkers(frame)
+        # detect ArUco markers in the input frame
+        ###jwc o (corners, ids, rejected) = cv2.aruco.detectMarkers(frame, arucoDict, parameters=arucoParams)
+        (corners, ids, rejected) = arucoDetector.detectMarkers(frame)
         ###jwc 24-0516-1500 y convert to Rp5: 
-        ###jwc 24-0516-1500 y convert to Rp5: # verify *at least* one ArUco marker was detected
-        ###jwc 24-0516-1500 y convert to Rp5: if len(corners) > 0:
-        ###jwc 24-0516-1500 y convert to Rp5:     # flatten the ArUco IDs list
-        ###jwc 24-0516-1500 y convert to Rp5:     ids = ids.flatten()
+        # verify *at least* one ArUco marker was detected
+        if len(corners) > 0:
+            # flatten the ArUco IDs list
+            ids = ids.flatten()
         ###jwc 24-0516-1500 y convert to Rp5:     
         ###jwc 24-0516-1500 y convert to Rp5:     # loop over the detected ArUCo corners
         ###jwc 24-0516-1500 y convert to Rp5:     for (markerCorner, markerID) in zip(corners, ids):
