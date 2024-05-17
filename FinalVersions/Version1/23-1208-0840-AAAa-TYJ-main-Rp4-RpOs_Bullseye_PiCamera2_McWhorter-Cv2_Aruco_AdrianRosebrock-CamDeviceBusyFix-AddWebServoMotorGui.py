@@ -287,7 +287,11 @@ def send_camera():
     ###jwc o camera.set(3, 64)
     ###jwc o camera.set(4, 64)
     
-    FPS = 10
+    ###jwc 24-0516-1610 y hopefully increase fps: FPS = 10
+    # was 10, 60fps >> 20-30fps, 120fps >> same rate, try 30
+    # TYJ 30fps >> 15-20fps local & decent ~1-2 sec lag remote on android phone :)+
+    FPS = 30
+
     ###jwc o sentCamera = False
     
     piCam = Picamera2()
@@ -350,9 +354,9 @@ def send_camera():
     arucoDetector = cv2.aruco.ArucoDetector(arucoDict, arucoParams)
     
     piCam.configure("preview")
+   
     piCam.start()
-
-
+    print("* piCam.start()")
 
     print("sending cam data now")
     while True:
