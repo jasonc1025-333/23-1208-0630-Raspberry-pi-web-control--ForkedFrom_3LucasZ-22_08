@@ -359,7 +359,6 @@ def send_camera():
     arucoDict = cv2.aruco.getPredefinedDictionary(ARUCO_DICT[args["type"]])
     arucoParams =  cv2.aruco.DetectorParameters()
     arucoDetector = cv2.aruco.ArucoDetector(arucoDict, arucoParams)
-    temp = cv2.aru
 
     ###jwc 24-0516-1500 y convert to Rp5: piCam.configure("preview")
     ###jwc 24-0516-1500 y convert to Rp5: print("* piCam.configure(preview)")
