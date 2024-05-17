@@ -288,8 +288,9 @@ def send_camera():
     ###jwc o camera.set(4, 64)
     
     ###jwc 24-0516-1610 y hopefully increase fps: FPS = 10
-    # was 10, 60fps >> 20-30fps, 120fps >> same rate
-    FPS = 120
+    # was 10, 60fps >> 20-30fps, 120fps >> same rate, try 30
+    # TYJ 30fps >> 15-20fps local & decent ~1-2 sec lag remote on android phone :)+
+    FPS = 30
     
     ###jwc o sentCamera = False
     
