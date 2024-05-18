@@ -422,7 +422,7 @@ def send_camera():
         # jwc for debug purposes
         # TODO: Undo
         ###jwc 24-0516-1500 y convert to Rp5: ? 
-        cv2.imshow("preview", frame)
+        ###jwc 24-0518-0330 y Good Debugger: cv2.imshow("preview", frame)
 
 
         # detect ArUco markers in the input frame
