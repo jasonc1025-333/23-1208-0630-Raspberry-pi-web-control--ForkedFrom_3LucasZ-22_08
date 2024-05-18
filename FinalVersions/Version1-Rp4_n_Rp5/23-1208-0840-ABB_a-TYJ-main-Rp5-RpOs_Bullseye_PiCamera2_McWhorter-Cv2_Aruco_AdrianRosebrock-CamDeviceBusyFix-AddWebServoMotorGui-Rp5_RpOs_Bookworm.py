@@ -433,157 +433,157 @@ def send_camera():
         if len(corners) > 0:
             # flatten the ArUco IDs list
             ids = ids.flatten()
-        ###jwc 24-0516-1500 y convert to Rp5:     
-        ###jwc 24-0516-1500 y convert to Rp5:     # loop over the detected ArUCo corners
-        ###jwc 24-0516-1500 y convert to Rp5:     for (markerCorner, markerID) in zip(corners, ids):
-        ###jwc 24-0516-1500 y convert to Rp5:         # extract the marker corners (which are always returned
-        ###jwc 24-0516-1500 y convert to Rp5:         # in top-left, top-right, bottom-right, and bottom-left
-        ###jwc 24-0516-1500 y convert to Rp5:         # order)
-        ###jwc 24-0516-1500 y convert to Rp5:         corners = markerCorner.reshape((4, 2))
-        ###jwc 24-0516-1500 y convert to Rp5:         (topLeft, topRight, bottomRight, bottomLeft) = corners
-        ###jwc 24-0516-1500 y convert to Rp5:         
-        ###jwc 24-0516-1500 y convert to Rp5:         # convert each of the (x, y)-coordinate pairs to integers
-        ###jwc 24-0516-1500 y convert to Rp5:         topRight = (int(topRight[0]), int(topRight[1]))
-        ###jwc 24-0516-1500 y convert to Rp5:         bottomRight = (int(bottomRight[0]), int(bottomRight[1]))
-        ###jwc 24-0516-1500 y convert to Rp5:         bottomLeft = (int(bottomLeft[0]), int(bottomLeft[1]))
-        ###jwc 24-0516-1500 y convert to Rp5:         topLeft = (int(topLeft[0]), int(topLeft[1]))
-        ###jwc 24-0516-1500 y convert to Rp5: 
-        ###jwc 24-0516-1500 y convert to Rp5:         # draw the bounding box of the ArUCo detection
-        ###jwc 24-0516-1500 y convert to Rp5:         cv2.line(frame, topLeft, topRight, (0, 255, 0), 2)
-        ###jwc 24-0516-1500 y convert to Rp5:         cv2.line(frame, topRight, bottomRight, (0, 255, 0), 2)
-        ###jwc 24-0516-1500 y convert to Rp5:         cv2.line(frame, bottomRight, bottomLeft, (0, 255, 0), 2)
-        ###jwc 24-0516-1500 y convert to Rp5:         cv2.line(frame, bottomLeft, topLeft, (0, 255, 0), 2)
-        ###jwc 24-0516-1500 y convert to Rp5: 
-        ###jwc 24-0516-1500 y convert to Rp5:         # compute and draw the center (x, y)-coordinates of the
-        ###jwc 24-0516-1500 y convert to Rp5:         # ArUco marker
-        ###jwc 24-0516-1500 y convert to Rp5:         cX = int((topLeft[0] + bottomRight[0]) / 2.0)
-        ###jwc 24-0516-1500 y convert to Rp5:         cY = int((topLeft[1] + bottomRight[1]) / 2.0)
-        ###jwc 24-0516-1500 y convert to Rp5:         cv2.circle(frame, (cX, cY), 4, (0, 0, 255), -1)
-        ###jwc 24-0516-1500 y convert to Rp5: 
-        ###jwc 24-0516-1500 y convert to Rp5:         # draw the ArUco marker ID on the frame
-        ###jwc 24-0516-1500 y convert to Rp5:         cv2.putText(frame, str(markerID),
-        ###jwc 24-0516-1500 y convert to Rp5:             (topLeft[0], topLeft[1] - 15),
-        ###jwc 24-0516-1500 y convert to Rp5:             cv2.FONT_HERSHEY_SIMPLEX,
-        ###jwc 24-0516-1500 y convert to Rp5:             0.5, (0, 255, 0), 2)
-        ###jwc 24-0516-1500 y convert to Rp5:         
-        ###jwc 24-0516-1500 y convert to Rp5:         # jwc 3, 2, 1
-        ###jwc 24-0516-1500 y convert to Rp5:         # seconds
-        ###jwc 24-0516-1500 y convert to Rp5:         timeDuration_Sec_Int = 1
-        ###jwc 24-0516-1500 y convert to Rp5:         
-        ###jwc 24-0516-1500 y convert to Rp5:         
-        ###jwc 24-0516-1500 y convert to Rp5:         if markerID == 0:                
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=120
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=120
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc o sleep(timeDuration_Sec_Int)
-        ###jwc 24-0516-1500 y convert to Rp5:             
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: stop_motors()
-        ###jwc 24-0516-1500 y convert to Rp5:              
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc y time.sleep(timeDuration_Sec_Int)
-        ###jwc 24-0516-1500 y convert to Rp5:             
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc print("*** MarkerID: "+ str(markerID))
-        ###jwc 24-0516-1500 y convert to Rp5:             
-        ###jwc 24-0516-1500 y convert to Rp5:             target_00_Score_Int = 0
-        ###jwc 24-0516-1500 y convert to Rp5:             target_01_Score_Int = 0
-        ###jwc 24-0516-1500 y convert to Rp5:             target_02_Score_Int = 0
-        ###jwc 24-0516-1500 y convert to Rp5:             target_03_Score_Int = 0
-        ###jwc 24-0516-1500 y convert to Rp5:             
-        ###jwc 24-0516-1500 y convert to Rp5:             print("!!!!!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!!!!!")
-        ###jwc 24-0516-1500 y convert to Rp5:             print("!!!!!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!!!!!")
-        ###jwc 24-0516-1500 y convert to Rp5:             print("!!!!!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!!!!!")
-        ###jwc 24-0516-1500 y convert to Rp5:             print("!!!!!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!!!!!")
-        ###jwc 24-0516-1500 y convert to Rp5:             print("!!!!!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!!!!!")
-        ###jwc 24-0516-1500 y convert to Rp5: 
-        ###jwc 24-0516-1500 y convert to Rp5:             time.sleep(timeDuration_Sec_Int)
-        ###jwc 24-0516-1500 y convert to Rp5: 
-        ###jwc 24-0516-1500 y convert to Rp5:         if markerID == 1:                
-        ###jwc 24-0516-1500 y convert to Rp5:             ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=60
-        ###jwc 24-0516-1500 y convert to Rp5:             ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=60
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=70
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=70
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc o sleep(timeDuration_Sec_Int)
-        ###jwc 24-0516-1500 y convert to Rp5:             
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: servoId_Left = 0
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: servoAngle_Left = 135
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: 
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: sc.callback_servo_enable(int(servoId_Left), trueMsg)
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: 
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: angle_Left = sc.msg(int(servoAngle_Left))
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: sc.callback_servo_angle(int(servoId_Left),angle_Left)
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: 
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: print("motion_Left", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: return ('id_L: ' + str(servoId_Left) + ' angle_L: ' + str(servoAngle_Left) + '|' + 'id_R: ' + str(servoId_Right) + ' angle_R: ' + str(servoAngle_Right))
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: 
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: time.sleep(timeDuration_Sec_Int)
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: 
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: stop_motors()
-        ###jwc 24-0516-1500 y convert to Rp5:             
-        ###jwc 24-0516-1500 y convert to Rp5:             target_01_Score_Int += 1
-        ###jwc 24-0516-1500 y convert to Rp5:             
-        ###jwc 24-0516-1500 y convert to Rp5:             print("*** Contact: MarkerID: "+ str(markerID))
-        ###jwc 24-0516-1500 y convert to Rp5:             
-        ###jwc 24-0516-1500 y convert to Rp5:             print("               Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
-        ###jwc 24-0516-1500 y convert to Rp5: 
-        ###jwc 24-0516-1500 y convert to Rp5:         if markerID == 2:                
-        ###jwc 24-0516-1500 y convert to Rp5:             ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=120
-        ###jwc 24-0516-1500 y convert to Rp5:             ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=60
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=120
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=70
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc o sleep(timeDuration_Sec_Int)
-        ###jwc 24-0516-1500 y convert to Rp5: 
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: servoId_Right = 1
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: servoAngle_Right = 45
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: 
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: sc.callback_servo_enable(int(servoId_Right), trueMsg)
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: 
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: angle_Right = sc.msg(int(servoAngle_Right))
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: sc.callback_servo_angle(int(servoId_Right),angle_Right)
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: 
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: print("motion_Right", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: return ('id_L: ' + str(servoId_Left) + ' angle_L: ' + str(servoAngle_Left) + '|' + 'id_R: ' + str(servoId_Right) + ' angle_R: ' + str(servoAngle_Right))
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: 
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: time.sleep(timeDuration_Sec_Int)
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: 
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: stop_motors()
-        ###jwc 24-0516-1500 y convert to Rp5:             
-        ###jwc 24-0516-1500 y convert to Rp5:             target_02_Score_Int += 1
-        ###jwc 24-0516-1500 y convert to Rp5:             
-        ###jwc 24-0516-1500 y convert to Rp5:             print("*** *** Contact: MarkerID: "+ str(markerID))
-        ###jwc 24-0516-1500 y convert to Rp5:             
-        ###jwc 24-0516-1500 y convert to Rp5:             print("               Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
-        ###jwc 24-0516-1500 y convert to Rp5: 
-        ###jwc 24-0516-1500 y convert to Rp5:         if markerID == 3:                
-        ###jwc 24-0516-1500 y convert to Rp5:             ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=60
-        ###jwc 24-0516-1500 y convert to Rp5:             ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=120
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=80
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=120
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc o sleep(timeDuration_Sec_Int)
-        ###jwc 24-0516-1500 y convert to Rp5:             
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: forward()
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: 
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: time.sleep(timeDuration_Sec_Int)
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: 
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc n crashes cam: stop_motors()
-        ###jwc 24-0516-1500 y convert to Rp5: 
-        ###jwc 24-0516-1500 y convert to Rp5:             target_03_Score_Int += 1
-        ###jwc 24-0516-1500 y convert to Rp5:             
-        ###jwc 24-0516-1500 y convert to Rp5:             print("*** *** *** Contact: MarkerID: "+ str(markerID))
-        ###jwc 24-0516-1500 y convert to Rp5:             
-        ###jwc 24-0516-1500 y convert to Rp5:             print("               Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
-        ###jwc 24-0516-1500 y convert to Rp5:             
-        ###jwc 24-0516-1500 y convert to Rp5:             
-        ###jwc 24-0516-1500 y convert to Rp5:         if markerID == 4:                
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=90
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=90
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
-        ###jwc 24-0516-1500 y convert to Rp5:             ###jwc o sleep(timeDuration_Sec_Int)
-        ###jwc 24-0516-1500 y convert to Rp5:             time.sleep(timeDuration_Sec_Int)
-        ###jwc 24-0516-1500 y convert to Rp5: 
-        ###jwc 24-0516-1500 y convert to Rp5:         ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=90
-        ###jwc 24-0516-1500 y convert to Rp5:         ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=90
+             
+            # loop over the detected ArUCo corners
+            for (markerCorner, markerID) in zip(corners, ids):
+                # extract the marker corners (which are always returned
+                # in top-left, top-right, bottom-right, and bottom-left
+                # order)
+                corners = markerCorner.reshape((4, 2))
+                (topLeft, topRight, bottomRight, bottomLeft) = corners
+                
+                # convert each of the (x, y)-coordinate pairs to integers
+                topRight = (int(topRight[0]), int(topRight[1]))
+                bottomRight = (int(bottomRight[0]), int(bottomRight[1]))
+                bottomLeft = (int(bottomLeft[0]), int(bottomLeft[1]))
+                topLeft = (int(topLeft[0]), int(topLeft[1]))
+         
+                # draw the bounding box of the ArUCo detection
+                cv2.line(frame, topLeft, topRight, (0, 255, 0), 2)
+                cv2.line(frame, topRight, bottomRight, (0, 255, 0), 2)
+                cv2.line(frame, bottomRight, bottomLeft, (0, 255, 0), 2)
+                cv2.line(frame, bottomLeft, topLeft, (0, 255, 0), 2)
+         
+                # compute and draw the center (x, y)-coordinates of the
+                # ArUco marker
+                cX = int((topLeft[0] + bottomRight[0]) / 2.0)
+                cY = int((topLeft[1] + bottomRight[1]) / 2.0)
+                cv2.circle(frame, (cX, cY), 4, (0, 0, 255), -1)
+         
+                # draw the ArUco marker ID on the frame
+                cv2.putText(frame, str(markerID),
+                    (topLeft[0], topLeft[1] - 15),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    0.5, (0, 255, 0), 2)
+                
+                # jwc 3, 2, 1
+                # seconds
+                timeDuration_Sec_Int = 1
+                
+                
+                if markerID == 0:                
+                    ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=120
+                    ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=120
+                    ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
+                    ###jwc o sleep(timeDuration_Sec_Int)
+                    
+                    ###jwc n crashes cam: stop_motors()
+                     
+                    ###jwc y time.sleep(timeDuration_Sec_Int)
+                    
+                    ###jwc print("*** MarkerID: "+ str(markerID))
+                    
+                    target_00_Score_Int = 0
+                    target_01_Score_Int = 0
+                    target_02_Score_Int = 0
+                    target_03_Score_Int = 0
+                    
+                    print("!!!!!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!!!!!")
+                    print("!!!!!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!!!!!")
+                    print("!!!!!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!!!!!")
+                    print("!!!!!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!!!!!")
+                    print("!!!!!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!!!!!")
+         
+                    time.sleep(timeDuration_Sec_Int)
+         
+                if markerID == 1:                
+                    ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=60
+                    ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=60
+                    ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=70
+                    ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=70
+                    ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
+                    ###jwc o sleep(timeDuration_Sec_Int)
+                    
+                    ###jwc n crashes cam: servoId_Left = 0
+                    ###jwc n crashes cam: servoAngle_Left = 135
+                    ###jwc n crashes cam: 
+                    ###jwc n crashes cam: sc.callback_servo_enable(int(servoId_Left), trueMsg)
+                    ###jwc n crashes cam: 
+                    ###jwc n crashes cam: angle_Left = sc.msg(int(servoAngle_Left))
+                    ###jwc n crashes cam: sc.callback_servo_angle(int(servoId_Left),angle_Left)
+                    ###jwc n crashes cam: 
+                    ###jwc n crashes cam: print("motion_Left", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
+                    ###jwc n crashes cam: return ('id_L: ' + str(servoId_Left) + ' angle_L: ' + str(servoAngle_Left) + '|' + 'id_R: ' + str(servoId_Right) + ' angle_R: ' + str(servoAngle_Right))
+                    ###jwc n crashes cam: 
+                    ###jwc n crashes cam: time.sleep(timeDuration_Sec_Int)
+                    ###jwc n crashes cam: 
+                    ###jwc n crashes cam: stop_motors()
+                    
+                    target_01_Score_Int += 1
+                    
+                    print("*** Contact: MarkerID: "+ str(markerID))
+                    
+                    print("               Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
+         
+                if markerID == 2:                
+                    ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=120
+                    ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=60
+                    ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=120
+                    ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=70
+                    ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
+                    ###jwc o sleep(timeDuration_Sec_Int)
+         
+                    ###jwc n crashes cam: servoId_Right = 1
+                    ###jwc n crashes cam: servoAngle_Right = 45
+                    ###jwc n crashes cam: 
+                    ###jwc n crashes cam: sc.callback_servo_enable(int(servoId_Right), trueMsg)
+                    ###jwc n crashes cam: 
+                    ###jwc n crashes cam: angle_Right = sc.msg(int(servoAngle_Right))
+                    ###jwc n crashes cam: sc.callback_servo_angle(int(servoId_Right),angle_Right)
+                    ###jwc n crashes cam: 
+                    ###jwc n crashes cam: print("motion_Right", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
+                    ###jwc n crashes cam: return ('id_L: ' + str(servoId_Left) + ' angle_L: ' + str(servoAngle_Left) + '|' + 'id_R: ' + str(servoId_Right) + ' angle_R: ' + str(servoAngle_Right))
+                    ###jwc n crashes cam: 
+                    ###jwc n crashes cam: time.sleep(timeDuration_Sec_Int)
+                    ###jwc n crashes cam: 
+                    ###jwc n crashes cam: stop_motors()
+                    
+                    target_02_Score_Int += 1
+                    
+                    print("*** *** Contact: MarkerID: "+ str(markerID))
+                    
+                    print("               Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
+         
+                if markerID == 3:                
+                    ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=60
+                    ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=120
+                    ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=80
+                    ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=120
+                    ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
+                    ###jwc o sleep(timeDuration_Sec_Int)
+                    
+                    ###jwc n crashes cam: forward()
+                    ###jwc n crashes cam: 
+                    ###jwc n crashes cam: time.sleep(timeDuration_Sec_Int)
+                    ###jwc n crashes cam: 
+                    ###jwc n crashes cam: stop_motors()
+         
+                    target_03_Score_Int += 1
+                    
+                    print("*** *** *** Contact: MarkerID: "+ str(markerID))
+                    
+                    print("               Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
+                    
+                    
+                if markerID == 4:                
+                    ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=90
+                    ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=90
+                    ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
+                    ###jwc o sleep(timeDuration_Sec_Int)
+                    time.sleep(timeDuration_Sec_Int)
+         
+                 ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=90
+                 ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=90
 
         ###jwc o #my camera is placed upside down ._.
         ###jwc o #to get the correct image, we must flip the camera vertically and horizontally

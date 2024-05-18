@@ -292,8 +292,8 @@ def send_camera():
     # TYJ 30fps >> 15-20fps local & decent ~1-2 sec lag remote on android phone :)+
     ###jwc y? FPS = 30
     ###jwc y: FPS = 10
-    #jwc 24-0517-1500, 30 crashes 'needCamera' though 9 to 19 fps, 20 to 14fps
-    FPS = 60
+    #jwc 24-0517-1500, 30 crashes 'needCamera' though 9 to 19 fps, 20 to 14fps, 60 seems too fast
+    FPS = 30
 
     ###jwc o sentCamera = False
     

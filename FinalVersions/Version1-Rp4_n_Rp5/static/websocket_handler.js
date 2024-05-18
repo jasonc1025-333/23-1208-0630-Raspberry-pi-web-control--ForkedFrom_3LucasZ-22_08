@@ -34,7 +34,7 @@ socket.on('disconnect', function(){
 });
 
 socket.on('jpg_string', function(data) {
-    console.log("Received camera, time: "+(Date.now()-prevTimeCam).toString());
+    console.log("Received camera, time (ms): "+(Date.now()-prevTimeCam).toString());
     prevTimeCam=Date.now();
     livestream.src = 'data:image/jpeg;base64,' + data;
 })
