@@ -1,7 +1,7 @@
 # Raspberry-Pi-web-control
 
 23-1123-1040 JasonC:
-* FinalVersions: Best
+* FinalVersions: Best (since only version combining VideoStream w/ MotorControl [24-0519-0830])
   * SocketIO: Final
 * Websocket-Robot: Better
   * SocketIO: Prototype

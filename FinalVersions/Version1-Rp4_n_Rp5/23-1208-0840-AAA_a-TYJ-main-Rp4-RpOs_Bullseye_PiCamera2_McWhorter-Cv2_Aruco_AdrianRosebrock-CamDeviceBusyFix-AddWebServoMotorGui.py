@@ -911,7 +911,8 @@ if __name__ == '__main__':
     ###jwc y socketio.run(app, host='0.0.0.0', port=5000, debug=True)
     ###jwc   socketio.run(app, host='10.78.25.75', port=5000, debug=True)
     ###jwc y socketio.run(app, host='0.0.0.0', port=5000, debug=True)
-    socketio.run(app, host='0.0.0.0', port=5000, debug=False)
+    ###jwc y socketio.run(app, host='0.0.0.0', port=5000, debug=False)
+    socketio.run(app, host='0.0.0.0', port=5000, debug=True)
 
 
 #PROGRAM CLEAN UP
