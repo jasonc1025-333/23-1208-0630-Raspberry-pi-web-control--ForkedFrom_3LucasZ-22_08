@@ -1,0 +1,26 @@
+# This file must be used with "source bin/activate.csh" *from csh*.
+# You cannot run it directly.
+# Created by Davide Di Blasi <davidedb@gmail.com>.
+# Ported to Python 3.3 venv by Andrew Svetlov <andrew.svetlov@gmail.com>
+
+alias deactivate 'test $?_OLD_VIRTUAL_PATH != 0 && setenv PATH "$_OLD_VIRTUAL_PATH" && unset _OLD_VIRTUAL_PATH; rehash; test $?_OLD_VIRTUAL_PROMPT != 0 && set prompt="$_OLD_VIRTUAL_PROMPT" && unset _OLD_VIRTUAL_PROMPT; unsetenv VIRTUAL_ENV; unsetenv VIRTUAL_ENV_PROMPT; test "\!:*" != "nondestructive" && unalias deactivate'
+
+# Unset irrelevant variables.
+deactivate nondestructive
+
+setenv VIRTUAL_ENV "/home/jesus333/24-0519-0520-RpOs_Bookworm_Desktop_64Bit_Rp4_Sd49_Rq200/23-1208-0630-Raspberry-pi-web-control--ForkedFrom_3LucasZ-22_08/FinalVersions/Version1-Rp4_n_Rp5/venv_Rp4_Bookworm_64Bit_24_0519_0610"
+
+set _OLD_VIRTUAL_PATH="$PATH"
+setenv PATH "$VIRTUAL_ENV/bin:$PATH"
+
+
+set _OLD_VIRTUAL_PROMPT="$prompt"
+
+if (! "$?VIRTUAL_ENV_DISABLE_PROMPT") then
+    set prompt = "(venv_Rp4_Bookworm_64Bit_24_0519_0610) $prompt"
+    setenv VIRTUAL_ENV_PROMPT "(venv_Rp4_Bookworm_64Bit_24_0519_0610) "
+endif
+
+alias pydoc python -m pydoc
+
+rehash

@@ -1,0 +1,10 @@
+#!/bin/sh
+'''exec' /home/jesus333/24-0519-0520-RpOs_Bookworm_Desktop_64Bit_Rp4_Sd49_Rq200/23-1208-0630-Raspberry-pi-web-control--ForkedFrom_3LucasZ-22_08/FinalVersions/Version1-Rp4_n_Rp5/venv_Rp4_Bookworm_64Bit_24_0519_0610/bin/python "$0" "$@"
+' '''
+# -*- coding: utf-8 -*-
+import re
+import sys
+from flask.cli import main
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    sys.exit(main())
