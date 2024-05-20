@@ -293,7 +293,8 @@ def send_camera():
     ###jwc y? FPS = 30
     ###jwc y: FPS = 10
     #jwc 24-0517-1500, 30 crashes 'needCamera' though 9 to 19 fps, 20 to 14fps, 60 seems too fast
-    FPS = 30
+    ###jwc 24-0520 ? FPS = 30
+    ###jwc 24-0520-1250 causing 'needCamera' error, too laggy here?: FPS = 90
 
     ###jwc o sentCamera = False
     
@@ -325,7 +326,9 @@ def send_camera():
     ###jwc y piCam.preview_configuration.controls.FrameRate=99
     
     ###jwc 23-0929-1050 20-30fps: piCam.preview_configuration.controls.FrameRate=60
-    piCam.preview_configuration.controls.FrameRate=90
+    
+    ###jwc 24-0520 Aruco Freeze: ? piCam.preview_configuration.controls.FrameRate=90
+    
     piCam.preview_configuration.align()
     
     ###jwc o framecount = 0
@@ -432,141 +435,137 @@ def send_camera():
                 bottomRight = (int(bottomRight[0]), int(bottomRight[1]))
                 bottomLeft = (int(bottomLeft[0]), int(bottomLeft[1]))
                 topLeft = (int(topLeft[0]), int(topLeft[1]))
-    
+                
                 # draw the bounding box of the ArUCo detection
                 cv2.line(frame, topLeft, topRight, (0, 255, 0), 2)
                 cv2.line(frame, topRight, bottomRight, (0, 255, 0), 2)
                 cv2.line(frame, bottomRight, bottomLeft, (0, 255, 0), 2)
                 cv2.line(frame, bottomLeft, topLeft, (0, 255, 0), 2)
-
-                # compute and draw the center (x, y)-coordinates of the
-                # ArUco marker
-                cX = int((topLeft[0] + bottomRight[0]) / 2.0)
-                cY = int((topLeft[1] + bottomRight[1]) / 2.0)
-                cv2.circle(frame, (cX, cY), 4, (0, 0, 255), -1)
-
-                # draw the ArUco marker ID on the frame
-                cv2.putText(frame, str(markerID),
-                    (topLeft[0], topLeft[1] - 15),
-                    cv2.FONT_HERSHEY_SIMPLEX,
-                    0.5, (0, 255, 0), 2)
                 
-                # jwc 3, 2, 1
-                # seconds
-                timeDuration_Sec_Int = 1
+                ###jwc 24-0520-1250 causing 'needCamera' error, too laggy here?: 
+                ###jwc 24-0520-1250 causing 'needCamera' error, too laggy here?: # compute and draw the center (x, y)-coordinates of the
+                ###jwc 24-0520-1250 causing 'needCamera' error, too laggy here?: # ArUco marker
+                ###jwc 24-0520-1250 causing 'needCamera' error, too laggy here?: cX = int((topLeft[0] + bottomRight[0]) / 2.0)
+                ###jwc 24-0520-1250 causing 'needCamera' error, too laggy here?: cY = int((topLeft[1] + bottomRight[1]) / 2.0)
+                ###jwc 24-0520-1250 causing 'needCamera' error, too laggy here?: cv2.circle(frame, (cX, cY), 4, (0, 0, 255), -1)
+                ###jwc 24-0520-1250 causing 'needCamera' error, too laggy here?: 
+                ###jwc 24-0520-1250 causing 'needCamera' error, too laggy here?: # draw the ArUco marker ID on the frame
+                ###jwc 24-0520-1250 causing 'needCamera' error, too laggy here?: cv2.putText(frame, str(markerID),
+                ###jwc 24-0520-1250 causing 'needCamera' error, too laggy here?:     (topLeft[0], topLeft[1] - 15),
+                ###jwc 24-0520-1250 causing 'needCamera' error, too laggy here?:     cv2.FONT_HERSHEY_SIMPLEX,
+                ###jwc 24-0520-1250 causing 'needCamera' error, too laggy here?:     0.5, (0, 255, 0), 2)
+                ###jwc 24-0520-1250 causing 'needCamera' error, too laggy here?: 
+                ###jwc 24-0520-1250 causing 'needCamera' error, too laggy here?: # jwc 3, 2, 1
+                ###jwc 24-0520-1250 causing 'needCamera' error, too laggy here?: # seconds
+                ###jwc 24-0520-1250 causing 'needCamera' error, too laggy here?: timeDuration_Sec_Int = 1
                 
                 
-                if markerID == 0:                
-                    ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=120
-                    ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=120
-                    ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
-                    ###jwc o sleep(timeDuration_Sec_Int)
-                    
-                    ###jwc n crashes cam: stop_motors()
-                     
-                    ###jwc y time.sleep(timeDuration_Sec_Int)
-                    
-                    ###jwc print("*** MarkerID: "+ str(markerID))
-                    
-                    target_00_Score_Int = 0
-                    target_01_Score_Int = 0
-                    target_02_Score_Int = 0
-                    target_03_Score_Int = 0
-                    
-                    print("!!!!!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!!!!!")
-                    print("!!!!!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!!!!!")
-                    print("!!!!!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!!!!!")
-                    print("!!!!!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!!!!!")
-                    print("!!!!!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!!!!!")
+                print("*** Contact: MarkerID: "+ str(markerID))
 
-                    time.sleep(timeDuration_Sec_Int)
-
-                if markerID == 1:                
-                    ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=60
-                    ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=60
-                    ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=70
-                    ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=70
-                    ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
-                    ###jwc o sleep(timeDuration_Sec_Int)
+                
+                ###jwc 24-0520-1300 'needCamera' error:if markerID == 0:                
+                ###jwc 24-0520-1300 'needCamera' error:    ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=120
+                ###jwc 24-0520-1300 'needCamera' error:    ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=120
+                ###jwc 24-0520-1300 'needCamera' error:    ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
+                ###jwc 24-0520-1300 'needCamera' error:    ###jwc o sleep(timeDuration_Sec_Int)
+                ###jwc 24-0520-1300 'needCamera' error:    
+                ###jwc 24-0520-1300 'needCamera' error:    ###jwc n crashes cam: stop_motors()
+                ###jwc 24-0520-1300 'needCamera' error:     
+                ###jwc 24-0520-1300 'needCamera' error:    ###jwc y time.sleep(timeDuration_Sec_Int)
+                ###jwc 24-0520-1300 'needCamera' error:    
+                ###jwc 24-0520-1300 'needCamera' error:    ###jwc print("*** MarkerID: "+ str(markerID))
+                ###jwc 24-0520-1300 'needCamera' error:    
+                ###jwc 24-0520-1300 'needCamera' error:    target_00_Score_Int = 0
+                ###jwc 24-0520-1300 'needCamera' error:    target_01_Score_Int = 0
+                ###jwc 24-0520-1300 'needCamera' error:    target_02_Score_Int = 0
+                ###jwc 24-0520-1300 'needCamera' error:    target_03_Score_Int = 0
+                ###jwc 24-0520-1300 'needCamera' error:    
+                ###jwc 24-0520-1300 'needCamera' error:    print("!!!!!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!!!!!")
+                ###jwc 24-0520-1300 'needCamera' error:    print("!!!!!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!!!!!")
+                ###jwc 24-0520-1300 'needCamera' error:    print("!!!!!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!!!!!")
+                ###jwc 24-0520-1300 'needCamera' error:    print("!!!!!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!!!!!")
+                ###jwc 24-0520-1300 'needCamera' error:    print("!!!!!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!!!!!")
+                ###jwc 24-0520-1300 'needCamera' error:
+                ###jwc 24-0520-1300 'needCamera' error:    ###jwc not needed 24-0520-1230: time.sleep(timeDuration_Sec_Int)
+                ###jwc 24-0520-1300 'needCamera' error:
+                ###jwc 24-0520-1300 'needCamera' error: if markerID == 1:                
+                ###jwc 24-0520-1300 'needCamera' error:     ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=60
+                ###jwc 24-0520-1300 'needCamera' error:     ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=60
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=70
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=70
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc o sleep(timeDuration_Sec_Int)
+                ###jwc 24-0520-1300 'needCamera' error:     
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: servoId_Left = 0
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: servoAngle_Left = 135
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: 
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: sc.callback_servo_enable(int(servoId_Left), trueMsg)
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: 
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: angle_Left = sc.msg(int(servoAngle_Left))
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: sc.callback_servo_angle(int(servoId_Left),angle_Left)
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: 
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: print("motion_Left", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: return ('id_L: ' + str(servoId_Left) + ' angle_L: ' + str(servoAngle_Left) + '|' + 'id_R: ' + str(servoId_Right) + ' angle_R: ' + str(servoAngle_Right))
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: 
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: time.sleep(timeDuration_Sec_Int)
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: 
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: stop_motors()
+                ###jwc 24-0520-1300 'needCamera' error:     
+                ###jwc 24-0520-1300 'needCamera' error:     target_01_Score_Int += 1
+                ###jwc 24-0520-1300 'needCamera' error:     
+                ###jwc 24-0520-1300 'needCamera' error:     print("*** Contact: MarkerID: "+ str(markerID))
+                ###jwc 24-0520-1300 'needCamera' error:     
+                ###jwc 24-0520-1300 'needCamera' error:     print("               Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
+                ###jwc 24-0520-1300 'needCamera' error: 
+                ###jwc 24-0520-1300 'needCamera' error: if markerID == 2:                
+                ###jwc 24-0520-1300 'needCamera' error:     ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=120
+                ###jwc 24-0520-1300 'needCamera' error:     ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=60
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=120
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=70
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc o sleep(timeDuration_Sec_Int)
+                ###jwc 24-0520-1300 'needCamera' error: 
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: servoId_Right = 1
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: servoAngle_Right = 45
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: 
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: sc.callback_servo_enable(int(servoId_Right), trueMsg)
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: 
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: angle_Right = sc.msg(int(servoAngle_Right))
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: sc.callback_servo_angle(int(servoId_Right),angle_Right)
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: 
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: print("motion_Right", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: return ('id_L: ' + str(servoId_Left) + ' angle_L: ' + str(servoAngle_Left) + '|' + 'id_R: ' + str(servoId_Right) + ' angle_R: ' + str(servoAngle_Right))
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: 
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: time.sleep(timeDuration_Sec_Int)
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: 
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: stop_motors()
+                ###jwc 24-0520-1300 'needCamera' error:     
+                ###jwc 24-0520-1300 'needCamera' error:     target_02_Score_Int += 1
+                ###jwc 24-0520-1300 'needCamera' error:     
+                ###jwc 24-0520-1300 'needCamera' error:     print("*** *** Contact: MarkerID: "+ str(markerID))
+                ###jwc 24-0520-1300 'needCamera' error:     
+                ###jwc 24-0520-1300 'needCamera' error:     print("               Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
+                ###jwc 24-0520-1300 'needCamera' error: 
+                ###jwc 24-0520-1300 'needCamera' error: if markerID == 3:                
+                ###jwc 24-0520-1300 'needCamera' error:     ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=60
+                ###jwc 24-0520-1300 'needCamera' error:     ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=120
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=80
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=120
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc o sleep(timeDuration_Sec_Int)
+                ###jwc 24-0520-1300 'needCamera' error:     
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: forward()
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: 
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: time.sleep(timeDuration_Sec_Int)
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: 
+                ###jwc 24-0520-1300 'needCamera' error:     ###jwc n crashes cam: stop_motors()
+                ###jwc 24-0520-1300 'needCamera' error: 
+                ###jwc 24-0520-1300 'needCamera' error:     target_03_Score_Int += 1
+                ###jwc 24-0520-1300 'needCamera' error:     
+                ###jwc 24-0520-1300 'needCamera' error:     print("*** *** *** Contact: MarkerID: "+ str(markerID))
+                ###jwc 24-0520-1300 'needCamera' error:     
+                ###jwc 24-0520-1300 'needCamera' error:     print("               Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
                     
-                    ###jwc n crashes cam: servoId_Left = 0
-                    ###jwc n crashes cam: servoAngle_Left = 135
-                    ###jwc n crashes cam: 
-                    ###jwc n crashes cam: sc.callback_servo_enable(int(servoId_Left), trueMsg)
-                    ###jwc n crashes cam: 
-                    ###jwc n crashes cam: angle_Left = sc.msg(int(servoAngle_Left))
-                    ###jwc n crashes cam: sc.callback_servo_angle(int(servoId_Left),angle_Left)
-                    ###jwc n crashes cam: 
-                    ###jwc n crashes cam: print("motion_Left", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
-                    ###jwc n crashes cam: return ('id_L: ' + str(servoId_Left) + ' angle_L: ' + str(servoAngle_Left) + '|' + 'id_R: ' + str(servoId_Right) + ' angle_R: ' + str(servoAngle_Right))
-                    ###jwc n crashes cam: 
-                    ###jwc n crashes cam: time.sleep(timeDuration_Sec_Int)
-                    ###jwc n crashes cam: 
-                    ###jwc n crashes cam: stop_motors()
-                    
-                    target_01_Score_Int += 1
-                    
-                    print("*** Contact: MarkerID: "+ str(markerID))
-                    
-                    print("               Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
-
-                if markerID == 2:                
-                    ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=120
-                    ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=60
-                    ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=120
-                    ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=70
-                    ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
-                    ###jwc o sleep(timeDuration_Sec_Int)
-
-                    ###jwc n crashes cam: servoId_Right = 1
-                    ###jwc n crashes cam: servoAngle_Right = 45
-                    ###jwc n crashes cam: 
-                    ###jwc n crashes cam: sc.callback_servo_enable(int(servoId_Right), trueMsg)
-                    ###jwc n crashes cam: 
-                    ###jwc n crashes cam: angle_Right = sc.msg(int(servoAngle_Right))
-                    ###jwc n crashes cam: sc.callback_servo_angle(int(servoId_Right),angle_Right)
-                    ###jwc n crashes cam: 
-                    ###jwc n crashes cam: print("motion_Right", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
-                    ###jwc n crashes cam: return ('id_L: ' + str(servoId_Left) + ' angle_L: ' + str(servoAngle_Left) + '|' + 'id_R: ' + str(servoId_Right) + ' angle_R: ' + str(servoAngle_Right))
-                    ###jwc n crashes cam: 
-                    ###jwc n crashes cam: time.sleep(timeDuration_Sec_Int)
-                    ###jwc n crashes cam: 
-                    ###jwc n crashes cam: stop_motors()
-                    
-                    target_02_Score_Int += 1
-                    
-                    print("*** *** Contact: MarkerID: "+ str(markerID))
-                    
-                    print("               Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
-
-                if markerID == 3:                
-                    ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=60
-                    ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=120
-                    ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=80
-                    ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=120
-                    ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
-                    ###jwc o sleep(timeDuration_Sec_Int)
-                    
-                    ###jwc n crashes cam: forward()
-                    ###jwc n crashes cam: 
-                    ###jwc n crashes cam: time.sleep(timeDuration_Sec_Int)
-                    ###jwc n crashes cam: 
-                    ###jwc n crashes cam: stop_motors()
-
-                    target_03_Score_Int += 1
-                    
-                    print("*** *** *** Contact: MarkerID: "+ str(markerID))
-                    
-                    print("               Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
-                    
-                    
-                if markerID == 4:                
-                    ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=90
-                    ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=90
-                    ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
-                    ###jwc o sleep(timeDuration_Sec_Int)
-                    time.sleep(timeDuration_Sec_Int)
-
                 ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=90
                 ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=90
 
@@ -580,7 +579,12 @@ def send_camera():
         emit('jpg_string', jpg_as_text)
         ###jwc y print("sent a picture. time: " + str(time.time()-prev_t_cam))
         prev_t_cam = time.time()
-        socketio.sleep(1/FPS)
+        ###jwc 24-0520-1300 'needCamera' error: REACHING 50+ FPS, BUT NO VIDEO SEEN, BUT DID CATCH ARUCO MARERKID: socketio.sleep(1/FPS)
+        ###jwc y 45fps: socketio.sleep(0.001)
+        ###jwc y 35fps: socketio.sleep(0.01)
+        ###jwc y 15fps: socketio.sleep(0.05)
+        ###jwc y 0.02ms = 50fps?
+        socketio.sleep(0.02)
         
     
         ###jwc y caused significant lag: cv2.imshow("piCam", frame)
