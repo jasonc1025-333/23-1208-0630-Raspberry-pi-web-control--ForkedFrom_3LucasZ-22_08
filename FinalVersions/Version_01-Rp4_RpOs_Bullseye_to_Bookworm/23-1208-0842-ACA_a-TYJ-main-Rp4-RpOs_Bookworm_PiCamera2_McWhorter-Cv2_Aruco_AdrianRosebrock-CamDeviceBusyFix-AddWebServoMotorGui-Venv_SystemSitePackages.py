@@ -436,11 +436,27 @@ def send_camera():
                 bottomLeft = (int(bottomLeft[0]), int(bottomLeft[1]))
                 topLeft = (int(topLeft[0]), int(topLeft[1]))
                 
+                pixelSpacing_Int = 10
+
+                topRight_2 = (int(topRight[0])+pixelSpacing_Int, int(topRight[1])-pixelSpacing_Int)
+                bottomRight_2 = (int(bottomRight[0])+pixelSpacing_Int, int(bottomRight[1])-pixelSpacing_Int)
+                bottomLeft_2 = (int(bottomLeft[0])+pixelSpacing_Int, int(bottomLeft[1])-pixelSpacing_Int)
+                topLeft_2 = (int(topLeft[0])+pixelSpacing_Int, int(topLeft[1]-pixelSpacing_Int))
+
+
                 # draw the bounding box of the ArUCo detection
                 cv2.line(frame, topLeft, topRight, (0, 255, 0), 2)
                 cv2.line(frame, topRight, bottomRight, (0, 255, 0), 2)
                 cv2.line(frame, bottomRight, bottomLeft, (0, 255, 0), 2)
                 cv2.line(frame, bottomLeft, topLeft, (0, 255, 0), 2)
+                       
+                cv2.line(frame, topLeft_2, topRight_2, (0, 255, 0), 2)
+                cv2.line(frame, topRight_2, bottomRight_2, (0, 255, 0), 2)
+                cv2.line(frame, bottomRight_2, bottomLeft_2, (0, 255, 0), 2)
+                cv2.line(frame, bottomLeft_2, topLeft_2, (0, 255, 0), 2)
+
+                ###jwc y cv2.rectangle(frame, topLeft, bottomRight, (0, 255, 0), 2)
+                
                 
                 ###jwc 24-0520-1250 causing 'needCamera' error, too laggy here?: 
                 ###jwc 24-0520-1250 causing 'needCamera' error, too laggy here?: # compute and draw the center (x, y)-coordinates of the
