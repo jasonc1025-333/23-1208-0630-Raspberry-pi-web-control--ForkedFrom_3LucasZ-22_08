@@ -20,6 +20,8 @@ var pixelSizeInput = document.getElementById("pixelSizeInput");
 
 var prevTimeCam = 0;
 var prevTimeScan = 0;
+var system_Stats_SecondsPerFrame
+var system_Stats_FramesPerSecond
 
 //LISTENERS
 socket.on('connect', function(){
@@ -34,7 +36,16 @@ socket.on('disconnect', function(){
 });
 
 socket.on('jpg_string', function(data) {
-    console.log("Received camera, time (ms): "+(Date.now()-prevTimeCam).toString());
+    system_Stats_SecondsPerFrame = (Date.now()-prevTimeCam)/1000
+    system_Stats_FramesPerSecond = (Math.round(1/system_Stats_SecondsPerFrame)).toString()
+
+    //////jwc o console.log("Received camera, time (ms): "+(Date.now()-prevTimeCam).toString());
+    //////jwc y console.log("Received camera, time (ms): " + system_Stats_SecondsPerFrame.toString());
+    //////jwc n console.log("Received camera, time (ms): " + (Date.now()-prevTimeCam).toString() + " | fps: "+ (1/(Date.now()-prevTimeCam)).toString());
+    //////jwc n console.log("Received camera, time (ms): " + (Date.now()-prevTimeCam).toString() + " | fps: "+ (Math.round(1/((Date.now()-prevTimeCam))/100)).toString());
+    //////jwc y? console.log("Received camera, time (ms): " + (Date.now()-prevTimeCam).toString() + " | fps: "+ ((1/((Date.now()-prevTimeCam))/100)).toString());
+    console.log("Received camera, time (ms): " + ((system_Stats_SecondsPerFrame)*1000).toString() + " | fps: "+ system_Stats_FramesPerSecond.toString());
+
     prevTimeCam=Date.now();
     livestream.src = 'data:image/jpeg;base64,' + data;
 })
