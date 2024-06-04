@@ -50,6 +50,13 @@ import time
 # jwc Created 'ln -sv ../Servos/ ./Servos'
 ###jwc 24-0529-2230 Rp4>Rp5 y: from Servos import servo_controller as sc
 
+
+import time
+import sys
+import math
+import qwiic_scmd
+
+
 #laser
 import RPi.GPIO as GPIO
 
@@ -225,6 +232,73 @@ time.sleep(2.0)
 ###jwc o GPIO.setup(PIN_I2C6_POWER_ENABLE, GPIO.OUT)
 ###jwc o time.sleep(0.1) #important
 ###jwc o speed = 50
+
+
+#jwc add encoder
+import qwiic_dual_encoder_reader
+
+myMotor = qwiic_scmd.QwiicScmd()
+
+
+# Motor Setup
+#
+###jwc o print("Motor Test.")
+R_MTR = 0
+L_MTR = 1
+FWD = 0
+BWD = 1
+
+#jwc was 100, try max 255
+motor_Speed_INT = 255
+#jwc was 0.05, try real_time: 0
+motor_ContinueState_Sec_DECI = 0.0
+
+if myMotor.connected == False:
+    print("*** *** Motor Driver not connected. Check connections.", \
+        file=sys.stderr)
+    ###jwc o return
+    sys.exit(0)
+
+    
+print("*** Motors Setup 1of3: Connected.")
+
+myMotor.begin()
+time.sleep(.250)
+print("*** Motors Setup 2of3: Initialized.")
+
+# Zero Motor Speeds
+myMotor.set_drive(0,0,0)
+myMotor.set_drive(1,0,0)
+myMotor.enable()
+time.sleep(.250)
+print("*** Motors Setup 3of3: Enabled H-Bridge Circuit")
+
+# Encoder Setup
+#
+###jwc o print("\nSparkFun Qwiic Dual Encoder Reader   Example 1\n")
+myEncoders = qwiic_dual_encoder_reader.QwiicDualEncoderReader()
+if myEncoders.connected == False:
+    print("*** *** The Qwiic Dual Encoder Reader device isn't connected to the system. Please check your connection", \
+        file=sys.stderr)
+    ###jwc o return
+    sys.exit(0)
+
+print("*** Encoders Setup 1of3: Connected.")
+
+myEncoders.begin()
+print("*** Enocders Setup 2of3: Initialized.")
+
+#jwc Print 'Limit/Max'.  
+if myEncoders.limit == 0:
+    print("    *** Limit:32767 ticks (Default)")
+else:
+    print("    *** Limit: %d ticks" % (myEncoders.limit))
+#jwc Clear Counters of any residue values: Important since Counters seem to have persistent memory of last program ran
+#
+myEncoders.set_count1(0)
+myEncoders.set_count2(0)
+print("*** Enocders Setup 3of3: Show Encoder Limit -&- Clear Encoder Values.")
+
 
 #debug
 ###jwc o prev_t_lidar = 0
@@ -795,7 +869,7 @@ def send_camera():
         ###jwc y 45fps: socketio.sleep(0.001)
         ###jwc y 35fps: socketio.sleep(0.01)
         ###jwc y 15fps: socketio.sleep(0.05)
-        ###jwc y 0.02ms = 50fps?
+        ###jwc y 0.02s = 50fps?
         socketio.sleep(0.02)
         
     
@@ -849,6 +923,7 @@ def digDown():
     s = sc.msg(digAngle)
     sc.callback_servo_angle(DIG_PIN, s)
     print("dig:", digAngle)
+
 @socketio.on('digUp')
 def digUp():
     global digAngle
@@ -892,41 +967,55 @@ def digUp():
 
 @socketio.on('turnLeft')
 def turn_Left():
-    ###jwc o global armAngle
-    ###jwc o armAngle = clamp(armAngle - speed)
-    ###jwc o s = sc.msg(armAngle)
-    ###jwc o sc.callback_servo_angle(ARM_PIN, s)
-    ###jwc o print("arm", armAngle)
+    ###jwc yy ###jwc o global armAngle
+    ###jwc yy ###jwc o armAngle = clamp(armAngle - speed)
+    ###jwc yy ###jwc o s = sc.msg(armAngle)
+    ###jwc yy ###jwc o sc.callback_servo_angle(ARM_PIN, s)
+    ###jwc yy ###jwc o print("arm", armAngle)
+    ###jwc yy 
+    ###jwc yy ###jwc o servoId_Left = 0
+    ###jwc yy ###jwc o servoAngle_Left = 45
+    ###jwc yy ###jwc o 
+    ###jwc yy ###jwc o servoId_Right = 1
+    ###jwc yy ###jwc o servoAngle_Right = 45
+    ###jwc yy ###jwc o 
+    ###jwc yy ###jwc o sc.callback_servo_enable(int(servoId_Left), trueMsg)
+    ###jwc yy ###jwc o sc.callback_servo_enable(int(servoId_Right), trueMsg)
+    ###jwc yy ###jwc o 
+    ###jwc yy ###jwc o angle_Left = sc.msg(int(servoAngle_Left))
+    ###jwc yy ###jwc o angle_Right = sc.msg(int(servoAngle_Right))
+    ###jwc yy ###jwc o 
+    ###jwc yy ###jwc o sc.callback_servo_angle(int(servoId_Left),angle_Left)
+    ###jwc yy ###jwc o sc.callback_servo_angle(int(servoId_Right),angle_Right)
+    ###jwc yy 
+    ###jwc yy ###jwc o print("arm", servoId, armAngle)
+    ###jwc yy ###jwc n print("turn_Left", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
+    ###jwc yy ###jwc y print("turn_Left", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
+    ###jwc yy ###jwc yy print("motion_Left", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
+    ###jwc yy ###jwc y print("turn_Left_03")
+    ###jwc yy 
+    ###jwc yy ###jwc o return ('id: ' + servoId_Left + ' angle: ' + servoAngle_Left)
+    ###jwc yy ###jwc yy return ('id_L: ' + str(servoId_Left) + ' angle_L: ' + str(servoAngle_Left) + '|' + 'id_R: ' + str(servoId_Right) + ' angle_R: ' + str(servoAngle_Right))
+    ###jwc yy 
+    ###jwc yy ###jwc o def move_servo(servoId_Left, servoAngle_Left):
+    ###jwc yy ###jwc o 	sc.callback_servo_enable(int(servoId_Left), trueMsg)
+    ###jwc yy ###jwc o 	angle = sc.msg(int(servoAngle_Left))
+    ###jwc yy ###jwc o 	sc.callback_servo_angle(int(servoId_Left),angle)
+    ###jwc yy ###jwc o 	return ('id: ' + servoId_Left + ' angle: ' + servoAngle_Left)
 
-    servoId_Left = 0
-    servoAngle_Left = 45
-    
-    servoId_Right = 1
-    servoAngle_Right = 45
+    myMotor.set_drive(L_MTR,FWD,0)
+    myMotor.set_drive(R_MTR,FWD,motor_Speed_INT)
 
-    sc.callback_servo_enable(int(servoId_Left), trueMsg)
-    sc.callback_servo_enable(int(servoId_Right), trueMsg)
+    ###jwc withhold from encoder example: # Delay in Seconds: 0.3sec = 300msec
+    ###jwc withhold from encoder example: time.sleep(.3)
     
-    angle_Left = sc.msg(int(servoAngle_Left))
-    angle_Right = sc.msg(int(servoAngle_Right))
-    
-    sc.callback_servo_angle(int(servoId_Left),angle_Left)
-    sc.callback_servo_angle(int(servoId_Right),angle_Right)
-    
-    ###jwc o print("arm", servoId, armAngle)
-    ###jwc n print("turn_Left", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
-    ###jwc y print("turn_Left", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
-    print("motion_Left", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
-    ###jwc y print("turn_Left_03")
+    # Delay in Seconds: 0.05sec = 50msec 
+    ###jwc y time.sleep(.05)
+    time.sleep(motor_ContinueState_Sec_DECI)
 
-    ###jwc o return ('id: ' + servoId_Left + ' angle: ' + servoAngle_Left)
-    return ('id_L: ' + str(servoId_Left) + ' angle_L: ' + str(servoAngle_Left) + '|' + 'id_R: ' + str(servoId_Right) + ' angle_R: ' + str(servoAngle_Right))
+    print  ("* Turn Left: Speed: %d || Count1: %d | Count2: %d" % (motor_Speed_INT, myEncoders.count1, myEncoders.count2))
+    return ("* Turn Left")
 
-    ###jwc o def move_servo(servoId_Left, servoAngle_Left):
-    ###jwc o 	sc.callback_servo_enable(int(servoId_Left), trueMsg)
-    ###jwc o 	angle = sc.msg(int(servoAngle_Left))
-    ###jwc o 	sc.callback_servo_angle(int(servoId_Left),angle)
-    ###jwc o 	return ('id: ' + servoId_Left + ' angle: ' + servoAngle_Left)
     
 ###jwc ported from o: @socketio.on('armUp')
 ###jwc ported from o: def armUp():
@@ -963,41 +1052,55 @@ def turn_Left():
 
 @socketio.on('turnRight')
 def turn_Right():
-    ###jwc o global armAngle
-    ###jwc o armAngle = clamp(armAngle + speed)
-    ###jwc o s = sc.msg(armAngle)
-    ###jwc o sc.callback_servo_angle(ARM_PIN, s)
-    ###jwc o print("arm", armAngle)
+    ###jwc yy ###jwc o global armAngle
+    ###jwc yy ###jwc o armAngle = clamp(armAngle + speed)
+    ###jwc yy ###jwc o s = sc.msg(armAngle)
+    ###jwc yy ###jwc o sc.callback_servo_angle(ARM_PIN, s)
+    ###jwc yy ###jwc o print("arm", armAngle)
+    ###jwc yy 
+    ###jwc yy ###jwc y servoId_Left = 0
+    ###jwc yy ###jwc y servoAngle_Left = 135
+    ###jwc yy ###jwc y 
+    ###jwc yy ###jwc y servoId_Right = 1
+    ###jwc yy ###jwc y servoAngle_Right = 135
+    ###jwc yy ###jwc y 
+    ###jwc yy ###jwc y sc.callback_servo_enable(int(servoId_Left), trueMsg)
+    ###jwc yy ###jwc y sc.callback_servo_enable(int(servoId_Right), trueMsg)
+    ###jwc yy ###jwc y 
+    ###jwc yy ###jwc y angle_Left = sc.msg(int(servoAngle_Left))
+    ###jwc yy ###jwc y angle_Right = sc.msg(int(servoAngle_Right))
+    ###jwc yy ###jwc y 
+    ###jwc yy ###jwc y sc.callback_servo_angle(int(servoId_Left),angle_Left)
+    ###jwc yy ###jwc y sc.callback_servo_angle(int(servoId_Right),angle_Right)
+    ###jwc yy 
+    ###jwc yy ###jwc o print("arm", servoId, armAngle)
+    ###jwc yy ###jwc n print("turn_Left", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
+    ###jwc yy ###jwc y print("turn_Right", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
+    ###jwc yy ###jwc yy print("motion_Right", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
+    ###jwc yy 
+    ###jwc yy ###jwc y print("turn_Left_03")
+    ###jwc yy 
+    ###jwc yy ###jwc o return ('id: ' + servoId_Left + ' angle: ' + servoAngle_Left)
+    ###jwc yy ###jwc yy return ('id_L: ' + str(servoId_Left) + ' angle_L: ' + str(servoAngle_Left) + '|' + 'id_R: ' + str(servoId_Right) + ' angle_R: ' + str(servoAngle_Right))
+    ###jwc yy 
+    ###jwc yy ###jwc o def move_servo(servoId_Left, servoAngle_Left):
+    ###jwc yy ###jwc o 	sc.callback_servo_enable(int(servoId_Left), trueMsg)
+    ###jwc yy ###jwc o 	angle = sc.msg(int(servoAngle_Left))
+    ###jwc yy ###jwc o 	sc.callback_servo_angle(int(servoId_Left),angle)
+    ###jwc yy ###jwc o 	return ('id: ' + servoId_Left + ' angle: ' + servoAngle_Left)
+   
+    myMotor.set_drive(L_MTR,FWD,motor_Speed_INT)
+    myMotor.set_drive(R_MTR,FWD,0)
 
-    servoId_Left = 0
-    servoAngle_Left = 135
+    ###jwc withhold from encoder example: # Delay in Seconds: 0.3sec = 300msec
+    ###jwc withhold from encoder example: time.sleep(.3)
     
-    servoId_Right = 1
-    servoAngle_Right = 135
+    # Delay in Seconds: 0.05sec = 50msec 
+    ###jwc y time.sleep(.05)
+    time.sleep(motor_ContinueState_Sec_DECI)
 
-    sc.callback_servo_enable(int(servoId_Left), trueMsg)
-    sc.callback_servo_enable(int(servoId_Right), trueMsg)
-    
-    angle_Left = sc.msg(int(servoAngle_Left))
-    angle_Right = sc.msg(int(servoAngle_Right))
-    
-    sc.callback_servo_angle(int(servoId_Left),angle_Left)
-    sc.callback_servo_angle(int(servoId_Right),angle_Right)
-    
-    ###jwc o print("arm", servoId, armAngle)
-    ###jwc n print("turn_Left", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
-    ###jwc y print("turn_Right", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
-    print("motion_Right", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
-    ###jwc y print("turn_Left_03")
-
-    ###jwc o return ('id: ' + servoId_Left + ' angle: ' + servoAngle_Left)
-    return ('id_L: ' + str(servoId_Left) + ' angle_L: ' + str(servoAngle_Left) + '|' + 'id_R: ' + str(servoId_Right) + ' angle_R: ' + str(servoAngle_Right))
-
-    ###jwc o def move_servo(servoId_Left, servoAngle_Left):
-    ###jwc o 	sc.callback_servo_enable(int(servoId_Left), trueMsg)
-    ###jwc o 	angle = sc.msg(int(servoAngle_Left))
-    ###jwc o 	sc.callback_servo_angle(int(servoId_Left),angle)
-    ###jwc o 	return ('id: ' + servoId_Left + ' angle: ' + servoAngle_Left)
+    print  ("* Turn Right: Speed: %d || Count1: %d | Count2: %d" % (motor_Speed_INT, myEncoders.count1, myEncoders.count2))
+    return ("* Turn Right")
 
 
 @socketio.on('motorsOn')
@@ -1012,85 +1115,124 @@ def motors_off():
 
 @socketio.on('forward')
 def forward():
-    ###jwc o bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte.int_to_byte_array(speed))
-    ###jwc o bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte.int_to_byte_array(speed))
-    ###jwc o print("forward received")
+    ###jwc yy ###jwc o bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte.int_to_byte_array(speed))
+    ###jwc yy ###jwc o bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte.int_to_byte_array(speed))
+    ###jwc yy ###jwc o print("forward received")
+    ###jwc yy 
+    ###jwc yy servoId_Left = 0
+    ###jwc yy servoAngle_Left = 135
+    ###jwc yy 
+    ###jwc yy servoId_Right = 1
+    ###jwc yy servoAngle_Right = 45
+    ###jwc yy 
+    ###jwc yy sc.callback_servo_enable(int(servoId_Left), trueMsg)
+    ###jwc yy sc.callback_servo_enable(int(servoId_Right), trueMsg)
+    ###jwc yy 
+    ###jwc yy angle_Left = sc.msg(int(servoAngle_Left))
+    ###jwc yy angle_Right = sc.msg(int(servoAngle_Right))
+    ###jwc yy 
+    ###jwc yy sc.callback_servo_angle(int(servoId_Left),angle_Left)
+    ###jwc yy sc.callback_servo_angle(int(servoId_Right),angle_Right)
+    ###jwc yy 
+    ###jwc yy ###jwc o print("arm", servoId, armAngle)
+    ###jwc yy ###jwc n print("turn_Left", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
+    ###jwc yy ###jwc y print("turn_Right", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
+    ###jwc yy print("motion_Forward", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
+    ###jwc yy ###jwc y print("turn_Left_03")
+    ###jwc yy 
+    ###jwc yy ###jwc o return ('id: ' + servoId_Left + ' angle: ' + servoAngle_Left)
+    ###jwc yy return ('id_L: ' + str(servoId_Left) + ' angle_L: ' + str(servoAngle_Left) + '|' + 'id_R: ' + str(servoId_Right) + ' angle_R: ' + str(servoAngle_Right))
+    
+    myMotor.set_drive(L_MTR,FWD,motor_Speed_INT)
+    myMotor.set_drive(R_MTR,FWD,motor_Speed_INT)
 
-    servoId_Left = 0
-    servoAngle_Left = 135
+    ###jwc withhold from encoder example: # Delay in Seconds: 0.3sec = 300msec
+    ###jwc withhold from encoder example: time.sleep(.3)
     
-    servoId_Right = 1
-    servoAngle_Right = 45
+    # Delay in Seconds: 0.05sec = 50msec 
+    ###jwc y time.sleep(.05)
+    time.sleep(motor_ContinueState_Sec_DECI)
 
-    sc.callback_servo_enable(int(servoId_Left), trueMsg)
-    sc.callback_servo_enable(int(servoId_Right), trueMsg)
-    
-    angle_Left = sc.msg(int(servoAngle_Left))
-    angle_Right = sc.msg(int(servoAngle_Right))
-    
-    sc.callback_servo_angle(int(servoId_Left),angle_Left)
-    sc.callback_servo_angle(int(servoId_Right),angle_Right)
-    
-    ###jwc o print("arm", servoId, armAngle)
-    ###jwc n print("turn_Left", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
-    ###jwc y print("turn_Right", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
-    print("motion_Forward", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
-    ###jwc y print("turn_Left_03")
+    print  ("* Forward: Speed: %d || Count1: %d | Count2: %d" % (motor_Speed_INT, myEncoders.count1, myEncoders.count2))
+    return ("* Forward")
 
-    ###jwc o return ('id: ' + servoId_Left + ' angle: ' + servoAngle_Left)
-    return ('id_L: ' + str(servoId_Left) + ' angle_L: ' + str(servoAngle_Left) + '|' + 'id_R: ' + str(servoId_Right) + ' angle_R: ' + str(servoAngle_Right))
 
 @socketio.on('backward')
 def backward():
-    ###jwc o bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte.int_to_byte_array(-1 * speed))
-    ###jwc o bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte.int_to_byte_array(-1 * speed))
-    ###jwc o print("backward received")
+    ###jwc yy ###jwc o bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte.int_to_byte_array(-1 * speed))
+    ###jwc yy ###jwc o bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte.int_to_byte_array(-1 * speed))
+    ###jwc yy ###jwc o print("backward received")
+    ###jwc yy 
+    ###jwc yy servoId_Left = 0
+    ###jwc yy servoAngle_Left = 45
+    ###jwc yy 
+    ###jwc yy servoId_Right = 1
+    ###jwc yy servoAngle_Right = 135    
+    ###jwc yy 
+    ###jwc yy sc.callback_servo_enable(int(servoId_Left), trueMsg)
+    ###jwc yy sc.callback_servo_enable(int(servoId_Right), trueMsg)
+    ###jwc yy 
+    ###jwc yy angle_Left = sc.msg(int(servoAngle_Left))
+    ###jwc yy angle_Right = sc.msg(int(servoAngle_Right))
+    ###jwc yy 
+    ###jwc yy sc.callback_servo_angle(int(servoId_Left),angle_Left)
+    ###jwc yy sc.callback_servo_angle(int(servoId_Right),angle_Right)
+    ###jwc yy 
+    ###jwc yy ###jwc o print("arm", servoId, armAngle)
+    ###jwc yy ###jwc n print("turn_Left", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
+    ###jwc yy ###jwc y print("turn_Right", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
+    ###jwc yy print("motion_Backward", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
+    ###jwc yy ###jwc y print("turn_Left_03")
+    ###jwc yy 
+    ###jwc yy ###jwc o return ('id: ' + servoId_Left + ' angle: ' + servoAngle_Left)
+    ###jwc yy return ('id_L: ' + str(servoId_Left) + ' angle_L: ' + str(servoAngle_Left) + '|' + 'id_R: ' + str(servoId_Right) + ' angle_R: ' + str(servoAngle_Right))
 
-    servoId_Left = 0
-    servoAngle_Left = 45
-    
-    servoId_Right = 1
-    servoAngle_Right = 135    
-    
-    sc.callback_servo_enable(int(servoId_Left), trueMsg)
-    sc.callback_servo_enable(int(servoId_Right), trueMsg)
-    
-    angle_Left = sc.msg(int(servoAngle_Left))
-    angle_Right = sc.msg(int(servoAngle_Right))
-    
-    sc.callback_servo_angle(int(servoId_Left),angle_Left)
-    sc.callback_servo_angle(int(servoId_Right),angle_Right)
-    
-    ###jwc o print("arm", servoId, armAngle)
-    ###jwc n print("turn_Left", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
-    ###jwc y print("turn_Right", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
-    print("motion_Backward", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
-    ###jwc y print("turn_Left_03")
+    myMotor.set_drive(L_MTR,FWD,-motor_Speed_INT)
+    myMotor.set_drive(R_MTR,FWD,-motor_Speed_INT)
 
-    ###jwc o return ('id: ' + servoId_Left + ' angle: ' + servoAngle_Left)
-    return ('id_L: ' + str(servoId_Left) + ' angle_L: ' + str(servoAngle_Left) + '|' + 'id_R: ' + str(servoId_Right) + ' angle_R: ' + str(servoAngle_Right))
+    ###jwc withhold from encoder example: # Delay in Seconds: 0.3sec = 300msec
+    ###jwc withhold from encoder example: time.sleep(.3)
+    
+    # Delay in Seconds: 0.05sec = 50msec 
+    ###jwc y time.sleep(.05)
+    time.sleep(motor_ContinueState_Sec_DECI)
+
+    print  ("* Backward: Speed: %d || Count1: %d | Count2: %d" % (motor_Speed_INT, myEncoders.count1, myEncoders.count2))
+    return ("* Backward")
 
 @socketio.on('stopMotors')
 def stop_motors():
-    ###jwc o bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte.int_to_byte_array(0))
-    ###jwc o bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte.int_to_byte_array(0))
+    ###jwc yy ###jwc o bus.write_i2c_block_data(DEVICE_ADDRESS,3,int_to_byte.int_to_byte_array(0))
+    ###jwc yy ###jwc o bus.write_i2c_block_data(DEVICE_ADDRESS,4,int_to_byte.int_to_byte_array(0))
+    ###jwc yy 
+    ###jwc yy servoId_Left = 0
+    ###jwc yy servoAngle_Left = 90
+    ###jwc yy sc.callback_servo_enable(int(servoId_Left), trueMsg)
+    ###jwc yy angle_Left = sc.msg(int(servoAngle_Left))
+    ###jwc yy sc.callback_servo_angle(int(servoId_Left),angle_Left)
+    ###jwc yy 
+    ###jwc yy 
+    ###jwc yy servoId_Right = 1
+    ###jwc yy servoAngle_Right = 90
+    ###jwc yy sc.callback_servo_enable(int(servoId_Right), trueMsg)
+    ###jwc yy angle_Right = sc.msg(int(servoAngle_Right))
+    ###jwc yy sc.callback_servo_angle(int(servoId_Right),angle_Right)
+    ###jwc yy 
+    ###jwc yy ###jwc y print("stop motors received")
+    ###jwc yy print("motion_stop", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
+
+    myMotor.set_drive(L_MTR,FWD,0)
+    myMotor.set_drive(R_MTR,FWD,0)
+
+    ###jwc withhold from encoder example: # Delay in Seconds: 0.3sec = 300msec
+    ###jwc withhold from encoder example: time.sleep(.3)
     
-    servoId_Left = 0
-    servoAngle_Left = 90
-    sc.callback_servo_enable(int(servoId_Left), trueMsg)
-    angle_Left = sc.msg(int(servoAngle_Left))
-    sc.callback_servo_angle(int(servoId_Left),angle_Left)
+    # Delay in Seconds: 0.05sec = 50msec 
+    ###jwc y time.sleep(.05)
+    time.sleep(motor_ContinueState_Sec_DECI)
 
-
-    servoId_Right = 1
-    servoAngle_Right = 90
-    sc.callback_servo_enable(int(servoId_Right), trueMsg)
-    angle_Right = sc.msg(int(servoAngle_Right))
-    sc.callback_servo_angle(int(servoId_Right),angle_Right)
-
-    ###jwc y print("stop motors received")
-    print("motion_stop", servoId_Left, servoAngle_Left,"|",servoId_Right, servoAngle_Right)
-
+    print  ("* Stop: Speed: %d || Count1: %d | Count2: %d" % (motor_Speed_INT, myEncoders.count1, myEncoders.count2))
+    return ("* Stop")
 
 @socketio.on('setSpeed')
 def set_speed(data):
@@ -1133,5 +1275,9 @@ if __name__ == '__main__':
 
 #PROGRAM CLEAN UP
 GPIO.cleanup()
+
+myMotor.disable()
+###jwc y         sys.exit(0)
+
 ###jwc o lidar.stop()
 ###jwc o lidar.disconnect()
