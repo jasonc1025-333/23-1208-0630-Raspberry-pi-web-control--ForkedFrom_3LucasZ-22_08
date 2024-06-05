@@ -920,8 +920,9 @@ def send_camera():
         ###jwc yy: Rp5 try no sleep? : socketio.sleep(0.02)
         ###jwc Rp5: no sleep >> server 43fps but client cannot connect43fps
         ###jwc Rp5 0.001 >> 43fps | 0.005 >> 41 fps | 0.01 >> 35fps/18fps | 0.05 >> 17fps
-        ###jwc Rp5 : 0.01 >> hopefully 100fps?
-        socketio.sleep(0.01)
+        ###jwc Rp5 : 0.01 >> hopefully 100fps?, after reboot: sever 55fps / client 55fps but much 'needCamera' fatal error frequent, resort to 0.02s >> 36fps server, 30fps client | 0.04 >> 20fps server, 20 client
+        ###jwc ? socketio.sleep(0.02)
+        ###jwc ? socketio.sleep(0.04)
 
     
         ###jwc y caused significant lag: cv2.imshow("piCam", frame)
