@@ -31,13 +31,6 @@ import base64
 #
 from picamera2 import Picamera2
 
-# jwc Aruco
-# Aruco Markers
-import imutils
-import argparse
-import sys
-
-
 
 #motor control
 import RPi.GPIO as GPIO
@@ -49,12 +42,6 @@ import time
 # jwc y Create 'symbolic_link' to access a local_library_folder 'Servos': 23-1207-1325: from Servos import servo_settings 
 # jwc Created 'ln -sv ../Servos/ ./Servos'
 ###jwc 24-0529-2230 Rp4>Rp5 y: from Servos import servo_controller as sc
-
-
-import time
-import sys
-import math
-import qwiic_scmd
 
 
 #laser
@@ -69,6 +56,12 @@ import RPi.GPIO as GPIO
 ### jwc o #other
 ### jwc o import sys
 
+#
+# Setup: Aruco Markers
+#
+import imutils
+import argparse
+import sys
 
 # jwc 
 #
@@ -109,7 +102,9 @@ ARUCO_DICT = {
 ###jwc n     "DICT_5X5_100": cv2.aruco.DICT_5X5_100,
 ###jwc n }
 
-
+#
+# Setup: Flask w/ SocketIO
+#
 
 #SETUP
 #set up app
@@ -121,7 +116,6 @@ app.config['SECRET_KEY'] = 'mysecret'
 ###jwc y socketio = SocketIO(app, logger=False, engineio_logger=True)
 ###jwc y laggy w/ 'eventlet' socketio = SocketIO(app, logger=True, engineio_logger=False)
 socketio = SocketIO(app, logger=False, engineio_logger=False)
-
 
 
 ###jwc 23-1128-0540 device busy bug: # jwc RpOs Bullseye
@@ -223,6 +217,10 @@ target_03_Score_Int = 0
 ###jwc o time.sleep(2.0)
 time.sleep(2.0)
 
+#
+# Quest IO_Extension_Boardt: Servos
+#
+
 ###jwc o motor setup
 ###jwc o PIN_I2C6_POWER_ENABLE = 17
 ###jwc o bus = smbus.SMBus(1)
@@ -233,12 +231,19 @@ time.sleep(2.0)
 ###jwc o time.sleep(0.1) #important
 ###jwc o speed = 50
 
+#
+# SparkFun pHat: DcMotors w/ Encoders
+#
+
+import time
+import sys
+###jwc o import math
+import qwiic_scmd
 
 #jwc add encoder
 import qwiic_dual_encoder_reader
 
 myMotor = qwiic_scmd.QwiicScmd()
-
 
 # Motor Setup
 #
@@ -299,6 +304,47 @@ myEncoders.set_count1(0)
 myEncoders.set_count2(0)
 print("*** Enocders Setup 3of3: Show Encoder Limit -&- Clear Encoder Values.")
 
+#
+# SparkFun pHat: I2C Oled
+#
+
+import qwiic_micro_oled
+
+#  These three lines of code are all you need to initialize the
+#  OLED and print the splash screen.
+
+#  Before you can start using the OLED, call begin() to init
+#  all of the pins and configure the OLED.
+
+print("\nSparkFun Micro OLED Hello Example\n")
+myOLED = qwiic_micro_oled.QwiicMicroOled()
+
+if not myOLED.connected:
+    print("The Qwiic Micro OLED device isn't connected to the system. Please check your connection", \
+        file=sys.stderr)
+    ###jwc o return
+    sys.exit(0)
+
+myOLED.begin()
+#  clear(ALL) will clear out the OLED's graphic memory.
+#  clear(PAGE) will clear the Arduino's display buffer.
+myOLED.clear(myOLED.ALL)  #  Clear the display's memory (gets rid of artifacts)
+#  To actually draw anything on the display, you must call the
+#  display() function.
+myOLED.display()
+
+time.sleep(2)
+
+myOLED.clear(myOLED.PAGE)  #  Clear the display's buffer
+
+myOLED.print("Hello All  : )")  #  Add "Hello World" to buffer
+
+#  To actually draw anything on the display, you must call the display() function. 
+myOLED.display()
+
+#
+# Main Functions
+#
 
 #debug
 ###jwc o prev_t_lidar = 0
@@ -559,10 +605,6 @@ def send_camera():
                 ###jwc 24-0520-1250 causing 'needCamera' error, too laggy here?: # seconds
                 ###jwc 24-0520-1250 causing 'needCamera' error, too laggy here?: timeDuration_Sec_Int = 1
                 
-                
-                print("*** Contact: MarkerID: "+ str(markerID))
-
-                
                 ###jwc 24-0520-1300 'needCamera' error:if markerID == 0:                
                 ###jwc 24-0520-1300 'needCamera' error:    ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=120
                 ###jwc 24-0520-1300 'needCamera' error:    ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=120
@@ -667,6 +709,8 @@ def send_camera():
                 ###jwc 24-0520-1300 'needCamera' error:     print("               Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
                 
                 
+                ###jwc y print("*** Contact: MarkerID: "+ str(markerID))
+
                 if markerID == 0:                
                     ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=120
                     ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=120
@@ -705,11 +749,14 @@ def send_camera():
                     cv2.line(frame, bottomRight, bottomRight_2, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
                     cv2.line(frame, bottomLeft, bottomLeft_2, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
                     
-                    print("!!!!!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!!!!!")
                     ###jwc to reduce print_lag: print("!!!!!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!!!!!")
                     ###jwc to reduce print_lag: print("!!!!!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!!!!!")
                     ###jwc to reduce print_lag: print("!!!!!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!!!!!")
                     ###jwc to reduce print_lag: print("!!!!!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!!!!!")
+                    ###jwc y print("!!!!!!!!!! Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int) + " !!!!!!!!!!")
+                    ###jwc y print("             Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
+
+                    print("!!! !!! Contact: MarkerID: "+ str(markerID) + " | Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
                     
                     ###jwc not needed 24-0520-1230: time.sleep(timeDuration_Sec_Int)
                 
@@ -759,8 +806,8 @@ def send_camera():
                     cv2.line(frame, bottomRight, bottomRight_2, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
                     cv2.line(frame, bottomLeft, bottomLeft_2, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
 
-                    print("*** Contact: MarkerID: "+ str(markerID))                    
-                    print("               Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
+                    ###jwc y print("             Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
+                    print("*** *** Contact: MarkerID: "+ str(markerID) + " | Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
                 
                 if markerID == 2:                
                     ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=120
@@ -808,8 +855,8 @@ def send_camera():
                     cv2.line(frame, bottomRight, bottomRight_2, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
                     cv2.line(frame, bottomLeft, bottomLeft_2, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
 
-                    print("*** *** Contact: MarkerID: "+ str(markerID))                   
-                    print("               Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
+                    ###jwc y print("             Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
+                    print("*** *** Contact: MarkerID: "+ str(markerID) + " | Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
                 
                 if markerID == 3:                
                     ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=60
@@ -848,8 +895,8 @@ def send_camera():
                     cv2.line(frame, bottomRight, bottomRight_2, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
                     cv2.line(frame, bottomLeft, bottomLeft_2, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
                     
-                    print("*** *** *** Contact: MarkerID: "+ str(markerID))
-                    print("               Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
+                    ###jwc y print("             Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
+                    print("*** *** Contact: MarkerID: "+ str(markerID) + " | Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
 
                     
                 ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=90
