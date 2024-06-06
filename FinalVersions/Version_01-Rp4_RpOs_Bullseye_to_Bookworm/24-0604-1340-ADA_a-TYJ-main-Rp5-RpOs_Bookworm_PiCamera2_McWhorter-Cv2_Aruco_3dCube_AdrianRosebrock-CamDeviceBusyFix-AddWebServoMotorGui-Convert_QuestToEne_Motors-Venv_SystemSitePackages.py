@@ -865,45 +865,45 @@ def send_camera():
                     ###jwc y print("             Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
                     print("*** *** Contact: MarkerID: "+ str(markerID) + " | Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
                 
-                ###jwc 24-0605-1620 'needCamera' error: if markerID == 3:                
-                ###jwc 24-0605-1620 'needCamera' error:     ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=60
-                ###jwc 24-0605-1620 'needCamera' error:     ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=120
-                ###jwc 24-0605-1620 'needCamera' error:     ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=80
-                ###jwc 24-0605-1620 'needCamera' error:     ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=120
-                ###jwc 24-0605-1620 'needCamera' error:     ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
-                ###jwc 24-0605-1620 'needCamera' error:     ###jwc o sleep(timeDuration_Sec_Int)
-                ###jwc 24-0605-1620 'needCamera' error:     
-                ###jwc 24-0605-1620 'needCamera' error:     ###jwc n crashes cam: forward()
-                ###jwc 24-0605-1620 'needCamera' error:     ###jwc n crashes cam: 
-                ###jwc 24-0605-1620 'needCamera' error:     ###jwc n crashes cam: time.sleep(timeDuration_Sec_Int)
-                ###jwc 24-0605-1620 'needCamera' error:     ###jwc n crashes cam: 
-                ###jwc 24-0605-1620 'needCamera' error:     ###jwc n crashes cam: stop_motors()
-                ###jwc 24-0605-1620 'needCamera' error: 
-                ###jwc 24-0605-1620 'needCamera' error:     target_03_Score_Int += 1
-                ###jwc 24-0605-1620 'needCamera' error:     
-                ###jwc 24-0605-1620 'needCamera' error:     # draw the bounding 3d-cube of the ArUCo detection
-                ###jwc 24-0605-1620 'needCamera' error:     #
-                ###jwc 24-0605-1620 'needCamera' error:     color_Blue_Int = 0
-                ###jwc 24-0605-1620 'needCamera' error:     color_Green_Int = 0
-                ###jwc 24-0605-1620 'needCamera' error:     color_Red_Int = 255
-                ###jwc 24-0605-1620 'needCamera' error:     #
-                ###jwc 24-0605-1620 'needCamera' error:     cv2.line(frame, topLeft, topRight, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
-                ###jwc 24-0605-1620 'needCamera' error:     cv2.line(frame, topRight, bottomRight, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
-                ###jwc 24-0605-1620 'needCamera' error:     cv2.line(frame, bottomRight, bottomLeft, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
-                ###jwc 24-0605-1620 'needCamera' error:     cv2.line(frame, bottomLeft, topLeft, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
-                ###jwc 24-0605-1620 'needCamera' error:     #    
-                ###jwc 24-0605-1620 'needCamera' error:     cv2.line(frame, topLeft_2, topRight_2, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
-                ###jwc 24-0605-1620 'needCamera' error:     cv2.line(frame, topRight_2, bottomRight_2, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
-                ###jwc 24-0605-1620 'needCamera' error:     cv2.line(frame, bottomRight_2, bottomLeft_2, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
-                ###jwc 24-0605-1620 'needCamera' error:     cv2.line(frame, bottomLeft_2, topLeft_2, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
-                ###jwc 24-0605-1620 'needCamera' error:     #
-                ###jwc 24-0605-1620 'needCamera' error:     cv2.line(frame, topLeft, topLeft_2, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
-                ###jwc 24-0605-1620 'needCamera' error:     cv2.line(frame, topRight, topRight_2, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
-                ###jwc 24-0605-1620 'needCamera' error:     cv2.line(frame, bottomRight, bottomRight_2, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
-                ###jwc 24-0605-1620 'needCamera' error:     cv2.line(frame, bottomLeft, bottomLeft_2, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
-                ###jwc 24-0605-1620 'needCamera' error:     
-                ###jwc 24-0605-1620 'needCamera' error:     ###jwc y print("             Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
-                ###jwc 24-0605-1620 'needCamera' error:     print("*** *** Contact: MarkerID: "+ str(markerID) + " | Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
+                if markerID == 3:                
+                    ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=60
+                    ###servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=120
+                    ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=80
+                    ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorRight].angle=120
+                    ###jwc y laggy: print("*** MarkerID: "+ str(markerID))
+                    ###jwc o sleep(timeDuration_Sec_Int)
+                    
+                    ###jwc n crashes cam: forward()
+                    ###jwc n crashes cam: 
+                    ###jwc n crashes cam: time.sleep(timeDuration_Sec_Int)
+                    ###jwc n crashes cam: 
+                    ###jwc n crashes cam: stop_motors()
+                
+                    target_03_Score_Int += 1
+                    
+                    # draw the bounding 3d-cube of the ArUCo detection
+                    #
+                    color_Blue_Int = 0
+                    color_Green_Int = 0
+                    color_Red_Int = 255
+                    #
+                    cv2.line(frame, topLeft, topRight, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
+                    cv2.line(frame, topRight, bottomRight, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
+                    cv2.line(frame, bottomRight, bottomLeft, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
+                    cv2.line(frame, bottomLeft, topLeft, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
+                    #    
+                    cv2.line(frame, topLeft_2, topRight_2, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
+                    cv2.line(frame, topRight_2, bottomRight_2, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
+                    cv2.line(frame, bottomRight_2, bottomLeft_2, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
+                    cv2.line(frame, bottomLeft_2, topLeft_2, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
+                    #
+                    cv2.line(frame, topLeft, topLeft_2, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
+                    cv2.line(frame, topRight, topRight_2, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
+                    cv2.line(frame, bottomRight, bottomRight_2, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
+                    cv2.line(frame, bottomLeft, bottomLeft_2, (color_Blue_Int, color_Green_Int, color_Red_Int), 2)
+                    
+                    ###jwc y print("             Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
+                    print("*** *** Contact: MarkerID: "+ str(markerID) + " | Score" + " 1: " + str(target_01_Score_Int) + " 2: " + str(target_02_Score_Int) + " 3: " + str(target_03_Score_Int))
 
                     
                 ###jwc o servoKit_Object.servo[servoKit_Pca9685_Pin_MotorLeft].angle=90
